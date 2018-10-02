@@ -1,6 +1,6 @@
 <?php
 
-namespace Laravel\Passport;
+namespace Signifly\Travy;
 
 use Illuminate\Contracts\Routing\Registrar as Router;
 
@@ -80,10 +80,10 @@ class RouteRegistrar
      */
     public function forRelations()
     {
-        $this->get('{resource}/{resourceId}/{relation}', 'RelationController@index')
+        $this->router->get('{resource}/{resourceId}/{relation}', 'RelationController@index')
             ->name('travy.relation.index');
 
-        $this->get('{resource}/{resourceId}/{relation}/{relationId}', 'RelationController@show')
+        $this->router->get('{resource}/{resourceId}/{relation}/{relationId}', 'RelationController@show')
             ->name('travy.relation.show');
     }
 }
