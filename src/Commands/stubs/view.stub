@@ -1,0 +1,13 @@
+<?php
+
+namespace DummyNamespace;
+
+use Signifly\Travy\Schema\ViewDefinition;
+
+class DummyClass extends ViewDefinition
+{
+    protected function schema()
+    {
+        //
+    }
+}

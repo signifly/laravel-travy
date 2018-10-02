@@ -1,0 +1,13 @@
+<?php
+
+namespace DummyNamespace;
+
+use Signifly\Travy\Schema\TableDefinition;
+
+class DummyClass extends TableDefinition
+{
+    protected function schema()
+    {
+        //
+    }
+}
