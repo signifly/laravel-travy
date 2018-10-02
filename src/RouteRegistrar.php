@@ -54,22 +54,22 @@ class RouteRegistrar
      */
     public function forResources()
     {
-        $this->router->get('{resource}', 'TravyController@index')
+        $this->router->get('{resource}', 'ResourceController@index')
             ->name('travy.index');
 
-        $this->router->post('{resource}', 'TravyController@store')
+        $this->router->post('{resource}', 'ResourceController@store')
             ->name('travy.store');
 
-        $this->router->get('{resource}/{resourceId}', 'TravyController@show')
+        $this->router->get('{resource}/{resourceId}', 'ResourceController@show')
             ->name('travy.show');
 
-        $this->router->put('{resource}/{resourceId}', 'TravyController@update')
+        $this->router->put('{resource}/{resourceId}', 'ResourceController@update')
             ->name('travy.update');
 
-        $this->router->delete('{resource}/{resourceId}', 'TravyController@destroy')
+        $this->router->delete('{resource}/{resourceId}', 'ResourceController@destroy')
             ->name('travy.destroy');
 
-        $this->router->post('{resource}/{resourceId}/restore', 'TravyController@restore')
+        $this->router->post('{resource}/{resourceId}/restore', 'ResourceController@restore')
             ->name('travy.restore');
     }
 
