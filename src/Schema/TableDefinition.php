@@ -123,14 +123,14 @@ abstract class TableDefinition extends Definition
     }
 
     /**
-     * Get filters from the resource's fields.
+     * Get filterable fields from the resource's fields.
      *
      * @return self
      */
     public function filtersFromResource()
     {
         $resource = $this->request->resource();
-        $filters = collect($resource->filterableFields());
+        $fields = collect($resource->filterableFields());
         $resolver = new FilterResolver($this->request);
 
         $fields->each(function ($field) use ($resolver) {
