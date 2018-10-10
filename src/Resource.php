@@ -24,7 +24,7 @@ abstract class Resource
     protected $includes = [];
 
     /** @var array */
-    protected $searches = [];
+    protected $searchable = [];
 
     /** @var array */
     protected $sorts = ['*'];
@@ -125,10 +125,10 @@ abstract class Resource
             );
         }
 
-        if ($this->shouldSearch()) {
+        if ($this->searchable()) {
             array_push(
                 $filters,
-                Filter::custom('search', new SearchFilter($this->searches))
+                Filter::custom('search', new SearchFilter($this->getSearchable()))
             );
         }
 
@@ -145,9 +145,14 @@ abstract class Resource
         return [];
     }
 
-    protected function shouldSearch()
+    /**
+     * Determines if the resource is searchable.
+     *
+     * @return bool
+     */
+    protected function searchable()
     {
-        return count($this->searches) > 0;
+        return count($this->getSearchable()) > 0;
     }
 
     /**
@@ -244,6 +249,26 @@ abstract class Resource
             })->toArray();
 
         return RulesetSorter::makeFor($rules);
+    }
+
+    /**
+     * The searchable columns.
+     *
+     * @return array
+     */
+    public function getSearchable() : array
+    {
+        $fields = collect($this->fields())
+            ->filter(function ($field) {
+                return $field->searchable;
+            })
+            ->map(function ($field) {
+                return $field->attribute;
+            })
+            ->values()
+            ->toArray();
+
+        return array_merge($fields, $this->searchable);
     }
 
     /**

@@ -50,6 +50,13 @@ abstract class Field
     public $creationRules = [];
 
     /**
+     * Indicates if the field should be searchable.
+     *
+     * @var bool
+     */
+    public $searchable = false;
+
+    /**
      * The validation rules for updates.
      *
      * @var array
@@ -63,6 +70,12 @@ abstract class Field
      */
     public $sortable = false;
 
+    /**
+     * Create a new field.
+     *
+     * @param string $name
+     * @param string|null $attribute
+     */
     public function __construct($name, $attribute = null)
     {
         $this->name = $name;
@@ -174,6 +187,19 @@ abstract class Field
     public function updateRules($rules)
     {
         $this->updateRules = is_string($rules) ? func_get_args() : $rules;
+
+        return $this;
+    }
+
+    /**
+     * Specify that this field should be searchable.
+     *
+     * @param  bool  $value
+     * @return $this
+     */
+    public function searchable($value = true)
+    {
+        $this->searchable = $value;
 
         return $this;
     }
