@@ -10,4 +10,11 @@ class Password extends Field
      * @var string
      */
     public $component = 'password';
+
+    /**
+     * Indicates if the element should be shown on the index view.
+     *
+     * @var bool
+     */
+    public $showOnIndex = false;
 }

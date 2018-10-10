@@ -111,7 +111,9 @@ abstract class TableDefinition extends Definition
         $fields = collect($resource->fields());
         $resolver = new ColumnResolver($this->request);
 
-        $fields->each(function ($field) use ($resolver) {
+        $fields->filter(function ($field) {
+            return $field->showOnIndex;
+        })->each(function ($field) use ($resolver) {
             $column = $resolver->resolve($field);
             $this->addColumnInstance($column);
         });
