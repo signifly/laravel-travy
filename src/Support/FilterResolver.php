@@ -41,18 +41,8 @@ class FilterResolver
 
         $this->initFilter();
         $this->applyFieldTypeOptions();
-        $this->applyFilterOptions();
 
-        return $this->column;
-    }
-
-    /**
-     * Apply filter options.
-     *
-     * @return void
-     */
-    protected function applyFilterOptions()
-    {
+        return $this->filter;
     }
 
     /**
@@ -74,12 +64,6 @@ class FilterResolver
                 foreach ($this->field->meta() as $key => $value) {
                     $fieldType->$key($value);
                 }
-
-                if (! $this->field->linkable) {
-                    return;
-                }
-
-                $fieldType->action($this->field->linksTo ?? "/t/{$this->request->resourceKey()}/{id}");
             });
 
             // Default data for filter
