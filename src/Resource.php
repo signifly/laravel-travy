@@ -227,7 +227,7 @@ abstract class Resource
      */
     public function getActions()
     {
-        return array_merge($this->actions, $this->actionOverwrites());
+        return array_merge($this->actions, $this->actions());
     }
 
     /**
