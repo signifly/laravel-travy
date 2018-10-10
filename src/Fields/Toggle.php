@@ -14,6 +14,13 @@ class Toggle extends Field
     public $component = 'switch';
 
     /**
+     * The default value for the field.
+     *
+     * @var mixed
+     */
+    public $defaultValue = false;
+
+    /**
      * The options to apply to the field type.
      *
      * @param  FieldType $fieldType

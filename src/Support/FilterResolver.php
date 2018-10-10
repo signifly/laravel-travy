@@ -67,7 +67,7 @@ class FilterResolver
             });
 
             // Default data for filter
-            $this->filter->withData($this->field->attribute, '');
+            $this->filter->withData($this->field->attribute, $this->field->defaultValue ?? '');
         }
     }
 

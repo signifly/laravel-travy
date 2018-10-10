@@ -29,6 +29,13 @@ abstract class Field extends FieldElement
     public $attribute;
 
     /**
+     * The default value for the field.
+     *
+     * @var mixed
+     */
+    public $defaultValue = null;
+
+    /**
      * Indicates if the field should be disabled.
      *
      * @var bool
