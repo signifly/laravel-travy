@@ -82,7 +82,7 @@ class Column implements Arrayable
 
         $callable($fieldType);
 
-        $this->fieldType = $fieldType->build();
+        $this->fieldType = $fieldType;
 
         return $this;
     }
@@ -160,6 +160,17 @@ class Column implements Arrayable
     }
 
     /**
+     * Tap into the field type.
+     *
+     * @param  Closure $callable
+     * @return void
+     */
+    public function tapFieldType(Closure $callable)
+    {
+        $callable($this->fieldType);
+    }
+
+    /**
      * Set the width of the column.
      *
      * @param  int $width
@@ -179,6 +190,8 @@ class Column implements Arrayable
      */
     public function toArray()
     {
+        $this->fieldType = $this->fieldType->build();
+
         $keys = collect(['order', 'name', 'label', 'fieldType', 'sortable', 'sortBy']);
 
         if ($this->width) {

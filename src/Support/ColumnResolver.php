@@ -59,6 +59,12 @@ class ColumnResolver
                 $this->field->component,
                 Closure::fromCallable([$this, $method])
             );
+
+            $this->column->tapFieldType(function ($fieldType) {
+                foreach ($this->field->meta() as $key => $value) {
+                    $fieldType->$key($value);
+                }
+            });
         }
 
         return $this;
