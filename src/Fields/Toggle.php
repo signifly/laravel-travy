@@ -2,7 +2,7 @@
 
 namespace Signifly\Travy\Fields;
 
-class Switch extends Field
+class Toggle extends Field
 {
     /**
      * The field's component.
