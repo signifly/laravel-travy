@@ -69,7 +69,7 @@ abstract class Field extends FieldElement
      *
      * @var bool
      */
-    public $linkable = true;
+    public $linkable = false;
 
     /**
      * The endpoint to link to.
