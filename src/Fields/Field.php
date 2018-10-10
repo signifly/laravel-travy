@@ -65,6 +65,20 @@ abstract class Field extends FieldElement
     public $creationRules = [];
 
     /**
+     * Indicates if the field should be linkable.
+     *
+     * @var bool
+     */
+    public $linkable = true;
+
+    /**
+     * The endpoint to link to.
+     *
+     * @var string
+     */
+    public $linksTo;
+
+    /**
      * Indicates if the field should be searchable.
      *
      * @var bool
@@ -223,6 +237,21 @@ abstract class Field extends FieldElement
     public function updateRules($rules)
     {
         $this->updateRules = is_string($rules) ? func_get_args() : $rules;
+
+        return $this;
+    }
+
+    /**
+     * Specify that this field should be linkable.
+     *
+     * @param  bool $value
+     * @param  string  $uri
+     * @return self
+     */
+    public function linkable($value = true, $uri = null)
+    {
+        $this->linkable = $value;
+        $this->linksTo = $uri;
 
         return $this;
     }

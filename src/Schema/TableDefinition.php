@@ -109,7 +109,7 @@ abstract class TableDefinition extends Definition
     {
         $resource = $this->request->resource();
         $fields = collect($resource->fields());
-        $resolver = new ColumnResolver();
+        $resolver = new ColumnResolver($this->request);
 
         $fields->each(function ($field) use ($resolver) {
             $column = $resolver->resolve($field);

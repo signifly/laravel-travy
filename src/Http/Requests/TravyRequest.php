@@ -55,7 +55,7 @@ class TravyRequest extends FormRequest
     public function validateResolved()
     {
         $this->resource = ResourceFactory::make(
-            $this->route()->parameter('resource')
+            $this->resourceKey()
         );
 
         parent::validateResolved();
@@ -88,6 +88,26 @@ class TravyRequest extends FormRequest
     public function resource()
     {
         return $this->resource;
+    }
+
+    /**
+     * Get the resource id.
+     *
+     * @return int|string
+     */
+    public function resourceId()
+    {
+        return $this->route()->parameter('resourceId');
+    }
+
+    /**
+     * Get the resource key.
+     *
+     * @return string
+     */
+    public function resourceKey()
+    {
+        return $this->route()->parameter('resource');
     }
 
     /**

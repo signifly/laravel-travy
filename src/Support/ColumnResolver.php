@@ -6,6 +6,7 @@ use Closure;
 use Illuminate\Support\Str;
 use Signifly\Travy\Fields\Field;
 use Signifly\Travy\Schema\Column;
+use Signifly\Travy\Http\Requests\TravyRequest;
 
 class ColumnResolver
 {
@@ -14,6 +15,19 @@ class ColumnResolver
 
     /** @var \Signifly\Travy\Fields\Field */
     protected $field;
+
+    /** @var \Signifly\Travy\Http\Requests\TravyRequest */
+    protected $request;
+
+    /**
+     * Create a new column resolver.
+     *
+     * @param \Signifly\Travy\Http\Requests\TravyRequest $request
+     */
+    public function __construct(TravyRequest $request)
+    {
+        $this->request = $request;
+    }
 
     /**
      * Resolve the field.
@@ -69,6 +83,12 @@ class ColumnResolver
                 foreach ($this->field->meta() as $key => $value) {
                     $fieldType->$key($value);
                 }
+
+                if (! $this->field->linkable) {
+                    return;
+                }
+
+                $fieldType->action($this->field->linksTo ?? "/t/{$this->request->resourceKey()}/{id}");
             });
         }
     }
