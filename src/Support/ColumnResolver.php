@@ -173,12 +173,12 @@ class ColumnResolver
     }
 
     /**
-     * Get options for the toggle field type.
+     * Get options for the switch field type.
      *
      * @param  FieldType $fieldType
      * @return void
      */
-    protected function getToggleOptions($fieldType)
+    protected function getSwitchOptions($fieldType)
     {
         $fieldType->value($this->field->attribute);
     }
