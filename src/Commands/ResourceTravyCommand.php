@@ -3,7 +3,6 @@
 namespace Signifly\Travy\Commands;
 
 use Illuminate\Console\GeneratorCommand;
-use Symfony\Component\Console\Input\InputOption;
 
 class ResourceTravyCommand extends GeneratorCommand
 {
