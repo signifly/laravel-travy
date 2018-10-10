@@ -9,7 +9,7 @@ class Password extends Field
      *
      * @var string
      */
-    public $component = 'password';
+    public $component = 'inputPassword';
 
     /**
      * Indicates if the element should be shown on the index view.

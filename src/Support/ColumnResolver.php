@@ -107,6 +107,28 @@ class ColumnResolver
     }
 
     /**
+     * Get options for the date time field type.
+     *
+     * @param  FieldType $fieldType
+     * @return void
+     */
+    protected function getDateTimeOptions($fieldType)
+    {
+        $fieldType->epoch($this->field->attribute);
+    }
+
+    /**
+     * Get options for the input field type.
+     *
+     * @param  FieldType $fieldType
+     * @return void
+     */
+    protected function getInputOptions($fieldType)
+    {
+        $fieldType->value($this->field->attribute);
+    }
+
+    /**
      * Get options for the items tooltip field type.
      *
      * @param  FieldType $fieldType
@@ -118,12 +140,45 @@ class ColumnResolver
     }
 
     /**
+     * Get options for the password field type.
+     *
+     * @param  FieldType $fieldType
+     * @return void
+     */
+    protected function getPasswordOptions($fieldType)
+    {
+        $fieldType->value($this->field->attribute);
+    }
+
+    /**
+     * Get options for the switch field type.
+     *
+     * @param  FieldType $fieldType
+     * @return void
+     */
+    protected function getSwitchOptions($fieldType)
+    {
+        $fieldType->value($this->field->attribute);
+    }
+
+    /**
      * Get options for the text field type.
      *
      * @param  FieldType $fieldType
      * @return void
      */
     protected function getTextOptions($fieldType)
+    {
+        $fieldType->text($this->field->attribute);
+    }
+
+    /**
+     * Get options for the textarea field type.
+     *
+     * @param  FieldType $fieldType
+     * @return void
+     */
+    protected function getTextareaOptions($fieldType)
     {
         $fieldType->text($this->field->attribute);
     }
