@@ -2,6 +2,8 @@
 
 namespace Signifly\Travy\Fields;
 
+use Signifly\Travy\FieldTypes\FieldType;
+
 class ItemsTooltip extends Field
 {
     /**

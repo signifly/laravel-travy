@@ -2,6 +2,8 @@
 
 namespace Signifly\Travy\Fields;
 
+use Signifly\Travy\FieldTypes\FieldType;
+
 class Textarea extends Field
 {
     /**
