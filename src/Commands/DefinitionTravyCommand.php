@@ -5,7 +5,7 @@ namespace Signifly\Travy\Commands;
 use Illuminate\Console\GeneratorCommand;
 use Symfony\Component\Console\Input\InputOption;
 
-class DefinitionMakeCommand extends GeneratorCommand
+class DefinitionTravyCommand extends GeneratorCommand
 {
     /**
      * The console command name.

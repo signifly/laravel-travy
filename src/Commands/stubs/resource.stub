@@ -1,0 +1,38 @@
+<?php
+
+namespace DummyNamespace;
+
+use Signifly\Travy\Resource;
+
+class DummyClass extends Resource
+{
+    /**
+     * The actions that should be merged with the default actions.
+     *
+     * @return array
+     */
+    protected function actions() : array
+    {
+        return [];
+    }
+
+    /**
+     * The fields for the resource.
+     *
+     * @return array
+     */
+    public function fields() : array
+    {
+        return [];
+    }
+
+    /**
+     * Define filters that should be merged with the default filters.
+     *
+     * @return array
+     */
+    protected function filters() : array
+    {
+        return [];
+    }
+}
