@@ -26,7 +26,7 @@ class Editor extends Field
      * @param  FieldType $fieldType
      * @return void
      */
-    public function options(FieldType $fieldType)
+    public function applyOptions(FieldType $fieldType)
     {
         $fieldType->content($this->attribute);
     }

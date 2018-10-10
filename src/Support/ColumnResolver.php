@@ -71,10 +71,12 @@ class ColumnResolver
      */
     protected function applyFieldTypeOptions()
     {
-        if (method_exists($this->field, 'options')) {
+        $method = 'applyOptions';
+
+        if (method_exists($this->field, $method)) {
             $this->column->fieldType(
                 $this->field->component,
-                Closure::fromCallable([$this->field, 'options'])
+                Closure::fromCallable([$this->field, $method])
             );
 
             $this->column->tapFieldType(function ($fieldType) {

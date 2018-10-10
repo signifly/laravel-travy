@@ -19,7 +19,7 @@ class Toggle extends Field
      * @param  FieldType $fieldType
      * @return void
      */
-    public function options(FieldType $fieldType)
+    public function applyOptions(FieldType $fieldType)
     {
         $fieldType->value($this->attribute);
     }

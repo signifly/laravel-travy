@@ -19,22 +19,18 @@ class ItemsTooltip extends Field
      * @param  FieldType $fieldType
      * @return void
      */
-    public function options(FieldType $fieldType)
+    public function applyOptions(FieldType $fieldType)
     {
         $fieldType->items($this->attribute);
     }
 
     public function itemKey(string $key)
     {
-        $this->withMeta(['itemKey' => $key]);
-
-        return $this;
+        return $this->withMeta(['itemKey' => $key]);
     }
 
     public function itemLink(string $link)
     {
-        $this->withMeta(['itemLink' => $link]);
-
-        return $this;
+        return $this->withMeta(['itemLink' => $link]);
     }
 }
