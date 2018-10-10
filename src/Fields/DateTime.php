@@ -2,6 +2,8 @@
 
 namespace Signifly\Travy\Fields;
 
+use Signifly\Travy\FieldTypes\FieldType;
+
 class DateTime extends Field
 {
     /**
@@ -10,4 +12,15 @@ class DateTime extends Field
      * @var string
      */
     public $component = 'dateTime';
+
+    /**
+     * The options to apply to the field type.
+     *
+     * @param  FieldType $fieldType
+     * @return void
+     */
+    public function options(FieldType $fieldType)
+    {
+        $fieldType->epoch($this->attribute);
+    }
 }

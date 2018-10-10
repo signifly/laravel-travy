@@ -2,14 +2,14 @@
 
 namespace Signifly\Travy\Fields;
 
-class Input extends Field
+class InputNumber extends Field
 {
     /**
      * The field's component.
      *
      * @var string
      */
-    public $component = 'input';
+    public $component = 'inputNumber';
 
     /**
      * The options to apply to the field type.

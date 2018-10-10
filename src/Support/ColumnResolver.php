@@ -71,12 +71,10 @@ class ColumnResolver
      */
     protected function applyFieldTypeOptions()
     {
-        $method = 'get' . Str::studly($this->field->component) . 'Options';
-
-        if (method_exists($this, $method)) {
+        if (method_exists($this->field, 'options')) {
             $this->column->fieldType(
                 $this->field->component,
-                Closure::fromCallable([$this, $method])
+                Closure::fromCallable([$this->field, 'options'])
             );
 
             $this->column->tapFieldType(function ($fieldType) {
@@ -104,82 +102,5 @@ class ColumnResolver
             $this->field->attribute,
             $this->field->name
         );
-    }
-
-    /**
-     * Get options for the date time field type.
-     *
-     * @param  FieldType $fieldType
-     * @return void
-     */
-    protected function getDateTimeOptions($fieldType)
-    {
-        $fieldType->epoch($this->field->attribute);
-    }
-
-    /**
-     * Get options for the input field type.
-     *
-     * @param  FieldType $fieldType
-     * @return void
-     */
-    protected function getInputOptions($fieldType)
-    {
-        $fieldType->value($this->field->attribute);
-    }
-
-    /**
-     * Get options for the items tooltip field type.
-     *
-     * @param  FieldType $fieldType
-     * @return void
-     */
-    protected function getItemsTooltipOptions($fieldType)
-    {
-        $fieldType->items($this->field->attribute);
-    }
-
-    /**
-     * Get options for the password field type.
-     *
-     * @param  FieldType $fieldType
-     * @return void
-     */
-    protected function getPasswordOptions($fieldType)
-    {
-        $fieldType->value($this->field->attribute);
-    }
-
-    /**
-     * Get options for the text field type.
-     *
-     * @param  FieldType $fieldType
-     * @return void
-     */
-    protected function getTextOptions($fieldType)
-    {
-        $fieldType->text($this->field->attribute);
-    }
-
-    /**
-     * Get options for the textarea field type.
-     *
-     * @param  FieldType $fieldType
-     * @return void
-     */
-    protected function getTextareaOptions($fieldType)
-    {
-        $fieldType->text($this->field->attribute);
-    }
-
-    /**
-     * Get options for the switch field type.
-     *
-     * @param  FieldType $fieldType
-     * @return void
-     */
-    protected function getSwitchOptions($fieldType)
-    {
-        $fieldType->value($this->field->attribute);
     }
 }

@@ -17,4 +17,15 @@ class Textarea extends Field
      * @var bool
      */
     public $showOnIndex = false;
+
+    /**
+     * The options to apply to the field type.
+     *
+     * @param  FieldType $fieldType
+     * @return void
+     */
+    public function options(FieldType $fieldType)
+    {
+        $fieldType->text($this->attribute);
+    }
 }
