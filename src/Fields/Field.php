@@ -5,7 +5,7 @@ namespace Signifly\Travy\Fields;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 
-abstract class Field
+abstract class Field extends FieldElement
 {
     /**
      * The field's component.
@@ -34,6 +34,14 @@ abstract class Field
      * @var bool
      */
     public $disabled = false;
+
+    /**
+     * Indicates if the field should be displayed
+     * as a text component in the table.
+     *
+     * @var bool
+     */
+    public $displayAsText = false;
 
     /**
      * The validation rules for creation and updates.
