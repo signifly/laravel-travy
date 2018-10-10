@@ -21,7 +21,7 @@ class DefinitionFactory
      */
     public function __construct(TravyRequest $request)
     {
-        $this->entity = $entity;
+        $this->request = $request;
     }
 
     /**
@@ -31,7 +31,7 @@ class DefinitionFactory
      */
     public function make()
     {
-        $namespace = "App\\Definitions";
+        $namespace = config('travy.definitions.namespace');
         $type = studly_case($this->request->route()->parameter('type'));
         $resource = studly_case($this->request->route()->parameter('resource'));
         $class = "{$namespace}\\{$type}\\{$resource}{$type}Definition";

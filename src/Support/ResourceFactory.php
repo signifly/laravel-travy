@@ -6,7 +6,7 @@ class ResourceFactory
 {
     public static function make(string $resource)
     {
-        $namespace = config('travy.namespaces.resource');
+        $namespace = config('travy.resources.namespace');
         $className = studly_case(str_singular($resource));
         $resource = "{$namespace}\\{$className}";
 
