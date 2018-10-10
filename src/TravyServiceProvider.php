@@ -3,7 +3,8 @@
 namespace Signifly\Travy;
 
 use Illuminate\Support\ServiceProvider;
-use Signifly\Travy\Commands\DefinitionMakeCommand;
+use Signifly\Travy\Commands\ResourceTravyCommand;
+use Signifly\Travy\Commands\DefinitionTravyCommand;
 
 class TravyServiceProvider extends ServiceProvider
 {
@@ -25,7 +26,8 @@ class TravyServiceProvider extends ServiceProvider
         // Load commands
         if ($this->app->runningInConsole()) {
             $this->commands([
-                DefinitionMakeCommand::class,
+                DefinitionTravyCommand::class,
+                ResourceTravyCommand::class,
             ]);
         }
     }
