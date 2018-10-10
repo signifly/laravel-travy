@@ -1,6 +1,6 @@
 <?php
 
-namespace Signifly\Travy\Actions;
+namespace Signifly\Travy\Http\Actions;
 
 use Signifly\Travy\Resource;
 use Illuminate\Http\Request;
