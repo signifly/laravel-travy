@@ -8,22 +8,15 @@ use Signifly\Travy\Http\Requests\TravyRequest;
 
 class RelationController extends Controller
 {
-    protected $request;
-
-    public function __construct(TravyRequest $request)
+    public function index(TravyRequest $request)
     {
-        $this->request = $request;
-    }
-
-    public function index()
-    {
-        $relationName = $this->request->relationName();
-        $model = $this->request->resource()->findOrFail($this->request->id);
+        $relationName = $request->relationName();
+        $model = $request->resource()->findOrFail($request->id);
 
         $this->guardAgainstInvalidRelation($model, $relationName);
 
         $relation = $model->$relationName();
-        $relationResource = $this->request->relationResource();
+        $relationResource = $request->relationResource();
 
         // If the relation has a single association to another model
         // then retrieve the first result and return it
@@ -35,7 +28,7 @@ class RelationController extends Controller
 
         // Otherwise we'll build a paginated query using the index action
         $action = new IndexAction(
-            $this->request,
+            $request,
             $relationResource,
             $relation->getQuery()
         );
@@ -48,18 +41,18 @@ class RelationController extends Controller
         );
     }
 
-    public function show()
+    public function show(TravyRequest $request)
     {
-        $relationName = $this->request->relationName();
-        $model = $this->request->resource()->findOrFail($this->request->id);
+        $relationName = $request->relationName();
+        $model = $request->resource()->findOrFail($request->id);
 
         $this->guardAgainstInvalidRelation($model, $relationName);
 
-        $relationResource = $this->request->relationResource();
+        $relationResource = $request->relationResource();
 
         $relatedModel = $model->$relationName()
             ->with($relationResource->with())
-            ->findOrFail($this->request->relationId());
+            ->findOrFail($request->relationId());
 
         return $this->respondForModel($relatedModel);
     }

@@ -6,63 +6,56 @@ use Signifly\Travy\Http\Requests\TravyRequest;
 
 class ResourceController extends Controller
 {
-    protected $request;
-
-    public function __construct(TravyRequest $request)
+    public function index(TravyRequest $request)
     {
-        $this->request = $request;
-    }
-
-    public function index()
-    {
-        $paginator = $this->dispatch($this->request->action());
+        $paginator = $this->dispatch($request->action());
 
         return $this->respondForPaginator(
             $paginator,
-            $this->request->resource()->getModel()
+            $request->resource()->getModel()
         );
     }
 
-    public function store()
+    public function store(TravyRequest $request)
     {
-        $model = $this->dispatch($this->request->action());
+        $model = $this->dispatch($request->action());
 
         return $this->respondForModel(
-            $model->load($this->request->resource()->with())
+            $model->load($request->resource()->with())
         );
     }
 
-    public function show()
+    public function show(TravyRequest $request)
     {
-        $model = $this->dispatch($this->request->action());
+        $model = $this->dispatch($request->action());
 
         return $this->respondForModel(
-            $model->load($this->request->resource()->with())
+            $model->load($request->resource()->with())
         );
     }
 
-    public function update()
+    public function update(TravyRequest $request)
     {
-        $model = $this->dispatch($this->request->action());
+        $model = $this->dispatch($request->action());
 
         return $this->respondForModel(
-            $model->fresh($this->request->resource()->with())
+            $model->fresh($request->resource()->with())
         );
     }
 
-    public function destroy()
+    public function destroy(TravyRequest $request)
     {
-        $model = $this->dispatch($this->request->action());
+        $model = $this->dispatch($request->action());
 
         return $this->respondForModel($model);
     }
 
-    public function restore()
+    public function restore(TravyRequest $request)
     {
-        $model = $this->dispatch($this->request->action());
+        $model = $this->dispatch($request->action());
 
         return $this->respondForModel(
-            $model->fresh($this->request->resource()->with())
+            $model->fresh($request->resource()->with())
         );
     }
 }
