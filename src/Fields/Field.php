@@ -86,6 +86,13 @@ abstract class Field extends FieldElement
     public $sortable = false;
 
     /**
+     * The attribute to sort by.
+     *
+     * @var string
+     */
+    public $sortBy;
+
+    /**
      * The width of the column in the table.
      *
      * @var int
@@ -249,9 +256,10 @@ abstract class Field extends FieldElement
      * @param  bool  $value
      * @return self
      */
-    public function sortable($value = true)
+    public function sortable($value = true, $attribute = null)
     {
         $this->sortable = $value;
+        $this->sortBy = $attribute ?? $this->attribute;
 
         return $this;
     }
@@ -265,6 +273,8 @@ abstract class Field extends FieldElement
     public function columnWidth(int $value)
     {
         $this->columnWidth = $value;
+
+        return $this;
     }
 
     /**

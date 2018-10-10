@@ -14,10 +14,14 @@ class ItemsTooltip extends Field
     public function itemKey(string $key)
     {
         $this->withMeta(['itemKey' => $key]);
+
+        return $this;
     }
 
     public function itemLink(string $link)
     {
         $this->withMeta(['itemLink' => $link]);
+
+        return $this;
     }
 }

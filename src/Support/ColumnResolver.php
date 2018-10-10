@@ -32,11 +32,16 @@ class ColumnResolver
         return $this->column;
     }
 
+    /**
+     * Apply column options.
+     *
+     * @return void
+     */
     protected function applyColumnOptions()
     {
         // Set sortable option
         if ($this->field->sortable) {
-            $this->column->sortable($this->field->attribute);
+            $this->column->sortable($this->field->sortBy);
         }
 
         // Set column width
@@ -48,7 +53,7 @@ class ColumnResolver
     /**
      * Apply field type options.
      *
-     * @return self
+     * @return void
      */
     protected function applyFieldTypeOptions()
     {
@@ -66,14 +71,12 @@ class ColumnResolver
                 }
             });
         }
-
-        return $this;
     }
 
     /**
      * Instantiate a column from a field object.
      *
-     * @return self
+     * @return void
      */
     protected function initColumn()
     {
@@ -81,8 +84,17 @@ class ColumnResolver
             $this->field->attribute,
             $this->field->name
         );
+    }
 
-        return $this;
+    /**
+     * Get options for the items tooltip field type.
+     *
+     * @param  FieldType $fieldType
+     * @return void
+     */
+    protected function getItemsTooltipOptions($fieldType)
+    {
+        $fieldType->items($this->field->attribute);
     }
 
     /**
