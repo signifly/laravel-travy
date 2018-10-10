@@ -44,6 +44,13 @@ abstract class Field extends FieldElement
     public $displayAsText = false;
 
     /**
+     * The meta data for the field.
+     *
+     * @var array
+     */
+    public $meta = [];
+
+    /**
      * The validation rules for creation and updates.
      *
      * @var array
@@ -214,6 +221,16 @@ abstract class Field extends FieldElement
     }
 
     /**
+     * Get the meta data for the field.
+     *
+     * @return array
+     */
+    public function meta()
+    {
+        return $this->meta;
+    }
+
+    /**
      * Specify that this field should be searchable.
      *
      * @param  bool  $value
@@ -259,6 +276,19 @@ abstract class Field extends FieldElement
     public function width(int $value)
     {
         $this->width = $value;
+
+        return $this;
+    }
+
+    /**
+     * Set additional meta information for the element.
+     *
+     * @param  array  $meta
+     * @return $this
+     */
+    public function withMeta(array $meta)
+    {
+        $this->meta = array_merge($this->meta, $meta);
 
         return $this;
     }
