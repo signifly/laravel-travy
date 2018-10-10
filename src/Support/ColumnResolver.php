@@ -5,6 +5,7 @@ namespace Signifly\Travy\Support;
 use Closure;
 use Illuminate\Support\Str;
 use Signifly\Travy\Fields\Field;
+use Signifly\Travy\Schema\Column;
 
 class ColumnResolver
 {
@@ -51,10 +52,13 @@ class ColumnResolver
      */
     protected function applyFieldTypeOptions()
     {
-        $method = 'get' . Str::studly($this->field->attribute) . 'Options';
+        $method = 'get' . Str::studly($this->field->component) . 'Options';
 
         if (method_exists($this, $method)) {
-            $this->column->fieldType(Closure::fromCallable([$this, $method]));
+            $this->column->fieldType(
+                $this->field->component,
+                Closure::fromCallable([$this, $method])
+            );
         }
 
         return $this;
@@ -83,6 +87,6 @@ class ColumnResolver
      */
     protected function getTextOptions($fieldType)
     {
-        $fieldType->value($this->field->attribute);
+        $fieldType->text($this->field->attribute);
     }
 }

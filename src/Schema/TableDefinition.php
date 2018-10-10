@@ -3,6 +3,7 @@
 namespace Signifly\Travy\Schema;
 
 use Closure;
+use Signifly\Travy\Support\ColumnResolver;
 use Signifly\Travy\Schema\Concerns\HasColumns;
 use Signifly\Travy\Schema\Concerns\HasFilters;
 
