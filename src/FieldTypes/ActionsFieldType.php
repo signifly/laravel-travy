@@ -3,7 +3,7 @@
 namespace Signifly\Travy\FieldTypes;
 
 use Closure;
-use Signifly\Travy\Action;
+use Signifly\Travy\Schema\Action;
 
 class ActionsFieldType extends FieldType
 {

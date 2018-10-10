@@ -1,8 +1,8 @@
 <?php
 
-namespace Signifly\Travy\Concerns;
+namespace Signifly\Travy\Schema\Concerns;
 
-use Signifly\Travy\Field;
+use Signifly\Travy\Schema\Field;
 
 trait HasFields
 {

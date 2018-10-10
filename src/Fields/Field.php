@@ -79,6 +79,20 @@ abstract class Field extends FieldElement
     public $sortable = false;
 
     /**
+     * The width of the column in the table.
+     *
+     * @var int
+     */
+    public $columnWidth;
+
+    /**
+     * The width of the field in the view.
+     *
+     * @var int
+     */
+    public $width;
+
+    /**
      * Create a new field.
      *
      * @param string $name
@@ -104,7 +118,7 @@ abstract class Field extends FieldElement
      * Specify that this field should be disabled.
      *
      * @param  bool  $value
-     * @return $this
+     * @return self
      */
     public function disabled($value = true)
     {
@@ -117,7 +131,7 @@ abstract class Field extends FieldElement
      * Set the validation rules for the field.
      *
      * @param  callable|array|string  $rules
-     * @return $this
+     * @return self
      */
     public function rules($rules)
     {
@@ -160,7 +174,7 @@ abstract class Field extends FieldElement
      * Set the creation validation rules for the field.
      *
      * @param  callable|array|string  $rules
-     * @return $this
+     * @return self
      */
     public function creationRules($rules)
     {
@@ -190,7 +204,7 @@ abstract class Field extends FieldElement
      * Set the creation validation rules for the field.
      *
      * @param  callable|array|string  $rules
-     * @return $this
+     * @return self
      */
     public function updateRules($rules)
     {
@@ -203,7 +217,7 @@ abstract class Field extends FieldElement
      * Specify that this field should be searchable.
      *
      * @param  bool  $value
-     * @return $this
+     * @return self
      */
     public function searchable($value = true)
     {
@@ -216,11 +230,35 @@ abstract class Field extends FieldElement
      * Specify that this field should be sortable.
      *
      * @param  bool  $value
-     * @return $this
+     * @return self
      */
     public function sortable($value = true)
     {
         $this->sortable = $value;
+
+        return $this;
+    }
+
+    /**
+     * Specify the column width.
+     *
+     * @param  int    $value
+     * @return self
+     */
+    public function columnWidth(int $value)
+    {
+        $this->columnWidth = $value;
+    }
+
+    /**
+     * Specify the field width.
+     *
+     * @param  int    $value
+     * @return self
+     */
+    public function width(int $value)
+    {
+        $this->width = $value;
 
         return $this;
     }

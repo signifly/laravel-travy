@@ -3,7 +3,7 @@
 namespace Signifly\Travy\FieldTypes;
 
 use Closure;
-use Signifly\Travy\Concerns\HasFields;
+use Signifly\Travy\Schema\Concerns\HasFields;
 
 class ModalFieldType extends FieldType
 {

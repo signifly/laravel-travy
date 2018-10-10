@@ -1,9 +1,9 @@
 <?php
 
-namespace Signifly\Travy\Concerns;
+namespace Signifly\Travy\Schema\Concerns;
 
 use Exception;
-use Signifly\Travy\Modifier;
+use Signifly\Travy\Schema\Modifier;
 
 trait HasModifiers
 {

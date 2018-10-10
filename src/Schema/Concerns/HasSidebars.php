@@ -1,9 +1,9 @@
 <?php
 
-namespace Signifly\Travy\Concerns;
+namespace Signifly\Travy\Schema\Concerns;
 
 use Exception;
-use Signifly\Travy\Section;
+use Signifly\Travy\Schema\Section;
 
 trait HasSidebars
 {

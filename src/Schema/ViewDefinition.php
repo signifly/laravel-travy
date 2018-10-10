@@ -2,9 +2,9 @@
 
 namespace Signifly\Travy\Schema;
 
-use Signifly\Travy\Concerns\HasTabs;
-use Signifly\Travy\Concerns\HasFields;
-use Signifly\Travy\Concerns\HasSidebars;
+use Signifly\Travy\Schema\Concerns\HasTabs;
+use Signifly\Travy\Schema\Concerns\HasFields;
+use Signifly\Travy\Schema\Concerns\HasSidebars;
 
 abstract class ViewDefinition extends Definition
 {

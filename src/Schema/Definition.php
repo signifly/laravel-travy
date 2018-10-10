@@ -2,9 +2,9 @@
 
 namespace Signifly\Travy\Schema;
 
-use Signifly\Travy\Concerns\HasActions;
-use Signifly\Travy\Concerns\HasModifiers;
 use Signifly\Travy\Http\Requests\TravyRequest;
+use Signifly\Travy\Schema\Concerns\HasActions;
+use Signifly\Travy\Schema\Concerns\HasModifiers;
 use Signifly\Travy\Contracts\DefinitionContract;
 
 abstract class Definition implements DefinitionContract

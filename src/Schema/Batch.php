@@ -2,7 +2,6 @@
 
 namespace Signifly\Travy\Schema;
 
-use Signifly\Travy\Action;
 use Illuminate\Contracts\Support\Arrayable;
 use Signifly\Travy\Concerns\Buildable;
 use Signifly\Travy\Concerns\HasActions;

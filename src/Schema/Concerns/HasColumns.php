@@ -1,9 +1,9 @@
 <?php
 
-namespace Signifly\Travy\Concerns;
+namespace Signifly\Travy\Schema\Concerns;
 
 use Exception;
-use Signifly\Travy\Column;
+use Signifly\Travy\Schema\Column;
 
 trait HasColumns
 {
@@ -44,6 +44,18 @@ trait HasColumns
         }
 
         return $class($this);
+    }
+
+    /**
+     * Add an instance of a column.
+     *
+     * @param Column $column
+     */
+    public function addColumnInstance(Column $column)
+    {
+        array_push($this->columns, $column);
+
+        return $column;
     }
 
     /**

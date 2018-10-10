@@ -1,6 +1,6 @@
 <?php
 
-namespace Signifly\Travy;
+namespace Signifly\Travy\Schema;
 
 class MenuItem
 {

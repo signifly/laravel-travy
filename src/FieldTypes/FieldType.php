@@ -2,7 +2,7 @@
 
 namespace Signifly\Travy\FieldTypes;
 
-use Signifly\Travy\Concerns\HasProps;
+use Signifly\Travy\Schema\Concerns\HasProps;
 
 abstract class FieldType
 {

@@ -3,8 +3,8 @@
 namespace Signifly\Travy\Schema;
 
 use Closure;
-use Signifly\Travy\Concerns\HasColumns;
-use Signifly\Travy\Concerns\HasFilters;
+use Signifly\Travy\Schema\Concerns\HasColumns;
+use Signifly\Travy\Schema\Concerns\HasFilters;
 
 abstract class TableDefinition extends Definition
 {
@@ -97,6 +97,25 @@ abstract class TableDefinition extends Definition
     public function buildBatch(Closure $callable)
     {
         $this->batchSchema = Batch::build($callable);
+    }
+
+    /**
+     * Get columns from the resource's fields.
+     *
+     * @return self
+     */
+    public function columnsFromResource()
+    {
+        $resource = $this->request->resource();
+        $fields = collect($resource->fields());
+        $resolver = new ColumnResolver();
+
+        $fields->each(function ($field) use ($resolver) {
+            $column = $resolver->resolve($field);
+            $this->addColumnInstance($column);
+        });
+
+        return $this;
     }
 
     /**
