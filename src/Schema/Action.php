@@ -3,9 +3,9 @@
 namespace Signifly\Travy\Schema;
 
 use Closure;
-use Signifly\Travy\Concerns\HasProps;
-use Signifly\Travy\Concerns\HasFields;
 use Illuminate\Contracts\Support\Arrayable;
+use Signifly\Travy\Schema\Concerns\HasProps;
+use Signifly\Travy\Schema\Concerns\HasFields;
 
 class Action implements Arrayable
 {

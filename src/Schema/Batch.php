@@ -3,8 +3,8 @@
 namespace Signifly\Travy\Schema;
 
 use Illuminate\Contracts\Support\Arrayable;
-use Signifly\Travy\Concerns\Buildable;
-use Signifly\Travy\Concerns\HasActions;
+use Signifly\Travy\Schema\Concerns\Buildable;
+use Signifly\Travy\Schema\Concerns\HasActions;
 
 class Batch implements Arrayable
 {
