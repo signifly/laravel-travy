@@ -16,6 +16,8 @@ class SearchFilter implements Filter
 
     public function __invoke(Builder $query, $value, string $property) : Builder
     {
+        $value = is_array($value) ? join(',', $value) : $value;
+
         return $query->where(function ($query) use ($value) {
             foreach ($this->columns as $column) {
                 if (str_contains($column, '.')) {
