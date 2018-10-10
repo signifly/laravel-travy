@@ -4,10 +4,10 @@ namespace Signifly\Travy;
 
 use Illuminate\Http\Request;
 use Spatie\QueryBuilder\Filter;
-use Signifly\Travy\Filters\SearchFilter;
-use Signifly\Travy\Filters\TrashedFilter;
 use Signifly\Travy\Support\RulesetSorter;
+use Signifly\Travy\Http\Filters\SearchFilter;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Signifly\Travy\Http\Filters\TrashedFilter;
 
 abstract class Resource
 {
@@ -35,22 +35,40 @@ abstract class Resource
     /** @var array */
     protected $withCount = [];
 
+    /**
+     * Create a new resource.
+     */
     public function __construct()
     {
         $this->defaultActions();
     }
 
+    /**
+     * Get the model.
+     *
+     * @return string
+     */
     public function getModel() : string
     {
         return $this->model ?? 'App\\Models\\' . class_basename(get_called_class());
     }
 
+    /**
+     * Create a new model instance.
+     *
+     * @return \Illuminate\Database\Eloquent\Model
+     */
     public function newModelInstance()
     {
         $model = $this->getModel();
         return new $model;
     }
 
+    /**
+     * Create a new query for the model.
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
     public function newQuery()
     {
         $query = $this->newModelInstance()->query();
@@ -60,30 +78,40 @@ abstract class Resource
         return $query;
     }
 
+    /**
+     * The actions that should be merged with the default actions.
+     *
+     * @return array
+     */
     protected function actions() : array
     {
         return [];
     }
 
     /**
-     * Set the default actions.
+     * The default actions.
      *
      * @return self
      */
     protected function defaultActions(array $overwrites = [])
     {
         $this->actions = array_merge([
-            'index' => Actions\IndexAction::class,
-            'store' => Actions\StoreAction::class,
-            'show' => Actions\ShowAction::class,
-            'update' => Actions\UpdateAction::class,
-            'destroy' => Actions\DestroyAction::class,
-            'restore' => Actions\RestoreAction::class,
+            'index' => Http\Actions\IndexAction::class,
+            'store' => Http\Actions\StoreAction::class,
+            'show' => Http\Actions\ShowAction::class,
+            'update' => Http\Actions\UpdateAction::class,
+            'destroy' => Http\Actions\DestroyAction::class,
+            'restore' => Http\Actions\RestoreAction::class,
         ], $overwrites);
 
         return $this;
     }
 
+    /**
+     * The default filters.
+     *
+     * @return array
+     */
     protected function defaultFilters() : array
     {
         $filters = [];
@@ -107,6 +135,11 @@ abstract class Resource
         return $filters;
     }
 
+    /**
+     * Define filters that should be merged with the default filters.
+     *
+     * @return array
+     */
     protected function filters() : array
     {
         return [];
@@ -117,21 +150,42 @@ abstract class Resource
         return count($this->searches) > 0;
     }
 
+    /**
+     * Get the allowed filters.
+     *
+     * @return array
+     */
     public function allowedFilters() : array
     {
         return array_merge($this->defaultFilters(), $this->filters());
     }
 
+    /**
+     * Get the allowed includes.
+     *
+     * @return array
+     */
     public function allowedIncludes() : array
     {
         return $this->includes;
     }
 
+    /**
+     * Get the allowed sorts.
+     *
+     * @return array
+     */
     public function allowedSorts() : array
     {
         return $this->sorts;
     }
 
+    /**
+     * Apply global scopes.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder $query
+     * @return void
+     */
     public function applyGlobalScopes($query)
     {
         $scopes = collect($this->globalScopes);
