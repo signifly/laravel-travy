@@ -53,7 +53,7 @@ class Filter implements Arrayable
 
         $callable($fieldType);
 
-        $this->fieldType = $fieldType->build();
+        $this->fieldType = $fieldType;
 
         return $this;
     }
@@ -72,6 +72,17 @@ class Filter implements Arrayable
         return $this;
     }
 
+    /**
+     * Tap into the field type.
+     *
+     * @param  Closure $callable
+     * @return void
+     */
+    public function tapFieldType(Closure $callable)
+    {
+        $callable($this->fieldType);
+    }
+
     public function withData($key, $value)
     {
         $this->data[$key] = $value;
@@ -84,7 +95,7 @@ class Filter implements Arrayable
         return [
             'name' => $this->name,
             'label' => $this->label,
-            'fieldType' => $this->fieldType,
+            'fieldType' => $this->fieldType->build(),
         ];
     }
 }

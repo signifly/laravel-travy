@@ -215,6 +215,16 @@ abstract class Resource
     }
 
     /**
+     * The filterable fields for the resource.
+     *
+     * @return array
+     */
+    public function filterableFields() : array
+    {
+        return [];
+    }
+
+    /**
      * Retrieve an action by the specified key.
      *
      * @param  string $key

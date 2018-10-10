@@ -47,6 +47,18 @@ trait HasFilters
     }
 
     /**
+     * Add an instance of a filter.
+     *
+     * @param Filter $filter
+     */
+    public function addFilterInstance(Filter $filter)
+    {
+        array_push($this->filters, $filter);
+
+        return $filter;
+    }
+
+    /**
      * Determine if there are any filters.
      *
      * @return bool

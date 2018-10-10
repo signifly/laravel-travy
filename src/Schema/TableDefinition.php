@@ -4,6 +4,7 @@ namespace Signifly\Travy\Schema;
 
 use Closure;
 use Signifly\Travy\Support\ColumnResolver;
+use Signifly\Travy\Support\FilterResolver;
 use Signifly\Travy\Schema\Concerns\HasColumns;
 use Signifly\Travy\Schema\Concerns\HasFilters;
 
@@ -116,6 +117,25 @@ abstract class TableDefinition extends Definition
         })->each(function ($field) use ($resolver) {
             $column = $resolver->resolve($field);
             $this->addColumnInstance($column);
+        });
+
+        return $this;
+    }
+
+    /**
+     * Get filters from the resource's fields.
+     *
+     * @return self
+     */
+    public function filtersFromResource()
+    {
+        $resource = $this->request->resource();
+        $filters = collect($resource->filterableFields());
+        $resolver = new FilterResolver($this->request);
+
+        $fields->each(function ($field) use ($resolver) {
+            $column = $resolver->resolve($field);
+            $this->addFilterInstance($column);
         });
 
         return $this;
