@@ -2,7 +2,7 @@
 
 namespace Signifly\Travy\Schema;
 
-use Signifly\Travy\Concerns\HasFields;
+use Signifly\Travy\Schema\Concerns\HasFields;
 use Illuminate\Contracts\Support\Arrayable;
 
 class Section implements Arrayable
