@@ -125,7 +125,7 @@ abstract class TableDefinition extends Definition
 
         if ($defaultSort) {
             $this->addDefault('sort', [
-                'prop' => $defaultSort->attribute,
+                'prop' => $defaultSort->sortBy,
                 'order' => $defaultSort->defaultSortOrder,
             ]);
         }
