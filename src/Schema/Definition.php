@@ -74,7 +74,7 @@ abstract class Definition implements DefinitionContract
      */
     public function getResourceKey()
     {
-        return $this->request->route()->parameter('resource');
+        return $this->request->resourceKey();
     }
 
     /**

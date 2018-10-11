@@ -53,6 +53,6 @@ abstract class Action
      */
     public function getId()
     {
-        return $this->request->route()->parameter('resourceId');
+        return $this->request->resourceId();
     }
 }

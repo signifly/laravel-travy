@@ -108,8 +108,7 @@ abstract class TableDefinition extends Definition
      */
     public function columnsFromResource()
     {
-        $resource = $this->request->resource();
-        $fields = collect($resource->fields());
+        $fields = collect($this->request->resource()->fields());
         $resolver = new ColumnResolver($this->request);
 
         $fields->filter(function ($field) {
@@ -140,8 +139,7 @@ abstract class TableDefinition extends Definition
      */
     public function filtersFromResource()
     {
-        $resource = $this->request->resource();
-        $fields = collect($resource->filterableFields());
+        $fields = collect($this->request->resource()->filterableFields());
         $resolver = new FilterResolver($this->request);
 
         $fields->each(function ($field) use ($resolver) {

@@ -2,6 +2,7 @@
 
 namespace Signifly\Travy\Support;
 
+use Illuminate\Support\Str;
 use Signifly\Travy\Http\Requests\TravyRequest;
 use Signifly\Travy\Exceptions\InvalidDefinitionException;
 
@@ -32,8 +33,8 @@ class DefinitionFactory
     public function make()
     {
         $namespace = config('travy.definitions.namespace');
-        $type = studly_case($this->request->route()->parameter('type'));
-        $resource = studly_case($this->request->route()->parameter('resource'));
+        $type = Str::studly($this->request->route()->parameter('type'));
+        $resource = Str::studly($this->request->resourceKey());
         $class = "{$namespace}\\{$type}\\{$resource}{$type}Definition";
 
         if (! class_exists($class)) {
