@@ -119,6 +119,17 @@ abstract class TableDefinition extends Definition
             $this->addColumnInstance($column);
         });
 
+        $defaultSort = $fields->first(function ($field) {
+            return $field->defaultSort;
+        });
+
+        if ($defaultSort) {
+            $this->addDefault('sort', [
+                'prop' => $defaultSort->attribute,
+                'order' => $defaultSort->defaultSortOrder,
+            ]);
+        }
+
         return $this;
     }
 

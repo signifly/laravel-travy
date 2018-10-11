@@ -114,6 +114,13 @@ abstract class Field extends FieldElement
     public $defaultSort = false;
 
     /**
+     * Indicates if the field is the default sortable.
+     *
+     * @var bool
+     */
+    public $defaultSortOrder = 'ascending';
+
+    /**
      * The attribute to sort by.
      *
      * @var string
@@ -313,9 +320,10 @@ abstract class Field extends FieldElement
      * @param  bool $value
      * @return self
      */
-    public function defaultSort($value = true)
+    public function defaultSort($value = true, $order = 'asc')
     {
         $this->defaultSort = $value;
+        $this->defaultSortOrder = ($order == 'asc' ? 'ascending' : 'descending');
 
         return $this;
     }
