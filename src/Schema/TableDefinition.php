@@ -133,7 +133,7 @@ abstract class TableDefinition extends Definition
     }
 
     /**
-     * Get filterable fields from the resource's fields.
+     * Get filterable fields from the resource.
      *
      * @return self
      */
@@ -146,6 +146,32 @@ abstract class TableDefinition extends Definition
             $column = $resolver->resolve($field);
             $this->addFilterInstance($column);
         });
+
+        return $this;
+    }
+
+    /**
+     * Get includes from the resource.
+     *
+     * @return self
+     */
+    public function includesFromResource()
+    {
+        $this->addIncludes(...$this->request->resouce()->allowedIncludes());
+
+        return $this;
+    }
+
+    /**
+     * Load columns, filters and includes from resource.
+     *
+     * @return self
+     */
+    public function loadFromResource()
+    {
+        $this->columnsFromResource();
+        $this->filtersFromResource();
+        $this->includesFromResource();
 
         return $this;
     }
