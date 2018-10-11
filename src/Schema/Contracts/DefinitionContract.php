@@ -1,6 +1,6 @@
 <?php
 
-namespace Signifly\Travy\Contracts;
+namespace Signifly\Travy\Schema\Contracts;
 
 interface DefinitionContract
 {

@@ -27,7 +27,7 @@ class DefinitionFactory
     /**
      * Create the definition by a given type and entity.
      *
-     * @return \Signifly\Travy\Contracts\DefinitionContract
+     * @return \Signifly\Travy\Schema\Contracts\DefinitionContract
      */
     public function make()
     {

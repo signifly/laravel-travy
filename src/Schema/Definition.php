@@ -5,7 +5,7 @@ namespace Signifly\Travy\Schema;
 use Signifly\Travy\Http\Requests\TravyRequest;
 use Signifly\Travy\Schema\Concerns\HasActions;
 use Signifly\Travy\Schema\Concerns\HasModifiers;
-use Signifly\Travy\Contracts\DefinitionContract;
+use Signifly\Travy\Schema\Contracts\DefinitionContract;
 
 abstract class Definition implements DefinitionContract
 {
