@@ -167,7 +167,7 @@ abstract class TableDefinition extends Definition
      */
     public function includesFromResource()
     {
-        $this->addIncludes(...$this->request->resouce()->allowedIncludes());
+        $this->addIncludes(...$this->request->resource()->allowedIncludes());
 
         return $this;
     }
