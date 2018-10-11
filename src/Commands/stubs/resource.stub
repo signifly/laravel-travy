@@ -35,4 +35,14 @@ class DummyClass extends Resource
     {
         return [];
     }
+
+    /**
+     * The filterable fields for the resource.
+     *
+     * @return array
+     */
+    public function filterableFields() : array
+    {
+        return [];
+    }
 }
