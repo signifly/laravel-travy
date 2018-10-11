@@ -118,6 +118,7 @@ abstract class TableDefinition extends Definition
             $this->addColumnInstance($column);
         });
 
+        // Default sorting
         $defaultSort = $fields->first(function ($field) {
             return $field->defaultSort;
         });
@@ -128,6 +129,15 @@ abstract class TableDefinition extends Definition
                 'order' => $defaultSort->defaultSortOrder,
             ]);
         }
+
+        // Search placeholder
+        $searchable = $fields->filter(function ($field) {
+            return $field->searchable;
+        })->implode('name', ', ');
+
+        $this->searchPlaceholder(
+            $searchable ? 'Search for ' . $searchable : 'Search...'
+        );
 
         return $this;
     }
