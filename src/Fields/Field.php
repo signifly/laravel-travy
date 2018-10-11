@@ -107,6 +107,13 @@ abstract class Field extends FieldElement
     public $sortable = false;
 
     /**
+     * Indicates if the field is the default sortable.
+     *
+     * @var bool
+     */
+    public $defaultSort = false;
+
+    /**
      * The attribute to sort by.
      *
      * @var string
@@ -296,6 +303,19 @@ abstract class Field extends FieldElement
     {
         $this->sortable = $value;
         $this->sortBy = $attribute ?? $this->attribute;
+
+        return $this;
+    }
+
+    /**
+     * Specify that this field is default sort.
+     *
+     * @param  bool $value
+     * @return self
+     */
+    public function defaultSort($value = true)
+    {
+        $this->defaultSort = $value;
 
         return $this;
     }
