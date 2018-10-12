@@ -35,7 +35,7 @@ class ResourceTravyCommand extends GeneratorCommand
      */
     protected function getDefaultNamespace($rootNamespace)
     {
-        return config('travy.definitions.namespace');
+        return config('travy.resources.namespace');
     }
 
     /**
