@@ -205,6 +205,16 @@ abstract class Resource
     }
 
     /**
+     * The validation rules for the resource.
+     *
+     * @return array
+     */
+    public function creationRules() : array
+    {
+        return [];
+    }
+
+    /**
      * The fields for the resource.
      *
      * @return array
@@ -215,7 +225,7 @@ abstract class Resource
     }
 
     /**
-     * The filterable fields for the resource.
+     * The filterable fields for creation.
      *
      * @return array
      */
@@ -258,7 +268,9 @@ abstract class Resource
                 return $field->getCreationRules($request);
             })->toArray();
 
-        return RulesetSorter::makeFor($rules);
+        return RulesetSorter::makeFor(
+            array_merge_recursive($rules, $this->creationRules())
+        );
     }
 
     /**
@@ -294,7 +306,9 @@ abstract class Resource
                 return $field->getUpdateRules($request);
             })->toArray();
 
-        return RulesetSorter::makeFor($rules);
+        return RulesetSorter::makeFor(
+            array_merge_recursive($rules, $this->updateRules())
+        );
     }
 
     /**
@@ -308,6 +322,16 @@ abstract class Resource
         $this->actions[$key] = $action;
 
         return $this;
+    }
+
+    /**
+     * The validation rules for updates.
+     *
+     * @return array
+     */
+    public function updateRules() : array
+    {
+        return [];
     }
 
     public function with()
