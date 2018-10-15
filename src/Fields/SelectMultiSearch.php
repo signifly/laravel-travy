@@ -14,6 +14,13 @@ class SelectMultiSearch extends Field
     public $component = 'selectMultiSearch';
 
     /**
+     * The default value for the field.
+     *
+     * @var mixed
+     */
+    public $defaultValue = [];
+
+    /**
      * Indicates if the element should be shown on the index view.
      *
      * @var bool
