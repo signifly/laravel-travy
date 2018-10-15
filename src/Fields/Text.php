@@ -28,6 +28,12 @@ class Text extends Field
      */
     public function applyOptions(FieldType $fieldType)
     {
-        $fieldType->text($this->attribute);
+        if ($this->component == 'text') {
+            $fieldType->text($this->attribute);
+        }
+
+        if (in_array($this->component, ['input', 'inputNumber'])) {
+            $fieldType->value($this->attribute);
+        }
     }
 }
