@@ -4,14 +4,21 @@ namespace Signifly\Travy\Fields;
 
 use Signifly\Travy\FieldTypes\FieldType;
 
-class SelectSearch extends Field
+class Upload extends Field
 {
     /**
      * The field's component.
      *
      * @var string
      */
-    public $component = 'selectSearch';
+    public $component = 'upload';
+
+    /**
+     * The default value for the field.
+     *
+     * @var mixed
+     */
+    public $defaultValue = [];
 
     /**
      * Indicates if the element should be shown on the index view.
@@ -20,16 +27,14 @@ class SelectSearch extends Field
      */
     public $showOnIndex = false;
 
-    public function options(array $options = [])
+    public function fileTypes(string $value)
     {
-        $options = array_merge([
-            'endpoint' => null,
-            'key' => 'data',
-            'label' => null,
-            'value' => 'id',
-        ], $options);
+        return $this->withMeta(['fileTypes' => $value]);
+    }
 
-        return $this->withMeta(['options' => $options]);
+    public function note(string $value)
+    {
+        return $this->withMeta(['note' => $value]);
     }
 
     /**
@@ -40,6 +45,6 @@ class SelectSearch extends Field
      */
     public function applyOptions(FieldType $fieldType)
     {
-        $fieldType->value($this->attribute);
+        $fieldType->files($this->attribute);
     }
 }
