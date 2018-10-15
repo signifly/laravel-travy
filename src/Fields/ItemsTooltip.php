@@ -14,6 +14,20 @@ class ItemsTooltip extends Field
     public $component = 'itemsTooltip';
 
     /**
+     * Indicates if the element should be shown on the creation view.
+     *
+     * @var bool
+     */
+    public $showOnCreation = false;
+
+    /**
+     * Indicates if the element should be shown on the update view.
+     *
+     * @var bool
+     */
+    public $showOnUpdate = false;
+
+    /**
      * The options to apply to the field type.
      *
      * @param  FieldType $fieldType
