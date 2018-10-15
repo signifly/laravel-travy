@@ -74,7 +74,7 @@ class Field implements Arrayable
 
         $callable($fieldType);
 
-        $this->fieldType = $fieldType->build();
+        $this->fieldType = $fieldType;
 
         return $this;
     }
@@ -140,7 +140,7 @@ class Field implements Arrayable
             'name' => $this->name,
             'label' => $this->label,
             'required' => $this->required,
-            'fieldType' => $this->fieldType,
+            'fieldType' => $this->fieldType->build(),
         ];
 
         if ($this->tooltip) {
