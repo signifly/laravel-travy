@@ -173,7 +173,7 @@ abstract class TableDefinition extends Definition
             return [$field->attribute => $field->defaultValue ?? ''];
         });
 
-        $action->data($defaultData);
+        $action->data($defaultData->toArray());
 
         return $this;
     }
