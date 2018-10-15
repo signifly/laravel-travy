@@ -14,6 +14,9 @@ abstract class Resource
     /** @var array */
     protected $actions = [];
 
+    /** @var string */
+    protected $displayAs;
+
     /** @var \Illuminate\Database\Eloquent\Model */
     protected $model;
 
@@ -133,6 +136,16 @@ abstract class Resource
         }
 
         return $filters;
+    }
+
+    /**
+     * Get the display as value.
+     *
+     * @return string
+     */
+    public function displayAs() : string
+    {
+        return $this->displayAs ?? class_basename(get_called_class());
     }
 
     /**
