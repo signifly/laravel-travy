@@ -119,6 +119,17 @@ class Field implements Arrayable
     }
 
     /**
+     * Tap into the field type.
+     *
+     * @param  Closure $callable
+     * @return void
+     */
+    public function tapFieldType(Closure $callable)
+    {
+        $callable($this->fieldType);
+    }
+
+    /**
      * Return the field as an array.
      *
      * @return array
