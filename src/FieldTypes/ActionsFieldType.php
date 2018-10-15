@@ -11,15 +11,28 @@ class ActionsFieldType extends FieldType
 
     protected $actions = [];
 
-    public function addItem($title, Closure $callable)
+    public function addItem($title, Closure $callback)
     {
         $action = new Action($title);
 
-        $callable($action);
+        $callback($action);
 
         $action = $action->toArray();
 
-        $this->actions[] = $action;
+        array_push($this->actions, $action);
+
+        return $this;
+    }
+
+    public function prependItem($title, Closure $callback)
+    {
+        $action = new Action($title);
+
+        $callback($action);
+
+        $action = $action->toArray();
+
+        array_unshift($this->actions, $action);
 
         return $this;
     }
