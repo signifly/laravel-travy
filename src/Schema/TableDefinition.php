@@ -3,6 +3,8 @@
 namespace Signifly\Travy\Schema;
 
 use Closure;
+use Illuminate\Support\Str;
+use Signifly\Travy\Support\FieldResolver;
 use Signifly\Travy\Support\ColumnResolver;
 use Signifly\Travy\Support\FilterResolver;
 use Signifly\Travy\Schema\Concerns\HasColumns;
@@ -138,6 +140,40 @@ abstract class TableDefinition extends Definition
         $this->searchPlaceholder(
             $searchable ? 'Search for ' . $searchable : 'Search...'
         );
+
+        return $this;
+    }
+
+    public function createActionFromResource()
+    {
+        $resource = $this->request->resource();
+        $fields = collect($resource->fields());
+        $resolver = new FieldResolver($this->request);
+        $resourceKey = $this->request->resourceKey();
+        $resourceName = str_replace('-', ' ', Str::kebab($resource->displayAs()));
+
+        $action = $this->addAction("Add {$resourceName}", 'primary')
+            ->icon('plus')
+            ->type('modal')
+            ->endpoint(url("v1/admin/{$resourceKey}"))
+            ->onSubmit("/t/{$resourceKey}/{id}");
+
+        $creatableFields = $fields->filter(function ($field) {
+            return $field->showOnCreation;
+        });
+
+        // Add fields to action
+        $creatableFields->each(function ($field) use ($action, $resolver) {
+            $schemaField = $resolver->resolve($field);
+            $action->addFieldInstance($schemaField);
+        });
+
+        // Set default data
+        $defaultData = $creatableFields->mapWithKeys(function ($field) {
+            return [$field->attribute => $field->defaultValue ?? ''];
+        });
+
+        $action->data($defaultData);
 
         return $this;
     }

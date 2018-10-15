@@ -29,6 +29,18 @@ trait HasFields
     }
 
     /**
+     * Add an instance of a field.
+     *
+     * @param Field $field
+     */
+    public function addFieldInstance(Field $field)
+    {
+        array_push($this->fields, $field);
+
+        return $field;
+    }
+
+    /**
      * Determine if it contains any fields.
      *
      * @return bool
