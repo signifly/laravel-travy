@@ -2,7 +2,7 @@
 
 return [
     'definitions' => [
-        'namespace' => 'App\\Definitions',
+        'namespace' => 'App\\Travy\\Definitions',
     ],
 
     'resources' => [
