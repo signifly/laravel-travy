@@ -30,7 +30,7 @@ class SelectMultiSearch extends Field
     public function options(array $options = [])
     {
         $options = array_merge([
-            'endpoint' => null,
+            'list' => null,
             'key' => 'data',
             'label' => null,
             'value' => 'id',
