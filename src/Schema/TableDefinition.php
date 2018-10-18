@@ -23,6 +23,14 @@ abstract class TableDefinition extends Definition
     protected $batchSchema;
 
     /**
+     * The endpoint to redirect to on creation.
+     * - defaults to /t/{resource}/{id}
+     *
+     * @var string|null
+     */
+    protected $creationRedirectTo = null;
+
+    /**
      * The defaults for the definition schema.
      *
      * @var array
@@ -156,7 +164,7 @@ abstract class TableDefinition extends Definition
             ->icon('plus')
             ->type('modal')
             ->endpoint(url("v1/admin/{$resourceKey}"))
-            ->onSubmit("/t/{$resourceKey}/{id}");
+            ->onSubmit($this->creationRedirectTo ?? "/t/{$resourceKey}/{id}");
 
         $creatableFields = $fields->filter(function ($field) {
             return $field->showOnCreation;
