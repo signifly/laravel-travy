@@ -277,6 +277,9 @@ abstract class Resource
     public function getCreationRules(Request $request)
     {
         $rules = collect($this->fields())
+            ->filter(function ($field) {
+                return $field->showOnCreation;
+            })
             ->mapWithKeys(function ($field) use ($request) {
                 return $field->getCreationRules($request);
             })->toArray();
@@ -315,6 +318,9 @@ abstract class Resource
     public function getUpdateRules(Request $request)
     {
         $rules = collect($this->fields())
+            ->filter(function ($field) {
+                return $field->showOnUpdate;
+            })
             ->mapWithKeys(function ($field) use ($request) {
                 return $field->getUpdateRules($request);
             })->toArray();
