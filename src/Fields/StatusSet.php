@@ -4,7 +4,7 @@ namespace Signifly\Travy\Fields;
 
 use Signifly\Travy\FieldTypes\FieldType;
 
-class Status extends Field
+class StatusSet extends Field
 {
     /**
      * The field's component.
