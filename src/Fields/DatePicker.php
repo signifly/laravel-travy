@@ -20,6 +20,16 @@ class DatePicker extends Field
      */
     public $showOnIndex = false;
 
+    public function format(string $value)
+    {
+        return $this->withMeta(['format' => $value]);
+    }
+
+    public function formatValue(string $value)
+    {
+        return $this->withMeta(['formatValue' => $value]);
+    }
+
     /**
      * The options to apply to the field type.
      *

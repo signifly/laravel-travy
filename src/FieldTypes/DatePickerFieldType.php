@@ -10,4 +10,14 @@ class DatePickerFieldType extends FieldType
     {
         return $this->addProp('date', $date);
     }
+
+    public function format($format)
+    {
+        return $this->addProp('format', $format);
+    }
+
+    public function formatValue($formatValue)
+    {
+        return $this->addProp('formatValue', $formatValue);
+    }
 }
