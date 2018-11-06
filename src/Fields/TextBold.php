@@ -28,7 +28,7 @@ class TextBold extends Field
      */
     public function applyOptions(FieldType $fieldType)
     {
-        if ($this->component == 'text') {
+        if ($this->component == 'textBold') {
             $fieldType->text($this->attribute);
         }
 
