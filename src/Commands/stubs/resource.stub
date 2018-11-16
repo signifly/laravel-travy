@@ -45,4 +45,14 @@ class DummyClass extends Resource
     {
         return [];
     }
+
+    /**
+     * The modifiers for the resource.
+     *
+     * @return array
+     */
+    public function modifiers() : array
+    {
+        return [];
+    }
 }

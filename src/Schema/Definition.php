@@ -99,7 +99,7 @@ abstract class Definition implements DefinitionContract
 
     public function modifiersFromResource()
     {
-        $fields = collect($this->request->resource()->filterableFields());
+        $fields = collect($this->request->resource()->modifiers());
 
         if ($fields->isEmpty()) {
             return;

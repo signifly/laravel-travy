@@ -239,6 +239,7 @@ abstract class TableDefinition extends Definition
         $this->columnsFromResource();
         $this->filtersFromResource();
         $this->includesFromResource();
+        $this->modifiersFromResource();
 
         return $this;
     }
