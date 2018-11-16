@@ -9,12 +9,10 @@ use Signifly\Travy\Support\FieldResolver;
 use Signifly\Travy\Support\ColumnResolver;
 use Signifly\Travy\Support\FilterResolver;
 use Signifly\Travy\Schema\Concerns\HasColumns;
-use Signifly\Travy\Schema\Concerns\HasFilters;
 
 abstract class TableDefinition extends Definition
 {
     use HasColumns;
-    use HasFilters;
 
     /**
      * The batch schema for the definition schema.
@@ -37,6 +35,13 @@ abstract class TableDefinition extends Definition
      * @var array
      */
     protected $defaults = [];
+
+    /**
+     * The filters array.
+     *
+     * @var array
+     */
+    protected $filters = [];
 
     /**
      * The search placeholder.
@@ -78,8 +83,8 @@ abstract class TableDefinition extends Definition
             array_set($schema, 'actions', $this->preparedActions());
         }
 
-        if ($this->hasFilters()) {
-            array_set($schema, 'filters', $this->preparedFilters());
+        if (count($this->filters) > 0) {
+            array_set($schema, 'filters', $this->filters);
         }
 
         if ($this->hasIncludes()) {
@@ -193,12 +198,22 @@ abstract class TableDefinition extends Definition
     public function filtersFromResource()
     {
         $fields = collect($this->request->resource()->filterableFields());
-        $resolver = new FilterResolver($this->request);
 
-        $fields->each(function ($field) use ($resolver) {
-            $column = $resolver->resolve($field);
-            $this->addFilterInstance($column);
-        });
+        if ($fields->isEmpty()) {
+            return;
+        }
+
+        // Prepare data
+        $data = $fields->mapWithKeys(function ($field) {
+            return [$field->attribute => $field->defaultValue ?? ''];
+        })->toArray();
+
+        // Prepare fields
+        $fields = $fields->map(function ($field) {
+            return $field->jsonSerialize();
+        })->toArray();
+
+        $this->filters = compact('data', 'fields');
 
         return $this;
     }
