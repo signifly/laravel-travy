@@ -15,6 +15,19 @@ trait HasActions
     protected $actions = [];
 
     /**
+     * Overwrite actions array.
+     *
+     * @param  array  $actions
+     * @return self
+     */
+    public function actions(array $actions)
+    {
+        $this->actions = $actions;
+
+        return $this;
+    }
+
+    /**
      * Add action to the definition schema.
      *
      * @param  \Signifly\Travy\Schema\Action $action
