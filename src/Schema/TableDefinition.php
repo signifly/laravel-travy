@@ -178,7 +178,7 @@ abstract class TableDefinition extends Definition
             ->endpoint(url("v1/admin/{$resourceKey}"))
             ->onSubmit($this->creationRedirectTo ?? "/t/{$resourceKey}/{id}")
             ->fields($creatableFields->toArray())
-            ->payload($payload->toArray());
+            ->payload(['data' => $payload->toArray()]);
 
         $this->addAction($action);
 

@@ -367,9 +367,12 @@ abstract class Field extends FieldElement implements JsonSerializable
     {
         $data = [
             'id' => $this->component,
-            'action' => $this->linkable ? $this->linksTo : false,
             'props' => $this->meta(),
         ];
+
+        if ($this->linkable) {
+            array_set($data, 'onClick', $this->linksTo);
+        }
 
         if ($this->description) {
             array_set($data, 'description', $this->description);
