@@ -249,6 +249,16 @@ abstract class Resource
     }
 
     /**
+     * The modifiers for the resource.
+     *
+     * @return array
+     */
+    public function modifiers() : array
+    {
+        return [];
+    }
+
+    /**
      * Retrieve an action by the specified key.
      *
      * @param  string $key
@@ -283,7 +293,8 @@ abstract class Resource
             })
             ->mapWithKeys(function ($field) use ($request) {
                 return $field->getCreationRules($request);
-            })->toArray();
+            })
+            ->toArray();
 
         return RulesetSorter::makeFor(
             array_merge_recursive($rules, $this->creationRules())
@@ -337,7 +348,8 @@ abstract class Resource
             })
             ->mapWithKeys(function ($field) use ($request) {
                 return $field->getUpdateRules($request);
-            })->toArray();
+            })
+            ->toArray();
 
         return RulesetSorter::makeFor(
             array_merge_recursive($rules, $this->updateRules())

@@ -16,15 +16,11 @@ trait HasTabs
     /**
      * Add modifier to the definition schema.
      *
-     * @param string $key
-     * @param string $label
-     * @param string|null $title
+     * @param \Signifly\Travy\Tab $tab
      * @return \Signifly\Travy\Tab
      */
-    public function addTab($key, $label, $title = null)
+    public function addTab(Tab $tab)
     {
-        $tab = new Tab($key, $label, $title);
-
         array_push($this->tabs, $tab);
 
         return $tab;
@@ -47,6 +43,10 @@ trait HasTabs
      */
     protected function preparedTabs()
     {
-        return collect($this->tabs)->map->toArray();
+        return collect($this->tabs)
+            ->map(function ($tab) {
+                return $tab->jsonSerialize();
+            })
+            ->toArray();
     }
 }

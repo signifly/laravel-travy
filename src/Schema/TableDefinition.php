@@ -5,9 +5,6 @@ namespace Signifly\Travy\Schema;
 use Closure;
 use Illuminate\Support\Str;
 use Signifly\Travy\Schema\Column;
-use Signifly\Travy\Support\FieldResolver;
-use Signifly\Travy\Support\ColumnResolver;
-use Signifly\Travy\Support\FilterResolver;
 use Signifly\Travy\Schema\Concerns\HasColumns;
 
 abstract class TableDefinition extends Definition
@@ -83,7 +80,7 @@ abstract class TableDefinition extends Definition
             array_set($schema, 'actions', $this->preparedActions());
         }
 
-        if (count($this->filters) > 0) {
+        if ($this->hasFilters()) {
             array_set($schema, 'filters', $this->filters);
         }
 
@@ -92,7 +89,7 @@ abstract class TableDefinition extends Definition
         }
 
         if ($this->hasModifiers()) {
-            array_set($schema, 'modifiers', $this->preparedModifiers());
+            array_set($schema, 'modifiers', $this->modifiers);
         }
 
         if ($this->searchPlaceholder) {
@@ -205,13 +202,15 @@ abstract class TableDefinition extends Definition
 
         // Prepare data
         $data = $fields->mapWithKeys(function ($field) {
-            return [$field->attribute => $field->defaultValue ?? ''];
-        })->toArray();
+                return [$field->attribute => $field->defaultValue ?? ''];
+            })
+            ->toArray();
 
         // Prepare fields
         $fields = $fields->map(function ($field) {
-            return $field->jsonSerialize();
-        })->toArray();
+                return $field->jsonSerialize();
+            })
+            ->toArray();
 
         $this->filters = compact('data', 'fields');
 
@@ -242,6 +241,11 @@ abstract class TableDefinition extends Definition
         $this->includesFromResource();
 
         return $this;
+    }
+
+    public function hasFilters()
+    {
+        return count($this->filters) > 0;
     }
 
     /**

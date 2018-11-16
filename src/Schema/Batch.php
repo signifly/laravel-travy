@@ -59,10 +59,12 @@ class Batch implements Arrayable
     public function toArray()
     {
         $data = [
-            'bulk' => $this->hasActions(),
-            'actions' => $this->preparedActions(),
             'selectedOptions' => $this->selectedOptions ?: (object) [],
         ];
+
+        if ($this->hasActions()) {
+            array_set($data, 'bulk.actions', $this->preparedActions());
+        }
 
         if ($this->hasSequential()) {
             array_set($data, 'sequential.url', $this->sequential);

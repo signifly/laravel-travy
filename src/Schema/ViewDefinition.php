@@ -3,13 +3,11 @@
 namespace Signifly\Travy\Schema;
 
 use Signifly\Travy\Schema\Concerns\HasTabs;
-use Signifly\Travy\Schema\Concerns\HasFields;
 use Signifly\Travy\Schema\Concerns\HasSidebars;
 
 abstract class ViewDefinition extends Definition
 {
     use HasTabs;
-    use HasFields;
     use HasSidebars;
 
     /**
@@ -43,7 +41,7 @@ abstract class ViewDefinition extends Definition
         }
 
         if ($this->hasModifiers()) {
-            array_set($schema, 'modifiers', $this->preparedModifiers());
+            array_set($schema, 'modifiers', $this->modifiers);
         }
 
         if ($this->hasSidebars()) {

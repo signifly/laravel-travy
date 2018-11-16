@@ -4,13 +4,11 @@ namespace Signifly\Travy\Schema;
 
 use Signifly\Travy\Http\Requests\TravyRequest;
 use Signifly\Travy\Schema\Concerns\HasActions;
-use Signifly\Travy\Schema\Concerns\HasModifiers;
 use Signifly\Travy\Schema\Contracts\DefinitionContract;
 
 abstract class Definition implements DefinitionContract
 {
     use HasActions;
-    use HasModifiers;
 
     /**
      * The endpoint array.
@@ -25,6 +23,13 @@ abstract class Definition implements DefinitionContract
      * @var array
      */
     protected $includes = [];
+
+    /**
+     * The modifiers array.
+     *
+     * @var array
+     */
+    protected $modifiers = [];
 
     /**
      * The request instance.
@@ -85,6 +90,28 @@ abstract class Definition implements DefinitionContract
     public function hasIncludes()
     {
         return count($this->includes) > 0;
+    }
+
+    public function hasModifiers()
+    {
+        return count($this->modifiers) > 0;
+    }
+
+    public function modifiersFromResource()
+    {
+        $fields = collect($this->request->resource()->filterableFields());
+
+        if ($fields->isEmpty()) {
+            return;
+        }
+
+        // Prepare fields
+        $this->modifiers = $fields->map(function ($field) {
+                return $field->jsonSerialize();
+            })
+            ->toArray();
+
+        return $this;
     }
 
     abstract protected function schema();
