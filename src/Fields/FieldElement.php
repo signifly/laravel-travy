@@ -88,6 +88,38 @@ abstract class FieldElement
     }
 
     /**
+     * Specify that the element should only be shown on the creation view.
+     *
+     * @return $this
+     */
+    public function onlyOnCreation()
+    {
+
+        $this->showOnIndex = false;
+        $this->showOnDetail = false;
+        $this->showOnCreation = true;
+        $this->showOnUpdate = false;
+
+        return $this;
+    }
+
+    /**
+     * Specify that the element should only be shown on the update view.
+     *
+     * @return $this
+     */
+    public function onlyOnUpdate()
+    {
+
+        $this->showOnIndex = false;
+        $this->showOnDetail = false;
+        $this->showOnCreation = false;
+        $this->showOnUpdate = true;
+
+        return $this;
+    }
+
+    /**
      * Specify that the element should only be shown on the index view.
      *
      * @return $this
