@@ -2,8 +2,6 @@
 
 namespace Signifly\Travy\Fields;
 
-use Signifly\Travy\FieldTypes\FieldType;
-
 class StatusSet extends Field
 {
     /**
@@ -31,11 +29,10 @@ class StatusSet extends Field
     /**
      * The options to apply to the field type.
      *
-     * @param  FieldType $fieldType
      * @return void
      */
-    public function applyOptions(FieldType $fieldType)
+    public function applyOptions()
     {
-        $fieldType->items($this->attribute);
+        $this->withMeta(['items' => $this->attribute]);
     }
 }

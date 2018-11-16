@@ -2,8 +2,6 @@
 
 namespace Signifly\Travy\Fields;
 
-use Signifly\Travy\FieldTypes\FieldType;
-
 class Text extends Field
 {
     /**
@@ -23,17 +21,16 @@ class Text extends Field
     /**
      * The options to apply to the field type.
      *
-     * @param  FieldType $fieldType
      * @return void
      */
-    public function applyOptions(FieldType $fieldType)
+    public function applyOptions()
     {
         if ($this->component == 'text') {
-            $fieldType->text($this->attribute);
+            $this->withMeta(['text' => $this->attribute]);
         }
 
-        if (in_array($this->component, ['input', 'inputNumber'])) {
-            $fieldType->value($this->attribute);
+        if (in_array($this->component, ['input', 'input-number'])) {
+            $this->withMeta(['value' => $this->attribute]);
         }
     }
 }

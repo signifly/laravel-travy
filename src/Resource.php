@@ -3,10 +3,11 @@
 namespace Signifly\Travy;
 
 use Illuminate\Http\Request;
+use Signifly\Travy\Fields\Tab;
 use Spatie\QueryBuilder\Filter;
 use Signifly\Travy\Support\RulesetSorter;
-use Signifly\Travy\Http\Filters\SearchFilter;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Signifly\Travy\Http\Filters\SearchFilter;
 use Signifly\Travy\Http\Filters\TrashedFilter;
 
 abstract class Resource
@@ -289,6 +290,19 @@ abstract class Resource
         );
     }
 
+    public function getPreparedFields()
+    {
+        return collect($this->fields())
+            ->map(function ($field) {
+                if ($field instanceof Tab) {
+                    return $field->fields;
+                }
+
+                return [$field];
+            })
+            ->flatten();
+    }
+
     /**
      * The searchable columns.
      *
@@ -296,7 +310,7 @@ abstract class Resource
      */
     public function getSearchable() : array
     {
-        $fields = collect($this->fields())
+        $fields = $this->getPreparedFields()
             ->filter(function ($field) {
                 return $field->searchable;
             })

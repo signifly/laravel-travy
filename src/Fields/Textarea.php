@@ -2,8 +2,6 @@
 
 namespace Signifly\Travy\Fields;
 
-use Signifly\Travy\FieldTypes\FieldType;
-
 class Textarea extends Field
 {
     /**
@@ -23,11 +21,10 @@ class Textarea extends Field
     /**
      * The options to apply to the field type.
      *
-     * @param  FieldType $fieldType
      * @return void
      */
-    public function applyOptions(FieldType $fieldType)
+    public function applyOptions()
     {
-        $fieldType->text($this->attribute);
+        $this->withMeta(['text' => $this->attribute]);
     }
 }

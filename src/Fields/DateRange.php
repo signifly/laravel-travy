@@ -2,8 +2,6 @@
 
 namespace Signifly\Travy\Fields;
 
-use Signifly\Travy\FieldTypes\FieldType;
-
 class DateRange extends Field
 {
     /**
@@ -11,7 +9,7 @@ class DateRange extends Field
      *
      * @var string
      */
-    public $component = 'dateRange';
+    public $component = 'date-range';
 
     /**
      * Indicates if the element should be shown on the index view.
@@ -22,17 +20,16 @@ class DateRange extends Field
 
     public function end(string $key)
     {
-        return $this->withMeta(['end' => $key]);
+        return $this->withMeta(['dateEnd' => $key]);
     }
 
     /**
      * The options to apply to the field type.
      *
-     * @param  FieldType $fieldType
      * @return void
      */
-    public function applyOptions(FieldType $fieldType)
+    public function applyOptions()
     {
-        $fieldType->start($this->attribute);
+        $this->withMeta(['dateStart' => $this->attribute]);
     }
 }

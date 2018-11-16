@@ -2,8 +2,6 @@
 
 namespace Signifly\Travy\Fields;
 
-use Signifly\Travy\FieldTypes\FieldType;
-
 class SelectSearch extends Field
 {
     /**
@@ -11,7 +9,7 @@ class SelectSearch extends Field
      *
      * @var string
      */
-    public $component = 'selectSearch';
+    public $component = 'select-search';
 
     /**
      * Indicates if the element should be shown on the index view.
@@ -35,11 +33,10 @@ class SelectSearch extends Field
     /**
      * The options to apply to the field type.
      *
-     * @param  FieldType $fieldType
      * @return void
      */
-    public function applyOptions(FieldType $fieldType)
+    public function applyOptions()
     {
-        $fieldType->value($this->attribute);
+        $this->withMeta(['value' => $this->attribute]);
     }
 }

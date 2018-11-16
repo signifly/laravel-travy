@@ -2,8 +2,6 @@
 
 namespace Signifly\Travy\Fields;
 
-use Signifly\Travy\FieldTypes\FieldType;
-
 class InputNumber extends Field
 {
     /**
@@ -11,7 +9,7 @@ class InputNumber extends Field
      *
      * @var string
      */
-    public $component = 'inputNumber';
+    public $component = 'input-number';
 
     /**
      * The default value for the field.
@@ -23,11 +21,10 @@ class InputNumber extends Field
     /**
      * The options to apply to the field type.
      *
-     * @param  FieldType $fieldType
      * @return void
      */
-    public function applyOptions(FieldType $fieldType)
+    public function applyOptions()
     {
-        $fieldType->value($this->attribute);
+        $this->withMeta(['value' => $this->attribute]);
     }
 }

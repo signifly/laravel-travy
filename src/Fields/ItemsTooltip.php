@@ -2,8 +2,6 @@
 
 namespace Signifly\Travy\Fields;
 
-use Signifly\Travy\FieldTypes\FieldType;
-
 class ItemsTooltip extends Field
 {
     /**
@@ -11,7 +9,7 @@ class ItemsTooltip extends Field
      *
      * @var string
      */
-    public $component = 'itemsTooltip';
+    public $component = 'items-tooltip';
 
     /**
      * Indicates if the element should be shown on the creation view.
@@ -30,12 +28,11 @@ class ItemsTooltip extends Field
     /**
      * The options to apply to the field type.
      *
-     * @param  FieldType $fieldType
      * @return void
      */
-    public function applyOptions(FieldType $fieldType)
+    public function applyOptions()
     {
-        $fieldType->items($this->attribute);
+        $this->withMeta(['items' => $this->attribute]);
     }
 
     public function itemKey(string $key)

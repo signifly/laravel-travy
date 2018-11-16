@@ -2,8 +2,6 @@
 
 namespace Signifly\Travy\Fields;
 
-use Signifly\Travy\FieldTypes\FieldType;
-
 class DatePicker extends Field
 {
     /**
@@ -11,7 +9,7 @@ class DatePicker extends Field
      *
      * @var string
      */
-    public $component = 'datePicker';
+    public $component = 'date-picker';
 
     /**
      * Indicates if the element should be shown on the index view.
@@ -33,11 +31,10 @@ class DatePicker extends Field
     /**
      * The options to apply to the field type.
      *
-     * @param  FieldType $fieldType
      * @return void
      */
-    public function applyOptions(FieldType $fieldType)
+    public function applyOptions()
     {
-        $fieldType->date($this->attribute);
+        $this->withMeta(['date' => $this->attribute]);
     }
 }

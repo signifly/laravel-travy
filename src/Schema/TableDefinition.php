@@ -4,6 +4,7 @@ namespace Signifly\Travy\Schema;
 
 use Closure;
 use Illuminate\Support\Str;
+use Signifly\Travy\Schema\Column;
 use Signifly\Travy\Support\FieldResolver;
 use Signifly\Travy\Support\ColumnResolver;
 use Signifly\Travy\Support\FilterResolver;
@@ -118,14 +119,16 @@ abstract class TableDefinition extends Definition
      */
     public function columnsFromResource()
     {
-        $fields = collect($this->request->resource()->fields());
-        $resolver = new ColumnResolver($this->request);
+        $fields = $this->request->resource()->getPreparedFields();
 
         $fields->filter(function ($field) {
             return $field->showOnIndex;
-        })->each(function ($field) use ($resolver) {
-            $column = $resolver->resolve($field);
-            $this->addColumnInstance($column);
+        })->each(function ($field) {
+            if ($field->linkable && ! $field->linksTo) {
+                $field->linksTo = "/t/{$this->request->resourceKey()}/{id}";
+            }
+            $column = Column::make($field);
+            $this->addColumn($column);
         });
 
         // Default sorting
@@ -155,33 +158,29 @@ abstract class TableDefinition extends Definition
     public function createActionFromResource()
     {
         $resource = $this->request->resource();
-        $fields = collect($resource->fields());
-        $resolver = new FieldResolver($this->request);
+        $fields = $resource->getPreparedFields();
         $resourceKey = $this->request->resourceKey();
         $resourceName = str_replace('-', ' ', Str::kebab($resource->displayAs()));
 
-        $action = $this->addAction("Add {$resourceName}", 'primary')
-            ->icon('plus')
-            ->type('modal')
-            ->endpoint(url("v1/admin/{$resourceKey}"))
-            ->onSubmit($this->creationRedirectTo ?? "/t/{$resourceKey}/{id}");
-
+        // Only creatable fields
         $creatableFields = $fields->filter(function ($field) {
             return $field->showOnCreation;
         });
 
-        // Add fields to action
-        $creatableFields->each(function ($field) use ($action, $resolver) {
-            $schemaField = $resolver->resolve($field);
-            $action->addFieldInstance($schemaField);
-        });
-
-        // Set default data
-        $defaultData = $creatableFields->mapWithKeys(function ($field) {
+        // Prepare payload
+        $payload = $creatableFields->mapWithKeys(function ($field) {
             return [$field->attribute => $field->defaultValue ?? ''];
         });
 
-        $action->data($defaultData->toArray());
+        $action = Action::make("Add {$resourceName}", 'primary')
+            ->icon('plus')
+            ->type('modal')
+            ->endpoint(url("v1/admin/{$resourceKey}"))
+            ->onSubmit($this->creationRedirectTo ?? "/t/{$resourceKey}/{id}")
+            ->fields($creatableFields->toArray())
+            ->payload($payload->toArray());
+
+        $this->addAction($action);
 
         return $this;
     }

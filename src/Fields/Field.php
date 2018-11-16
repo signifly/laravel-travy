@@ -2,11 +2,15 @@
 
 namespace Signifly\Travy\Fields;
 
+use JsonSerializable;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Signifly\Travy\Schema\Concerns\HasMetaData;
 
-abstract class Field extends FieldElement
+abstract class Field extends FieldElement implements JsonSerializable
 {
+    use HasMetaData;
+
     /**
      * The field's component.
      *
@@ -36,26 +40,12 @@ abstract class Field extends FieldElement
     public $defaultValue = null;
 
     /**
-     * Indicates if the field should be disabled.
-     *
-     * @var bool
-     */
-    public $disabled = false;
-
-    /**
      * Indicates if the field should be displayed
      * as a text component in the table.
      *
      * @var bool
      */
     public $displayAsText = false;
-
-    /**
-     * The meta data for the field.
-     *
-     * @var array
-     */
-    public $meta = [];
 
     /**
      * The validation rules for creation and updates.
@@ -135,11 +125,18 @@ abstract class Field extends FieldElement
     public $columnWidth;
 
     /**
-     * The width of the field in the view.
+     * The description of the field.
      *
-     * @var int
+     * @var string
      */
-    public $width;
+    public $description;
+
+    /**
+     * The tooltip of the field.
+     *
+     * @var string
+     */
+    public $tooltip;
 
     /**
      * Create a new field.
@@ -171,9 +168,7 @@ abstract class Field extends FieldElement
      */
     public function disabled($value = true)
     {
-        $this->disabled = $value;
-
-        return $this;
+        return $this->withMeta(['disabled' => $value]);
     }
 
     /**
@@ -278,16 +273,6 @@ abstract class Field extends FieldElement
     }
 
     /**
-     * Get the meta data for the field.
-     *
-     * @return array
-     */
-    public function meta()
-    {
-        return $this->meta;
-    }
-
-    /**
      * Specify that this field should be searchable.
      *
      * @param  bool  $value
@@ -342,6 +327,32 @@ abstract class Field extends FieldElement
     }
 
     /**
+     * Specify the field description.
+     *
+     * @param  string $text
+     * @return self
+     */
+    public function description(string $text)
+    {
+        $this->description = $text;
+
+        return $this;
+    }
+
+    /**
+     * Specify the field tooltip text.
+     *
+     * @param  string $text
+     * @return self
+     */
+    public function tooltip(string $text)
+    {
+        $this->tooltip = $text;
+
+        return $this;
+    }
+
+    /**
      * Specify the field width.
      *
      * @param  int    $value
@@ -349,21 +360,43 @@ abstract class Field extends FieldElement
      */
     public function width(int $value)
     {
-        $this->width = $value;
+        return $this->withMeta(['width' => $value]);
+    }
 
-        return $this;
+    public function fieldType()
+    {
+        $data = [
+            'id' => $this->component,
+            'action' => $this->linkable ? $this->linksTo : false,
+            'props' => $this->meta(),
+        ];
+
+        if ($this->description) {
+            array_set($data, 'description', $this->description);
+        }
+
+        if ($this->tooltip) {
+            array_set($data, 'tooltip', $this->tooltip);
+        }
+
+        return $data;
     }
 
     /**
-     * Set additional meta information for the element.
+     * Prepare the field for JSON serialization.
      *
-     * @param  array  $meta
-     * @return $this
+     * @return array
      */
-    public function withMeta(array $meta)
+    public function jsonSerialize() : array
     {
-        $this->meta = array_merge($this->meta, $meta);
+        if (method_exists($this, 'applyOptions')) {
+            $this->applyOptions();
+        }
 
-        return $this;
+        return [
+            'name' => $this->attribute,
+            'label' => $this->name,
+            'fieldType' => $this->fieldType(),
+        ];
     }
 }

@@ -17,33 +17,14 @@ trait HasActions
     /**
      * Add action to the definition schema.
      *
-     * @param string $title
-     * @param string $status
-     * @return \Signifly\Travy\Table\Actions\Action
+     * @param  \Signifly\Travy\Schema\Action $action
+     * @return \Signifly\Travy\Schema\Action
      */
-    public function addAction($title, $status = null)
+    public function addAction(Action $action)
     {
-        $action = new Action($title, $status);
-
         array_push($this->actions, $action);
 
         return $action;
-    }
-
-    /**
-     * Add action from a callable definition.
-     *
-     * @param string $action
-     */
-    public function addActionFor(string $action)
-    {
-        $class = new $action;
-
-        if (! is_callable($class)) {
-            throw new Exception($action . " must be callable.");
-        }
-
-        return $class($this);
     }
 
     /**
@@ -63,6 +44,10 @@ trait HasActions
      */
     protected function preparedActions()
     {
-        return collect($this->actions)->map->toArray();
+        return collect($this->actions)
+            ->map(function ($action) {
+                return $action->jsonSerialize();
+            })
+            ->toArray();
     }
 }

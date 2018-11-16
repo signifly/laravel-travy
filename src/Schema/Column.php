@@ -2,32 +2,16 @@
 
 namespace Signifly\Travy\Schema;
 
-use Closure;
-use Illuminate\Contracts\Support\Arrayable;
-use Signifly\Travy\FieldTypes\FieldTypeFactory;
+use Signifly\Travy\Fields\Field;
 
-class Column implements Arrayable
+class Column
 {
     /**
-     * The field type to use on the client-side.
-     *
-     * @var FieldType
-     */
-    protected $fieldType;
-
-    /**
-     * The label for table header.
+     * The field.
      *
      * @var string
      */
-    protected $label;
-
-    /**
-     * The name of the field.
-     *
-     * @var string
-     */
-    protected $name;
+    protected $field;
 
     /**
      * The order of the column.
@@ -37,80 +21,24 @@ class Column implements Arrayable
     protected $order;
 
     /**
-     * Indicates if the column is sortable.
-     *
-     * @var boolean
-     */
-    protected $sortable = false;
-
-    /**
-     * The prop to sort by.
-     *
-     * @var string
-     */
-    protected $sortBy = null;
-
-    /**
-     * The width of the column.
-     *
-     * @var int
-     */
-    protected $width;
-
-    /**
      * Create a new column instance.
      *
      * @param string $name
      * @param string $label
      */
-    public function __construct($name, $label)
+    public function __construct(Field $field)
     {
-        $this->name($name);
-        $this->label($label);
+        $this->field = $field;
     }
 
     /**
-     * Set the field type.
+     * Create a new column.
      *
-     * @param  string  $class
-     * @param  Closure $callable
-     * @return self
+     * @return static
      */
-    public function fieldType(string $class, Closure $callable)
+    public static function make(...$arguments)
     {
-        $fieldType = (new FieldTypeFactory($class))->make();
-
-        $callable($fieldType);
-
-        $this->fieldType = $fieldType;
-
-        return $this;
-    }
-
-    /**
-     * Set the label property.
-     *
-     * @param  string $label
-     * @return self
-     */
-    public function label(string $label)
-    {
-        $this->label = $label;
-
-        return $this;
-    }
-
-    /**
-     * Set the name property.
-     *
-     * @param  string $name
-     * @return self
-     */
-    public function name(string $name)
-    {
-        $this->name = $name;
-
-        return $this;
+        return new static(...$arguments);
     }
 
     /**
@@ -127,79 +55,29 @@ class Column implements Arrayable
     }
 
     /**
-     * Set the sortable field.
-     *
-     * @param  bool|string $sortable
-     * @return self
-     */
-    public function sortable($sortable = true)
-    {
-        if ($sortable && ! is_bool($sortable)) {
-            $this->sortable = true;
-            $this->sortBy = $sortable;
-
-            return $this;
-        }
-
-        $this->sortable = $sortable;
-
-        return $this;
-    }
-
-    /**
-     * Set the column to sort by.
-     *
-     * @param  string $sortBy
-     * @return self
-     */
-    public function sortBy(string $sortBy)
-    {
-        $this->sortBy = $sortBy;
-
-        return $this;
-    }
-
-    /**
-     * Tap into the field type.
-     *
-     * @param  Closure $callable
-     * @return void
-     */
-    public function tapFieldType(Closure $callable)
-    {
-        $callable($this->fieldType);
-    }
-
-    /**
-     * Set the width of the column.
-     *
-     * @param  int $width
-     * @return self
-     */
-    public function width($width)
-    {
-        $this->width = $width;
-
-        return $this;
-    }
-
-    /**
-     * Convert the column to an array.
+     * Prepare the column for JSON serialization.
      *
      * @return array
      */
-    public function toArray()
+    public function jsonSerialize() : array
     {
-        $this->fieldType = $this->fieldType->build();
-
-        $keys = collect(['order', 'name', 'label', 'fieldType', 'sortable', 'sortBy']);
-
-        if ($this->width) {
-            $keys->push('width');
+        if (method_exists($this->field, 'applyOptions')) {
+            $this->field->applyOptions();
         }
 
-        return $keys->mapWithKeys(function ($key) {
-            return [$key => $this->$key];
-        })->all();
+        $data = [
+            'order' => $this->order,
+            'name' => $this->field->attribute,
+            'label' => $this->field->name,
+            'fieldType' => $this->field->fieldType(),
+            'sortable' => $this->field->sortable,
+            'sortBy' => $this->field->sortBy ?? null,
+        ];
+
+        if ($this->field->columnWidth) {
+            array_set($data, 'width', $this->field->columnWidth);
+        }
+
+        return $data;
     }
 }

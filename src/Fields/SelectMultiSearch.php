@@ -2,8 +2,6 @@
 
 namespace Signifly\Travy\Fields;
 
-use Signifly\Travy\FieldTypes\FieldType;
-
 class SelectMultiSearch extends Field
 {
     /**
@@ -11,7 +9,7 @@ class SelectMultiSearch extends Field
      *
      * @var string
      */
-    public $component = 'selectMultiSearch';
+    public $component = 'select-multi-search';
 
     /**
      * The default value for the field.
@@ -42,11 +40,10 @@ class SelectMultiSearch extends Field
     /**
      * The options to apply to the field type.
      *
-     * @param  FieldType $fieldType
      * @return void
      */
-    public function applyOptions(FieldType $fieldType)
+    public function applyOptions()
     {
-        $fieldType->values($this->attribute);
+        $this->withMeta(['values' => $this->attribute]);
     }
 }

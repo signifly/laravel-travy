@@ -2,8 +2,6 @@
 
 namespace Signifly\Travy\Fields;
 
-use Signifly\Travy\FieldTypes\FieldType;
-
 class InputImage extends Field
 {
     /**
@@ -11,7 +9,7 @@ class InputImage extends Field
      *
      * @var string
      */
-    public $component = 'inputImage';
+    public $component = 'input-image';
 
     /**
      * Indicates if the element should be shown on the index view.
@@ -28,11 +26,10 @@ class InputImage extends Field
     /**
      * The options to apply to the field type.
      *
-     * @param  FieldType $fieldType
      * @return void
      */
-    public function applyOptions(FieldType $fieldType)
+    public function applyOptions()
     {
-        $fieldType->file($this->attribute);
+        $this->withMeta(['file' => $this->attribute]);
     }
 }

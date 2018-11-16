@@ -2,8 +2,6 @@
 
 namespace Signifly\Travy\Fields;
 
-use Signifly\Travy\FieldTypes\FieldType;
-
 class ImagePicker extends Field
 {
     /**
@@ -11,7 +9,7 @@ class ImagePicker extends Field
      *
      * @var string
      */
-    public $component = 'imagePicker';
+    public $component = 'image-picker';
 
     public function options(array $options)
     {
@@ -26,11 +24,10 @@ class ImagePicker extends Field
     /**
      * The options to apply to the field type.
      *
-     * @param  FieldType $fieldType
      * @return void
      */
-    public function applyOptions(FieldType $fieldType)
+    public function applyOptions()
     {
-        $fieldType->id($this->attribute);
+        $this->withMeta(['id' => $this->attribute]);
     }
 }

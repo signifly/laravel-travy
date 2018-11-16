@@ -2,141 +2,162 @@
 
 namespace Signifly\Travy\Schema;
 
-use Closure;
-use Illuminate\Contracts\Support\Arrayable;
-use Signifly\Travy\Schema\Concerns\HasProps;
-use Signifly\Travy\Schema\Concerns\HasFields;
+use Signifly\Travy\Schema\Concerns\HasMetaData;
 
-class Action implements Arrayable
+class Action
 {
-    use HasFields;
-    use HasProps;
+    use HasMetaData;
 
     /**
-     * The action endpoint.
-     *
-     * @var array
-     */
-    protected $endpoint = [];
-
-    /**
-     * Hide the action.
-     *
-     * @var array
-     */
-    protected $hide;
-
-    /**
-     * The action icon.
+     * The displayable title of the action.
      *
      * @var string
      */
-    protected $icon;
+    public $title;
 
     /**
-     * The action status.
+     * The status / color of the action.
      *
      * @var string
      */
-    protected $status;
+    public $status;
 
     /**
-     * The action title.
+     * The action's icon.
      *
      * @var string
      */
-    protected $title;
+    public $icon;
 
     /**
-     * The action type.
+     * Create a new action.
      *
-     * @var string
+     * @param string $title
+     * @param string|null $status
      */
-    protected $type;
-
     public function __construct($title, $status = null)
     {
         $this->title($title);
-        $this->status($status);
-    }
-
-    public function data(array $data)
-    {
-        return $this->addProp('data', (object) $data);
-    }
-
-    public function endpoint($url, $method = 'post')
-    {
-        return $this->addProp('endpoint', compact('url', 'method'));
+        $this->status = $status;
     }
 
     /**
-     * Hide field type.
+     * Create a new element.
      *
-     * @param  string $key
-     * @param  mixed $value
-     * @param  string $operator
-     * @return self
+     * @return static
      */
-    public function hide(string $key, $value, string $operator = 'eq')
+    public static function make(...$arguments)
     {
-        $this->hide = compact('key', 'operator', 'value');
-
-        return $this;
+        return new static(...$arguments);
     }
 
-    public function icon($icon)
+    /**
+     * Set the endpoint of the action.
+     *
+     * @param  string $url
+     * @param  string $method
+     * @return self
+     */
+    public function endpoint(string $url, $method = 'post')
+    {
+        return $this->withMeta(compact('url', 'method'));
+    }
+
+    /**
+     * Set the fields in the tab.
+     *
+     * @param  array  $fields
+     * @return self
+     */
+    public function fields(array $fields)
+    {
+        $fields = collect($fields)->map(function ($field) {
+            return $field->jsonSerialize();
+        })
+        ->toArray();
+
+        return $this->withMeta(compact('fields'));
+    }
+
+    /**
+     * Set the action's icon.
+     *
+     * @param  string $icon
+     * @return self
+     */
+    public function icon(string $icon)
     {
         $this->icon = $icon;
 
         return $this;
     }
 
-    public function status($status)
+    /**
+     * Set the linksTo on submit.
+     *
+     * @param  string $linksTo
+     * @return self
+     */
+    public function onSubmit(string $linksTo)
     {
-        $this->status = $status;
-
-        return $this;
+        return $this->withMeta(['onSubmit' => $linksTo]);
     }
 
-    public function title($title)
+    /**
+     * Set the payload prop.
+     *
+     * @param  array  $payload
+     * @return self
+     */
+    public function payload(array $payload)
+    {
+        return $this->withMeta(compact('payload'));
+    }
+
+    /**
+     * Sets the title of the action.
+     *
+     * @param  string $title
+     * @return self
+     */
+    public function title(string $title)
     {
         $this->title = $title;
-        $this->addProp('title', $title);
 
-        return $this;
+        return $this->withMeta(compact('title'));
     }
 
-    public function id($id)
+    /**
+     * Set the action type.
+     *
+     * @param  string $id
+     * @return self
+     */
+    public function type(string $id)
     {
-        return $this->addProp('id', $id);
+        return $this->withMeta(compact('id'));
     }
 
-    public function onSubmit($submit)
+    /**
+     * Prepare the action for JSON serialization.
+     *
+     * @return array
+     */
+    public function jsonSerialize()
     {
-        return $this->addProp('onSubmit', $submit);
-    }
+        $data = [
+            'title' => $this->title,
+            'props' => $this->meta(),
+        ];
 
-    public function type($type)
-    {
-        return $this->id($type);
-    }
-
-    public function toArray()
-    {
-        if ($this->hasFields()) {
-            $this->addProp('fields', $this->preparedFields());
+        if ($this->status) {
+            array_set($data, 'status', $this->status);
         }
 
-        return collect([
-            'title' => $this->title,
-            'props' => $this->props,
-        ])->when($this->status, function ($collection) {
-            return $collection->put('status', $this->status);
-        })->when($this->icon, function ($collection) {
-            return $collection->put('icon', $this->icon);
-        })->when($this->hide, function ($collection) {
-            return $collection->put('hide', $this->hide);
-        })->all();
+        if ($this->icon) {
+            array_set($data, 'icon', $this->icon);
+        }
+
+        return $data;
     }
 }
