@@ -2,7 +2,7 @@
 
 namespace Signifly\Travy\Schema\Concerns;
 
-use Signifly\Travy\Schema\Tab;
+use Signifly\Travy\Fields\Tab;
 
 trait HasTabs
 {

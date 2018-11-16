@@ -3,12 +3,10 @@
 namespace Signifly\Travy\Schema;
 
 use Signifly\Travy\Schema\Concerns\HasTabs;
-use Signifly\Travy\Schema\Concerns\HasSidebars;
 
 abstract class ViewDefinition extends Definition
 {
     use HasTabs;
-    use HasSidebars;
 
     /**
      * Whether or not activity should be shown.
