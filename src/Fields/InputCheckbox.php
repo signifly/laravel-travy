@@ -2,14 +2,14 @@
 
 namespace Signifly\Travy\Fields;
 
-class Input extends Field
+class InputCheckbox extends Field
 {
     /**
      * The field's component.
      *
      * @var string
      */
-    public $component = 'input';
+    public $component = 'input-checkbox';
 
     /**
      * The options to apply to the field type.

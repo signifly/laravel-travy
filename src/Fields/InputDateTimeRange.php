@@ -2,14 +2,14 @@
 
 namespace Signifly\Travy\Fields;
 
-class DatePicker extends Field
+class InputDateTimeRange extends Field
 {
     /**
      * The field's component.
      *
      * @var string
      */
-    public $component = 'date-picker';
+    public $component = 'input-date-time-range';
 
     /**
      * Indicates if the element should be shown on the index view.
@@ -18,14 +18,9 @@ class DatePicker extends Field
      */
     public $showOnIndex = false;
 
-    public function format(string $value)
+    public function end(string $key)
     {
-        return $this->withMeta(['format' => $value]);
-    }
-
-    public function formatValue(string $value)
-    {
-        return $this->withMeta(['formatValue' => $value]);
+        return $this->withMeta(['dateEnd' => $key]);
     }
 
     /**
@@ -35,6 +30,6 @@ class DatePicker extends Field
      */
     public function applyOptions()
     {
-        $this->withMeta(['date' => $this->attribute]);
+        $this->withMeta(['dateStart' => $this->attribute]);
     }
 }

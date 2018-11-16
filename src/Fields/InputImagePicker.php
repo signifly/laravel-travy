@@ -2,14 +2,14 @@
 
 namespace Signifly\Travy\Fields;
 
-class ImagePicker extends Field
+class InputImagePicker extends Field
 {
     /**
      * The field's component.
      *
      * @var string
      */
-    public $component = 'image-picker';
+    public $component = 'input-image-picker';
 
     public function options(array $options)
     {
