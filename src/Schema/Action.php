@@ -72,6 +72,7 @@ class Action
     public function fields(array $fields)
     {
         $fields = collect($fields)->map(function ($field) {
+            $field->linkable(false);
             return $field->jsonSerialize();
         })
         ->toArray();
