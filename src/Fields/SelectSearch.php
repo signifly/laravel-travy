@@ -23,6 +23,7 @@ class SelectSearch extends Field
         $options = array_merge([
             'endpoint' => null,
             'key' => 'data',
+            'itemKey' => 'data',
             'label' => null,
             'value' => 'id',
         ], $options);

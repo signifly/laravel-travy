@@ -27,6 +27,21 @@ trait HasColumns
     }
 
     /**
+     * Overwrite columns array.
+     *
+     * @param  array  $fields
+     * @return self
+     */
+    public function columns(array $fields)
+    {
+        $this->columns = collect($fields)
+            ->mapInto(Column::class)
+            ->toArray();
+
+        return $this;
+    }
+
+    /**
      * Determine if there are any columns.
      *
      * @return bool

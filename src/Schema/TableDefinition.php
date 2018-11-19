@@ -124,15 +124,17 @@ abstract class TableDefinition extends Definition
     {
         $fields = $this->request->resource()->getPreparedFields();
 
-        $fields->filter(function ($field) {
+        $columnFields = $fields->filter(function ($field) {
             return $field->showOnIndex;
-        })->each(function ($field) {
+        })->map(function ($field) {
             if ($field->linkable && ! $field->linksTo) {
                 $field->linksTo = "/t/{$this->request->resourceKey()}/{id}";
             }
-            $column = Column::make($field);
-            $this->addColumn($column);
+
+            return $field;
         });
+
+        $this->columns($columnFields->toArray());
 
         // Default sorting
         $defaultSort = $fields->first(function ($field) {
