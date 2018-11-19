@@ -116,6 +116,17 @@ class Action
     }
 
     /**
+     * Set the text prop.
+     *
+     * @param  string $text
+     * @return self
+     */
+    public function text(string $text)
+    {
+        return $this->withMeta(compact('text'));
+    }
+
+    /**
      * Sets the title of the action.
      *
      * @param  string $title
