@@ -54,7 +54,17 @@ abstract class Resource
      */
     public function getModel() : string
     {
-        return $this->model ?? config('travy.models.namespace') . class_basename(get_called_class());
+        return $this->model ?? $this->guessModel();
+    }
+
+    /**
+     * Guess model.
+     *
+     * @return string
+     */
+    protected function guessModel()
+    {
+        return config('travy.models.namespace') . '\\' . class_basename(get_called_class());
     }
 
     /**
