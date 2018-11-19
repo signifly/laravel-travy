@@ -2,35 +2,77 @@
 
 namespace Signifly\Travy\Schema;
 
-use Illuminate\Contracts\Support\Arrayable;
-use Signifly\Travy\Schema\Concerns\Buildable;
+use JsonSerializable;
 use Signifly\Travy\Schema\Concerns\HasActions;
 
-class Batch implements Arrayable
+class Batch implements JsonSerializable
 {
-    use Buildable;
     use HasActions;
 
-    protected $sequential;
-
-    protected $selectedOptions;
+    /**
+     * The attribute / column name for the label.
+     *
+     * @var string
+     */
+    public $attribute;
 
     /**
-     * Checks if sequential is active.
+     * The link for the sequential tooltip.
      *
-     * @return boolean
+     * @var string
      */
-    public function hasSequential()
+    public $link;
+
+    /**
+     * The sequential url.
+     *
+     * @var string
+     */
+    public $sequential;
+
+    /**
+     * Create a new field.
+     *
+     * @param string $name
+     * @param string|null $attribute
+     */
+    public function __construct($attribute, $link = null)
     {
-        return !! $this->sequential;
+        $this->attribute = $attribute;
+        $this->link = $link;
     }
 
     /**
-     * Add sequential editing.
+     * Create a new element.
      *
-     * @return void
+     * @return static
      */
-    public function sequential($url = '')
+    public static function make(...$arguments)
+    {
+        return new static(...$arguments);
+    }
+
+
+    /**
+     * Set the link of the sequential tooltip.
+     *
+     * @param  string $link
+     * @return self
+     */
+    public function link(string $link)
+    {
+        $this->link = $link;
+
+        return $this;
+    }
+
+    /**
+     * Set the sequential url.
+     *
+     * @param  string $url
+     * @return self
+     */
+    public function sequential(string $url)
     {
         $this->sequential = $url;
 
@@ -38,36 +80,24 @@ class Batch implements Arrayable
     }
 
     /**
-     * Add selected options.
-     *
-     * @param  string $label
-     * @param  string $link
-     * @return self
-     */
-    public function selectedOptions($label, $link)
-    {
-        $this->selectedOptions = compact('label', 'link');
-
-        return $this;
-    }
-
-    /**
-     * Convert to array.
+     * Prepare the field for JSON serialization.
      *
      * @return array
      */
-    public function toArray()
+    public function jsonSerialize() : array
     {
         $data = [
-            'selectedOptions' => $this->selectedOptions ?: (object) [],
+            'selectedOptions' => [
+                'label' => $this->attribute,
+                'link' => $this->link,
+            ],
+            'sequential' => [
+                'url' => $this->sequential ?? $this->link,
+            ],
         ];
 
         if ($this->hasActions()) {
             array_set($data, 'bulk.actions', $this->preparedActions());
-        }
-
-        if ($this->hasSequential()) {
-            array_set($data, 'sequential.url', $this->sequential);
         }
 
         return $data;

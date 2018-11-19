@@ -14,7 +14,7 @@ abstract class TableDefinition extends Definition
     /**
      * The batch schema for the definition schema.
      *
-     * @var array
+     * @var \Signifly\Travy\Schema\Batch
      */
     protected $batchSchema;
 
@@ -97,7 +97,7 @@ abstract class TableDefinition extends Definition
         }
 
         if ($this->batchSchema) {
-            array_set($schema, 'batch', $this->batchSchema);
+            array_set($schema, 'batch', $this->batchSchema->jsonSerialize());
         }
 
         return $schema;
@@ -106,12 +106,13 @@ abstract class TableDefinition extends Definition
     /**
      * Build the batch schema.
      *
-     * @param  Closure $callable
-     * @return void
+     * @return \Signifly\Travy\Schema\Batch
      */
-    public function buildBatch(Closure $callable)
+    public function buildBatch(...$args)
     {
-        $this->batchSchema = Batch::build($callable);
+        $this->batchSchema = Batch::make(...$args);
+
+        return $this->batchSchema;
     }
 
     /**
