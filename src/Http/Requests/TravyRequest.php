@@ -9,10 +9,13 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class TravyRequest extends FormRequest
 {
+    /** @var \Signifly\Travy\Http\Actions\Action */
     protected $action;
 
+    /** @var \Signifly\Travy\Resource */
     protected $resource;
 
+    /** @var \Signifly\Travy\Resource */
     protected $relationResource;
 
     /**
@@ -46,21 +49,6 @@ class TravyRequest extends FormRequest
             return $this->resource->getUpdateRules($this);
         }
     }
-
-    /**
-     * Validate the class instance.
-     *
-     * @return void
-     */
-    public function validateResolved()
-    {
-        $this->resource = ResourceFactory::make(
-            $this->resourceKey()
-        );
-
-        parent::validateResolved();
-    }
-
 
     /**
      * Get the action.
@@ -152,5 +140,27 @@ class TravyRequest extends FormRequest
         }
 
         return $this->relationResource;
+    }
+
+    /**
+     * Prepare the data for validation.
+     *
+     * @return void
+     */
+    protected function prepareForValidation()
+    {
+        $this->resource = ResourceFactory::make(
+            $this->resourceKey()
+        );
+    }
+
+    /**
+     * Get data to be validated from the request.
+     *
+     * @return array
+     */
+    protected function validationData()
+    {
+        return $this->input('data', []);
     }
 }
