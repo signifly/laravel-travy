@@ -7,7 +7,8 @@ use Signifly\Travy\Resource;
 class DummyClass extends Resource
 {
     /**
-     * The actions that should be merged with the default actions.
+     * The actions that should be merged
+     * with the default actions.
      *
      * @return array
      */
@@ -27,31 +28,32 @@ class DummyClass extends Resource
     }
 
     /**
-     * Define filters that should be merged with the default filters.
+     * The filters (fields) for the resource.
      *
      * @return array
      */
-    protected function filters() : array
+    public function filters() : array
     {
         return [];
     }
 
     /**
-     * The filterable fields for the resource.
-     *
-     * @return array
-     */
-    public function filterableFields() : array
-    {
-        return [];
-    }
-
-    /**
-     * The modifiers for the resource.
+     * The modifiers (fields) for the resource.
      *
      * @return array
      */
     public function modifiers() : array
+    {
+        return [];
+    }
+
+    /**
+     * Define query filters that should be merged
+     * with the default query filters.
+     *
+     * @return array
+     */
+    protected function queryFilters() : array
     {
         return [];
     }

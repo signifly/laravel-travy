@@ -213,7 +213,7 @@ abstract class TableDefinition extends Definition
      */
     public function filtersFromResource()
     {
-        $fields = collect($this->request->resource()->filterableFields());
+        $fields = collect($this->request->resource()->filters());
 
         if ($fields->isEmpty()) {
             return;

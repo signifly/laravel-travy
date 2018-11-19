@@ -18,7 +18,7 @@ abstract class Resource
     /** @var string */
     protected $displayAs;
 
-    /** @var \Illuminate\Database\Eloquent\Model */
+    /** @var string */
     protected $model;
 
     /** @var array */
@@ -72,10 +72,10 @@ abstract class Resource
      *
      * @return \Illuminate\Database\Eloquent\Model
      */
-    public function newModelInstance()
+    public function newModelInstance(array $attributes = [])
     {
         $model = $this->getModel();
-        return new $model;
+        return new $model($attributes);
     }
 
     /**
@@ -123,11 +123,11 @@ abstract class Resource
     }
 
     /**
-     * The default filters.
+     * The default query filters.
      *
      * @return array
      */
-    protected function defaultFilters() : array
+    protected function defaultQueryFilters() : array
     {
         $filters = [];
 
@@ -161,11 +161,12 @@ abstract class Resource
     }
 
     /**
-     * Define filters that should be merged with the default filters.
+     * Define query filters that should be merged
+     * with the default query filters.
      *
      * @return array
      */
-    protected function filters() : array
+    protected function queryFilters() : array
     {
         return [];
     }
@@ -187,7 +188,7 @@ abstract class Resource
      */
     public function allowedFilters() : array
     {
-        return array_merge($this->defaultFilters(), $this->filters());
+        return array_merge($this->defaultQueryFilters(), $this->queryFilters());
     }
 
     /**
@@ -250,17 +251,17 @@ abstract class Resource
     }
 
     /**
-     * The filterable fields for creation.
+     * The filters (fields) for the resource.
      *
      * @return array
      */
-    public function filterableFields() : array
+    public function filters() : array
     {
         return [];
     }
 
     /**
-     * The modifiers for the resource.
+     * The modifiers (fields) for the resource.
      *
      * @return array
      */
@@ -298,7 +299,7 @@ abstract class Resource
      */
     public function getCreationRules(Request $request)
     {
-        $rules = collect($this->fields())
+        $rules = $this->getPreparedFields()
             ->filter(function ($field) {
                 return $field->showOnCreation;
             })
@@ -353,7 +354,7 @@ abstract class Resource
      */
     public function getUpdateRules(Request $request)
     {
-        $rules = collect($this->fields())
+        $rules = $this->getPreparedFields()
             ->filter(function ($field) {
                 return $field->showOnUpdate;
             })
@@ -390,16 +391,33 @@ abstract class Resource
         return [];
     }
 
-    public function with()
+    /**
+     * Get the relations that should be eager loaded.
+     *
+     * @return array
+     */
+    public function with() : array
     {
         return $this->with;
     }
 
+    /**
+     * Get the relations that should be counted.
+     *
+     * @return array
+     */
     public function withCount()
     {
         return $this->withCount;
     }
 
+    /**
+     * Forward calls to query builder.
+     *
+     * @param  string $method
+     * @param  array $parameters
+     * @return mixed
+     */
     public function __call($method, $parameters)
     {
         return $this->newQuery()->$method(...$parameters);
