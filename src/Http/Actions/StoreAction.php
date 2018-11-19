@@ -8,6 +8,6 @@ class StoreAction extends Action
 {
     public function handle() : Model
     {
-        return $this->resource->create($this->request->all());
+        return $this->resource->create($this->request->input('data'));
     }
 }

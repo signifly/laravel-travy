@@ -10,7 +10,7 @@ class UpdateAction extends Action
     {
         $model = $this->resource->findOrFail($this->getId());
 
-        $model->update($this->request->all());
+        $model->update($this->request->input('data'));
 
         return $model;
     }
