@@ -249,7 +249,7 @@ abstract class TableDefinition extends Definition
     }
 
     /**
-     * Load columns, filters and includes from resource.
+     * Load columns, filters, includes and modifiers from resource.
      *
      * @return self
      */

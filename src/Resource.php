@@ -5,6 +5,8 @@ namespace Signifly\Travy;
 use Illuminate\Http\Request;
 use Signifly\Travy\Fields\Tab;
 use Spatie\QueryBuilder\Filter;
+use Illuminate\Support\Collection;
+use Signifly\Travy\Fields\Sidebar;
 use Signifly\Travy\Support\RulesetSorter;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Signifly\Travy\Http\Filters\SearchFilter;
@@ -62,7 +64,7 @@ abstract class Resource
      *
      * @return string
      */
-    protected function guessModel()
+    protected function guessModel() : string
     {
         return config('travy.models.namespace') . '\\' . class_basename(get_called_class());
     }
@@ -176,7 +178,7 @@ abstract class Resource
      *
      * @return bool
      */
-    protected function searchable()
+    protected function searchable() : bool
     {
         return count($this->getSearchable()) > 0;
     }
@@ -276,7 +278,7 @@ abstract class Resource
      * @param  string $key
      * @return string
      */
-    public function getAction(string $key)
+    public function getAction(string $key) : string
     {
         return array_get($this->getActions(), $key);
     }
@@ -286,7 +288,7 @@ abstract class Resource
      *
      * @return array
      */
-    public function getActions()
+    public function getActions() : array
     {
         return array_merge($this->actions, $this->actions());
     }
@@ -297,7 +299,7 @@ abstract class Resource
      * @param  Request $request
      * @return array
      */
-    public function getCreationRules(Request $request)
+    public function getCreationRules(Request $request) : array
     {
         $rules = $this->getPreparedFields()
             ->filter(function ($field) {
@@ -313,11 +315,16 @@ abstract class Resource
         );
     }
 
-    public function getPreparedFields()
+    /**
+     * The prepared fields.
+     *
+     * @return \Illuminate\Support\Collection
+     */
+    public function getPreparedFields() : Collection
     {
         return collect($this->fields())
             ->map(function ($field) {
-                if ($field instanceof Tab) {
+                if ($field instanceof Tab || $field instanceof Sidebar) {
                     return $field->fields;
                 }
 
@@ -352,7 +359,7 @@ abstract class Resource
      * @param  Request $request
      * @return array
      */
-    public function getUpdateRules(Request $request)
+    public function getUpdateRules(Request $request) : array
     {
         $rules = $this->getPreparedFields()
             ->filter(function ($field) {
@@ -406,7 +413,7 @@ abstract class Resource
      *
      * @return array
      */
-    public function withCount()
+    public function withCount() : array
     {
         return $this->withCount;
     }

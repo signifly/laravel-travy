@@ -83,6 +83,20 @@ abstract class Field extends FieldElement implements JsonSerializable
     public $isBatchLabel = false;
 
     /**
+     * Should the field be used as the header image in views.
+     *
+     * @var bool
+     */
+    public $isHeaderImage = false;
+
+    /**
+     * Should the field be used as the header title in views.
+     *
+     * @var bool
+     */
+    public $isHeaderTitle = false;
+
+    /**
      * Indicates if the field should be searchable.
      *
      * @var bool
@@ -176,6 +190,32 @@ abstract class Field extends FieldElement implements JsonSerializable
     public function batchLabel($value = true)
     {
         $this->isBatchLabel = $value;
+
+        return $this;
+    }
+
+    /**
+     * Set the isHeaderImage property.
+     *
+     * @param  bool $value
+     * @return self
+     */
+    public function headerImage($value = true)
+    {
+        $this->headerImage = $value;
+
+        return $this;
+    }
+
+    /**
+     * Set the isHeaderTitle property.
+     *
+     * @param  bool $value
+     * @return self
+     */
+    public function headerTitle($value = true)
+    {
+        $this->isHeaderTitle = $value;
 
         return $this;
     }

@@ -4,7 +4,9 @@ namespace Signifly\Travy\Support;
 
 use Illuminate\Support\Str;
 use Signifly\Travy\Http\Requests\TravyRequest;
+use Signifly\Travy\Schema\DefaultViewDefinition;
 use Signifly\Travy\Schema\DefaultTableDefinition;
+use Signifly\Travy\Exceptions\InvalidDefinitionException;
 
 class DefinitionFactory
 {
@@ -14,6 +16,11 @@ class DefinitionFactory
      * @var \Signifly\Travy\Http\Requests\TravyRequest
      */
     protected $request;
+
+    protected $validTypes = [
+        'table',
+        'view',
+    ];
 
     /**
      * Create a new DefinitionFactory instance.
@@ -41,6 +48,14 @@ class DefinitionFactory
             return new $class($this->request);
         }
 
-        return new DefaultTableDefinition($this->request);
+        if (! in_array(strtolower($type), $this->validTypes)) {
+            throw new InvalidDefinitionException();
+        }
+
+        if ($type == 'Table') {
+            return new DefaultTableDefinition($this->request);
+        }
+
+        return new DefaultViewDefinition($this->request);
     }
 }

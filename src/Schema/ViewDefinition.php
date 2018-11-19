@@ -2,11 +2,15 @@
 
 namespace Signifly\Travy\Schema;
 
+use Signifly\Travy\Fields\Tab;
+use Signifly\Travy\Fields\Sidebar;
 use Signifly\Travy\Schema\Concerns\HasTabs;
+use Signifly\Travy\Schema\Concerns\HasSidebars;
 
 abstract class ViewDefinition extends Definition
 {
     use HasTabs;
+    use HasSidebars;
 
     /**
      * Whether or not activity should be shown.
@@ -14,6 +18,13 @@ abstract class ViewDefinition extends Definition
      * @var bool
      */
     protected $activity;
+
+    /**
+     * The header tag attribute.
+     *
+     * @var string
+     */
+    protected $headerTag = 'id';
 
     /**
      * Build the schema.
@@ -25,7 +36,13 @@ abstract class ViewDefinition extends Definition
         $this->schema();
 
         $schema = [
-            'header' => ['fields' => $this->hasFields() ? $this->preparedFields() : (object) []],
+            'header' => [
+                'props' => [
+                    'title' => $this->headerTitleFromResource(),
+                    'image' => $this->headerImageFromResource(),
+                    'tag' => $this->headerTag,
+                ],
+            ],
             'endpoint' => $this->endpoint ?? $this->guessEndpoint(),
             'tabs' => $this->preparedTabs(),
         ];
@@ -43,7 +60,7 @@ abstract class ViewDefinition extends Definition
         }
 
         if ($this->hasSidebars()) {
-            array_set($schema, 'sidebar.sections', $this->preparedSidebars());
+            array_set($schema, 'sidebar', $this->preparedSidebars());
         }
 
         if ($this->activity) {
@@ -64,6 +81,65 @@ abstract class ViewDefinition extends Definition
             'url' => url("v1/admin/{$this->getResourceKey()}/{id}"),
             'method' => 'get',
         ];
+    }
+
+    /**
+     * Get the header image from the resource.
+     *
+     * @return string
+     */
+    protected function headerImageFromResource()
+    {
+        $fields = $this->request->resource()->getPreparedFields();
+
+        $field = $fields->first(function ($field) {
+            return $field->isHeaderImage;
+        });
+
+        return $field ? $field->attribute : '';
+    }
+
+    /**
+     * Get the header title from the resource.
+     *
+     * @return string
+     */
+    protected function headerTitleFromResource()
+    {
+        $fields = $this->request->resource()->getPreparedFields();
+
+        $field = $fields->first(function ($field) {
+            return $field->isHeaderTitle;
+        });
+
+        return $field ? $field->attribute : '';
+    }
+
+    protected function loadFromResource()
+    {
+        $fields = collect($this->request->resource()->fields());
+
+        // Add tabs from resource
+        $fields->each(function ($field) {
+            if (! $field instanceof Tab) {
+                return;
+            }
+
+            if (! $field->hasEndpoint()) {
+                $field->endpoint(url("v1/admin/{$this->getResourceKey()}/{id}"));
+            }
+
+            $this->addTab($field);
+        });
+
+        // Add sections from resource
+        $fields->each(function ($field) {
+            if (! $field instanceof Sidebar) {
+                return;
+            }
+
+            $this->addSidebar($field);
+        });
     }
 
     /**

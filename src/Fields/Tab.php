@@ -22,6 +22,13 @@ class Tab extends FieldElement implements JsonSerializable
     public $attribute;
 
     /**
+     * The tab's endpoint settings.
+     *
+     * @var array
+     */
+    public $endpoint;
+
+    /**
      * The fields in the tab.
      *
      * @var array
@@ -51,6 +58,30 @@ class Tab extends FieldElement implements JsonSerializable
     }
 
     /**
+     * Set the tab's endpoint.
+     *
+     * @param  string $url
+     * @param  array  $params
+     * @return self
+     */
+    public function endpoint(string $url, array $params = [])
+    {
+        $this->endpoint = compact('url', 'params');
+
+        return $this;
+    }
+
+    /**
+     * Check if the tab has an endpoint.
+     *
+     * @return bool
+     */
+    public function hasEndpoint() : bool
+    {
+        return ! empty($this->endpoint);
+    }
+
+    /**
      * Set the fields in the tab.
      *
      * @param  array  $fields
@@ -72,6 +103,7 @@ class Tab extends FieldElement implements JsonSerializable
     {
         return [
             'id' => $this->attribute,
+            'endpoint' => $this->endpoint,
             'title' => $this->name,
             'fields' => collect($this->fields)->map->jsonSerialize(),
         ];
