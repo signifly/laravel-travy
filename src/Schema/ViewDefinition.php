@@ -5,6 +5,7 @@ namespace Signifly\Travy\Schema;
 use Signifly\Travy\Fields\Tab;
 use Signifly\Travy\Fields\Sidebar;
 use Signifly\Travy\Schema\Concerns\HasTabs;
+use Spatie\Activitylog\Traits\LogsActivity;
 use Signifly\Travy\Schema\Concerns\HasSidebars;
 
 abstract class ViewDefinition extends Definition
@@ -140,6 +141,13 @@ abstract class ViewDefinition extends Definition
 
             $this->addSidebar($field);
         });
+
+        // Check activity
+        $modelTraits = collect(class_uses_recursive($this->request->resource()->getModel()));
+
+        if ($modelTraits->contains(LogsActivity::class)) {
+            $this->showsActivity();
+        }
     }
 
     /**
