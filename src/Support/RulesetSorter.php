@@ -21,13 +21,15 @@ class RulesetSorter
     {
         return collect($this->rules)
             ->map(function ($rules, $attribute) {
-                return collect($rules)->sortBy(function ($rule, $key) {
-                    if ($rule == 'required') {
-                        return -1;
-                    }
+                return collect($rules)
+                    ->sortBy(function ($rule, $key) {
+                        if ($rule == 'required') {
+                            return -1;
+                        }
 
-                    return $key;
-                })->values();
+                        return $key;
+                    })
+                    ->values();
             })
             ->toArray();
     }
