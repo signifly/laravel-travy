@@ -54,7 +54,7 @@ abstract class Resource
      */
     public function getModel() : string
     {
-        return $this->model ?? 'App\\Models\\' . class_basename(get_called_class());
+        return $this->model ?? config('travy.models.namespace') . class_basename(get_called_class());
     }
 
     /**
