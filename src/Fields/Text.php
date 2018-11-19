@@ -29,7 +29,7 @@ class Text extends Field
             $this->withMeta(['text' => $this->attribute]);
         }
 
-        if (in_array($this->component, ['input', 'input-number'])) {
+        if (in_array($this->component, ['input-text', 'input-number'])) {
             $this->withMeta(['value' => $this->attribute]);
         }
     }
