@@ -39,7 +39,7 @@ class DefinitionFactory
         $class = "{$namespace}\\{$type}\\{$resource}{$type}Definition";
 
         if (class_exists($class)) {
-            new $class($this->request);
+            return new $class($this->request);
         }
 
         return new DefaultTableDefinition($this->request);
