@@ -116,6 +116,22 @@ abstract class TableDefinition extends Definition
     }
 
     /**
+     * Get the batch label from the resource.
+     *
+     * @return string
+     */
+    public function batchLabelFromResource()
+    {
+        $fields = $this->request->resource()->getPreparedFields();
+
+        $field = $fields->first(function ($field) {
+            return $field->isBatchLabel;
+        });
+
+        return $field ? $field->attribute : '';
+    }
+
+    /**
      * Get columns from the resource's fields.
      *
      * @return self

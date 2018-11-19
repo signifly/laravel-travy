@@ -76,6 +76,13 @@ abstract class Field extends FieldElement implements JsonSerializable
     public $linksTo;
 
     /**
+     * Should the field be used as the batch label.
+     *
+     * @var bool
+     */
+    public $isBatchLabel = false;
+
+    /**
      * Indicates if the field should be searchable.
      *
      * @var bool
@@ -158,6 +165,19 @@ abstract class Field extends FieldElement implements JsonSerializable
     public static function make(...$arguments)
     {
         return new static(...$arguments);
+    }
+
+    /**
+     * Set the isBatchLabel property.
+     *
+     * @param  bool $value
+     * @return self
+     */
+    public function batchLabel($value = true)
+    {
+        $this->isBatchLabel = $value;
+
+        return $this;
     }
 
     /**
