@@ -5,7 +5,6 @@ namespace Signifly\Travy\Support;
 use Illuminate\Support\Str;
 use Signifly\Travy\Http\Requests\TravyRequest;
 use Signifly\Travy\Schema\DefaultTableDefinition;
-use Signifly\Travy\Exceptions\InvalidDefinitionException;
 
 class DefinitionFactory
 {
