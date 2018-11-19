@@ -106,6 +106,7 @@ abstract class Resource
             'update' => Http\Actions\UpdateAction::class,
             'destroy' => Http\Actions\DestroyAction::class,
             'restore' => Http\Actions\RestoreAction::class,
+            'forceDestroy' => Http\Actions\ForceDestroyAction::class,
         ], $overwrites);
 
         return $this;
