@@ -186,6 +186,13 @@ abstract class TableDefinition extends Definition
         // Only creatable fields
         $creatableFields = $fields->filter(function ($field) {
             return $field->showOnCreation;
+        })->map(function ($field) {
+            // Convert text fields to input text
+            if ($field->component == 'text') {
+                $field->component = 'input-text';
+            }
+
+            return $field;
         });
 
         // Prepare payload
