@@ -60,7 +60,7 @@ class Action
      */
     public function endpoint(string $url, $method = 'post')
     {
-        return $this->withMeta(compact('url', 'method'));
+        return $this->withMeta(['endpoint' => compact('url', 'method')]);
     }
 
     /**
