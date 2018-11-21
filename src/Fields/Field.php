@@ -434,10 +434,6 @@ abstract class Field extends FieldElement implements JsonSerializable
             array_set($data, 'onClick', $this->linksTo);
         }
 
-        if ($this->description) {
-            array_set($data, 'description', $this->description);
-        }
-
         if ($this->tooltip) {
             array_set($data, 'tooltip', $this->tooltip);
         }
@@ -456,10 +452,16 @@ abstract class Field extends FieldElement implements JsonSerializable
             $this->applyOptions();
         }
 
-        return [
+        $data = [
             'name' => $this->attribute,
             'label' => $this->name,
             'fieldType' => $this->fieldType(),
         ];
+
+        if ($this->description) {
+            array_set($data, 'description', $this->description);
+        }
+
+        return $data;
     }
 }
