@@ -1,0 +1,14 @@
+<?php
+
+namespace DummyNamespace;
+
+use Illuminate\Database\Eloquent\Model;
+use Signifly\Travy\Http\Actions\StoreAction;
+
+class DummyClass extends StoreAction
+{
+    public function handle() : Model
+    {
+        return $this->resource->create($this->request->input('data'));
+    }
+}
