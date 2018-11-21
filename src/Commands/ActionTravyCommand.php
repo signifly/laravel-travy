@@ -4,7 +4,7 @@ namespace Signifly\Travy\Commands;
 
 use Illuminate\Console\GeneratorCommand;
 
-class ResourceTravyCommand extends GeneratorCommand
+class ActionTravyCommand extends GeneratorCommand
 {
     /**
      * The console command name.
