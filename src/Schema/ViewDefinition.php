@@ -135,6 +135,13 @@ abstract class ViewDefinition extends Definition
                 ->filter(function ($field) {
                     return $field->showOnUpdate;
                 })
+                ->map(function ($field) {
+                    if ($field->component == 'text') {
+                        $field->asInput();
+                    }
+
+                    return $field;
+                })
                 ->values()
                 ->toArray();
 
