@@ -19,6 +19,18 @@ class Text extends Field
     public $linkable = true;
 
     /**
+     * Use as input.
+     *
+     * @return self
+     */
+    public function asInput()
+    {
+        $this->component = 'input-text';
+
+        return $this;
+    }
+
+    /**
      * The options to apply to the field type.
      *
      * @return void

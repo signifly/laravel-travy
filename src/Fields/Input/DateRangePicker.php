@@ -2,14 +2,14 @@
 
 namespace Signifly\Travy\Fields\Input;
 
-class DateTimeRange extends Field
+class DateRangePicker extends Field
 {
     /**
      * The field's component.
      *
      * @var string
      */
-    public $component = 'input-date-time-range';
+    public $component = 'input-date-range';
 
     /**
      * Indicates if the element should be shown on the index view.

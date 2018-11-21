@@ -192,7 +192,7 @@ abstract class TableDefinition extends Definition
             ->map(function ($field) {
                 // Convert text fields to input text
                 if ($field->component == 'text') {
-                    $field->component = 'input-text';
+                    $field->asInput();
                 }
 
                 return $field;

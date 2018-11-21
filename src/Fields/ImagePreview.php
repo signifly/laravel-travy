@@ -2,7 +2,7 @@
 
 namespace Signifly\Travy\Fields;
 
-class Image extends Field
+class ImagePreview extends Field
 {
     /**
      * The field's component.
