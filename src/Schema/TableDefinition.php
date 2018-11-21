@@ -141,14 +141,16 @@ abstract class TableDefinition extends Definition
         $fields = $this->request->resource()->getPreparedFields();
 
         $columnFields = $fields->filter(function ($field) {
-            return $field->showOnIndex;
-        })->map(function ($field) {
-            if ($field->linkable && ! $field->linksTo) {
-                $field->linksTo = "/t/{$this->request->resourceKey()}/{id}";
-            }
+                return $field->showOnIndex;
+            })
+            ->map(function ($field) {
+                if ($field->linkable && ! $field->linksTo) {
+                    $field->linksTo = "/t/{$this->request->resourceKey()}/{id}";
+                }
 
-            return $field;
-        });
+                return $field;
+            })
+            ->values();
 
         $this->columns($columnFields->toArray());
 
