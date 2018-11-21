@@ -107,6 +107,7 @@ abstract class Definition implements DefinitionContract
 
         // Prepare fields
         $this->modifiers = $fields->map(function ($field) {
+                $field->linkable(false);
                 return $field->jsonSerialize();
             })
             ->toArray();
