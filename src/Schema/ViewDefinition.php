@@ -122,13 +122,21 @@ abstract class ViewDefinition extends Definition
 
         // Add tabs from resource
         $fields->each(function ($field) {
-            if (! $field instanceof Tab) {
+            if (! $field instanceof Tab || ! $field->showOnUpdate) {
                 return;
             }
 
             if (! $field->hasEndpoint()) {
                 $field->endpoint(url("v1/admin/{$this->getResourceKey()}/{id}"));
             }
+
+            // Filter fields
+            $field->fields = collect($field->fields)
+                ->filter(function ($field) {
+                    return $field->showOnUpdate;
+                })
+                ->values()
+                ->toArray();
 
             $this->addTab($field);
         });
