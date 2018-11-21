@@ -27,6 +27,6 @@ class Editor extends Field
      */
     public function applyOptions()
     {
-        $this->withMeta(['content' => $this->attribute]);
+        $this->withProps(['content' => $this->attribute]);
     }
 }

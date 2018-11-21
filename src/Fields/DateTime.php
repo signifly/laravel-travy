@@ -18,6 +18,6 @@ class DateTime extends Field
      */
     public function applyOptions()
     {
-        $this->withMeta(['epoch' => $this->attribute]);
+        $this->withProps(['epoch' => $this->attribute]);
     }
 }

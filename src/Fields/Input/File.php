@@ -22,17 +22,17 @@ class File extends Field
 
     public function fileTypes(string $key)
     {
-        return $this->withMeta(['fileTypes' => $key]);
+        return $this->withProps(['fileTypes' => $key]);
     }
 
     public function note(string $key)
     {
-        return $this->withMeta(['note' => $key]);
+        return $this->withProps(['note' => $key]);
     }
 
     public function url(string $key)
     {
-        return $this->withMeta(['url' => $key]);
+        return $this->withProps(['url' => $key]);
     }
 
     /**
@@ -42,6 +42,6 @@ class File extends Field
      */
     public function applyOptions()
     {
-        $this->withMeta(['file' => $this->attribute]);
+        $this->withProps(['file' => $this->attribute]);
     }
 }

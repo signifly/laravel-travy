@@ -5,64 +5,32 @@ namespace Signifly\Travy\Schema\Concerns;
 trait HasProps
 {
     /**
-     * The properties.
+     * The props for the element.
      *
      * @var array
      */
-    protected $props = [];
+    public $props = [];
 
     /**
-     * Add a new prop.
-     *
-     * @param string $key
-     * @param mixed $value
-     */
-    public function addProp(string $key, $value)
-    {
-        $this->props[$key] = $value;
-
-        return $this;
-    }
-
-    /**
-     * Get a prop for a given key.
-     *
-     * @param  string $key
-     * @return mixed
-     */
-    public function getProp(string $key)
-    {
-        return $this->props[$key];
-    }
-
-    /**
-     * Get the props.
+     * Get the props for the element.
      *
      * @return array
      */
-    public function getProps()
+    public function props()
     {
         return $this->props;
     }
 
     /**
-     * Determine if a prop with the given key exists.
+     * Set additional props for the element.
      *
-     * @param  string  $key
-     * @return bool
+     * @param  array  $props
+     * @return $this
      */
-    public function hasProp(string $key)
+    public function withProps(array $props)
     {
-        return array_key_exists($key, $this->props);
-    }
+        $this->props = array_merge($this->props, $props);
 
-    /**
-     * Determines if there are any props.
-     *
-     * @return bool
-     */
-    public function hasProps()
-    {
-        return count($this->props) > 0;
+        return $this;
     }
 }

@@ -36,7 +36,7 @@ class SelectMultiSearch extends Field
             'value' => 'id',
         ], $options);
 
-        return $this->withMeta(['options' => $options]);
+        return $this->withProps(['options' => $options]);
     }
 
     /**
@@ -46,6 +46,6 @@ class SelectMultiSearch extends Field
      */
     public function applyOptions()
     {
-        $this->withMeta(['values' => $this->attribute]);
+        $this->withProps(['values' => $this->attribute]);
     }
 }

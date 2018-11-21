@@ -20,6 +20,6 @@ class Checkbox extends Field
      */
     public function applyOptions()
     {
-        $this->withMeta(['value' => $this->attribute]);
+        $this->withProps(['value' => $this->attribute]);
     }
 }

@@ -30,7 +30,7 @@ class SelectSearch extends Field
             'value' => 'id',
         ], $options);
 
-        return $this->withMeta(['options' => $options]);
+        return $this->withProps(['options' => $options]);
     }
 
     /**
@@ -40,6 +40,6 @@ class SelectSearch extends Field
      */
     public function applyOptions()
     {
-        $this->withMeta(['value' => $this->attribute]);
+        $this->withProps(['value' => $this->attribute]);
     }
 }

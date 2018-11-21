@@ -38,11 +38,11 @@ class Text extends Field
     public function applyOptions()
     {
         if ($this->component == 'text') {
-            $this->withMeta(['text' => $this->attribute]);
+            $this->withProps(['text' => $this->attribute]);
         }
 
         if (in_array($this->component, ['input-text', 'input-number'])) {
-            $this->withMeta(['value' => $this->attribute]);
+            $this->withProps(['value' => $this->attribute]);
         }
     }
 }

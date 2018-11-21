@@ -13,7 +13,7 @@ class Status extends Field
 
     public function color(string $key)
     {
-        return $this->withMeta(['status' => $key]);
+        return $this->withProps(['status' => $key]);
     }
 
     /**
@@ -23,6 +23,6 @@ class Status extends Field
      */
     public function applyOptions()
     {
-        $this->withMeta(['text' => $this->attribute]);
+        $this->withProps(['text' => $this->attribute]);
     }
 }

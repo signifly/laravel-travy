@@ -2,10 +2,12 @@
 
 namespace Signifly\Travy\Schema;
 
+use Signifly\Travy\Schema\Concerns\HasProps;
 use Signifly\Travy\Schema\Concerns\HasMetaData;
 
 class Action
 {
+    use HasProps;
     use HasMetaData;
 
     /**
@@ -21,13 +23,6 @@ class Action
      * @var string
      */
     public $status;
-
-    /**
-     * The action's icon.
-     *
-     * @var string
-     */
-    public $icon;
 
     /**
      * Create a new action.
@@ -60,7 +55,7 @@ class Action
      */
     public function endpoint(string $url, $method = 'post')
     {
-        return $this->withMeta(['endpoint' => compact('url', 'method')]);
+        return $this->withProps(['endpoint' => compact('url', 'method')]);
     }
 
     /**
@@ -71,13 +66,14 @@ class Action
      */
     public function fields(array $fields)
     {
-        $fields = collect($fields)->map(function ($field) {
-            $field->linkable(false);
-            return $field->jsonSerialize();
-        })
-        ->toArray();
+        $fields = collect($fields)
+            ->map(function ($field) {
+                $field->linkable(false);
+                return $field->jsonSerialize();
+            })
+            ->toArray();
 
-        return $this->withMeta(compact('fields'));
+        return $this->withProps(compact('fields'));
     }
 
     /**
@@ -88,9 +84,7 @@ class Action
      */
     public function icon(string $icon)
     {
-        $this->icon = $icon;
-
-        return $this;
+        return $this->withMeta(compact('icon'));
     }
 
     /**
@@ -101,7 +95,7 @@ class Action
      */
     public function onSubmit(string $linksTo)
     {
-        return $this->withMeta(['onSubmit' => $linksTo]);
+        return $this->withProps(['onSubmit' => $linksTo]);
     }
 
     /**
@@ -112,7 +106,7 @@ class Action
      */
     public function payload(array $payload)
     {
-        return $this->withMeta(compact('payload'));
+        return $this->withProps(compact('payload'));
     }
 
     /**
@@ -123,7 +117,7 @@ class Action
      */
     public function text(string $text)
     {
-        return $this->withMeta(compact('text'));
+        return $this->withProps(compact('text'));
     }
 
     /**
@@ -136,7 +130,7 @@ class Action
     {
         $this->title = $title;
 
-        return $this->withMeta(compact('title'));
+        return $this->withProps(compact('title'));
     }
 
     /**
@@ -147,7 +141,7 @@ class Action
      */
     public function type(string $id)
     {
-        return $this->withMeta(compact('id'));
+        return $this->withProps(compact('id'));
     }
 
     /**
@@ -157,19 +151,13 @@ class Action
      */
     public function jsonSerialize()
     {
-        $data = [
-            'title' => $this->title,
-            'props' => $this->meta(),
-        ];
-
         if ($this->status) {
-            array_set($data, 'status', $this->status);
+            $this->withMeta(['status' => $this->status]);
         }
 
-        if ($this->icon) {
-            array_set($data, 'icon', $this->icon);
-        }
-
-        return $data;
+        return array_merge([
+            'title' => $this->title,
+            'props' => $this->props(),
+        ], $this->meta());
     }
 }

@@ -23,7 +23,7 @@ class SelectMultiSearchTable extends SelectMultiSearch
      */
     public function data(array $data)
     {
-        return $this->withMeta(['columnsDataOverwrite' => $data]);
+        return $this->withProps(['columnsDataOverwrite' => $data]);
     }
 
     /**
@@ -33,7 +33,7 @@ class SelectMultiSearchTable extends SelectMultiSearch
      */
     public function applyOptions()
     {
-        $this->withMeta([
+        $this->withProps([
             'values' => $this->attribute,
             'columns' => $this->preparedColumns(),
         ]);

@@ -15,12 +15,12 @@ class ImagePicker extends Field
 
     public function options(array $options)
     {
-        return $this->withMeta(['options' => $options]);
+        return $this->withProps(['options' => $options]);
     }
 
     public function url(string $key)
     {
-        return $this->withMeta(['url' => $key]);
+        return $this->withProps(['url' => $key]);
     }
 
     /**
@@ -30,6 +30,6 @@ class ImagePicker extends Field
      */
     public function applyOptions()
     {
-        $this->withMeta(['id' => $this->attribute]);
+        $this->withProps(['id' => $this->attribute]);
     }
 }

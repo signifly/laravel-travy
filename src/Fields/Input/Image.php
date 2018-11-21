@@ -22,7 +22,7 @@ class Image extends Field
 
     public function url(string $key)
     {
-        return $this->withMeta(['url' => $key]);
+        return $this->withProps(['url' => $key]);
     }
 
     /**
@@ -32,6 +32,6 @@ class Image extends Field
      */
     public function applyOptions()
     {
-        $this->withMeta(['file' => $this->attribute]);
+        $this->withProps(['file' => $this->attribute]);
     }
 }

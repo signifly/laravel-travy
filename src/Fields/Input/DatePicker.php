@@ -22,12 +22,12 @@ class DatePicker extends Field
 
     public function format(string $value)
     {
-        return $this->withMeta(['format' => $value]);
+        return $this->withProps(['format' => $value]);
     }
 
     public function formatValue(string $value)
     {
-        return $this->withMeta(['formatValue' => $value]);
+        return $this->withProps(['formatValue' => $value]);
     }
 
     /**
@@ -37,6 +37,6 @@ class DatePicker extends Field
      */
     public function applyOptions()
     {
-        $this->withMeta(['date' => $this->attribute]);
+        $this->withProps(['date' => $this->attribute]);
     }
 }

@@ -32,16 +32,16 @@ class ItemsTooltip extends Field
      */
     public function applyOptions()
     {
-        $this->withMeta(['items' => $this->attribute]);
+        $this->withProps(['items' => $this->attribute]);
     }
 
     public function itemKey(string $key)
     {
-        return $this->withMeta(['itemKey' => $key]);
+        return $this->withProps(['itemKey' => $key]);
     }
 
     public function itemLink(string $link)
     {
-        return $this->withMeta(['itemLink' => $link]);
+        return $this->withProps(['itemLink' => $link]);
     }
 }

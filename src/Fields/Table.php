@@ -23,7 +23,7 @@ class Table extends Field
      */
     public function data(array $data)
     {
-        return $this->withMeta(['columnsData' => $data]);
+        return $this->withProps(['columnsData' => $data]);
     }
 
     /**
@@ -33,7 +33,7 @@ class Table extends Field
      */
     public function applyOptions()
     {
-        $this->withMeta([
+        $this->withProps([
             'columns' => $this->preparedColumns(),
         ]);
     }

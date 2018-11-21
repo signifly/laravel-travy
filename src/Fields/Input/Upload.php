@@ -29,12 +29,12 @@ class Upload extends Field
 
     public function fileTypes(string $value)
     {
-        return $this->withMeta(['fileTypes' => $value]);
+        return $this->withProps(['fileTypes' => $value]);
     }
 
     public function note(string $value)
     {
-        return $this->withMeta(['note' => $value]);
+        return $this->withProps(['note' => $value]);
     }
 
     /**
@@ -44,6 +44,6 @@ class Upload extends Field
      */
     public function applyOptions()
     {
-        $this->withMeta(['files' => $this->attribute]);
+        $this->withProps(['files' => $this->attribute]);
     }
 }

@@ -22,7 +22,7 @@ class DateTimeRangePicker extends Field
 
     public function end(string $key)
     {
-        return $this->withMeta(['dateEnd' => $key]);
+        return $this->withProps(['dateEnd' => $key]);
     }
 
     /**
@@ -32,6 +32,6 @@ class DateTimeRangePicker extends Field
      */
     public function applyOptions()
     {
-        $this->withMeta(['dateStart' => $this->attribute]);
+        $this->withProps(['dateStart' => $this->attribute]);
     }
 }

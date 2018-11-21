@@ -18,6 +18,6 @@ class ImagePreview extends Field
      */
     public function applyOptions()
     {
-        $this->withMeta(['image' => $this->attribute]);
+        $this->withProps(['image' => $this->attribute]);
     }
 }

@@ -13,17 +13,17 @@ class StatusSet extends Field
 
     public function title(string $key)
     {
-        return $this->withMeta(['title' => $key]);
+        return $this->withProps(['title' => $key]);
     }
 
     public function text(string $key)
     {
-        return $this->withMeta(['text' => $key]);
+        return $this->withProps(['text' => $key]);
     }
 
     public function color(string $key)
     {
-        return $this->withMeta(['status' => $key]);
+        return $this->withProps(['status' => $key]);
     }
 
     /**
@@ -33,6 +33,6 @@ class StatusSet extends Field
      */
     public function applyOptions()
     {
-        $this->withMeta(['items' => $this->attribute]);
+        $this->withProps(['items' => $this->attribute]);
     }
 }

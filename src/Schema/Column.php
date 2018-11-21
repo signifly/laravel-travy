@@ -65,19 +65,10 @@ class Column
             $this->field->applyOptions();
         }
 
-        $data = [
+        return array_merge([
             'order' => $this->order,
-            'name' => $this->field->attribute,
-            'label' => $this->field->name,
-            'fieldType' => $this->field->fieldType(),
             'sortable' => $this->field->sortable,
             'sortBy' => $this->field->sortBy ?? null,
-        ];
-
-        if ($this->field->columnWidth) {
-            array_set($data, 'width', $this->field->columnWidth);
-        }
-
-        return $data;
+        ], $this->field->jsonSerialize());
     }
 }

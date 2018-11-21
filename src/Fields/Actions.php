@@ -22,6 +22,6 @@ class Actions extends Field
      */
     public function applyOptions()
     {
-        $this->withMeta(['actions' => $this->preparedActions()]);
+        $this->withProps(['actions' => $this->preparedActions()]);
     }
 }

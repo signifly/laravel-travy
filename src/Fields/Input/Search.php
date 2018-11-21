@@ -15,7 +15,7 @@ class Search extends Field
 
     public function options(array $options)
     {
-        return $this->withMeta(['options' => $options]);
+        return $this->withProps(['options' => $options]);
     }
 
     /**
@@ -25,6 +25,6 @@ class Search extends Field
      */
     public function applyOptions()
     {
-        $this->withMeta(['value' => $this->attribute]);
+        $this->withProps(['value' => $this->attribute]);
     }
 }
