@@ -2,6 +2,8 @@
 
 namespace Signifly\Travy\Fields\Input;
 
+use Signifly\Travy\Fields\Field;
+
 class Toggle extends Field
 {
     /**
