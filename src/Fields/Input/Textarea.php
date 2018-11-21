@@ -1,6 +1,6 @@
 <?php
 
-namespace Signifly\Travy\Fields;
+namespace Signifly\Travy\Fields\Input;
 
 class Textarea extends Field
 {
@@ -9,7 +9,7 @@ class Textarea extends Field
      *
      * @var string
      */
-    public $component = 'textarea';
+    public $component = 'input-textarea';
 
     /**
      * Indicates if the element should be shown on the index view.

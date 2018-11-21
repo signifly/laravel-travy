@@ -1,15 +1,15 @@
 <?php
 
-namespace Signifly\Travy\Fields;
+namespace Signifly\Travy\Fields\Input;
 
-class InputImage extends Field
+class DateRange extends Field
 {
     /**
      * The field's component.
      *
      * @var string
      */
-    public $component = 'input-image';
+    public $component = 'input-date-range';
 
     /**
      * Indicates if the element should be shown on the index view.
@@ -18,9 +18,9 @@ class InputImage extends Field
      */
     public $showOnIndex = false;
 
-    public function url(string $key)
+    public function end(string $key)
     {
-        return $this->withMeta(['url' => $key]);
+        return $this->withMeta(['dateEnd' => $key]);
     }
 
     /**
@@ -30,6 +30,6 @@ class InputImage extends Field
      */
     public function applyOptions()
     {
-        $this->withMeta(['file' => $this->attribute]);
+        $this->withMeta(['dateStart' => $this->attribute]);
     }
 }

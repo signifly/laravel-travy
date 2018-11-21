@@ -1,22 +1,15 @@
 <?php
 
-namespace Signifly\Travy\Fields;
+namespace Signifly\Travy\Fields\Input;
 
-class InputNumber extends Field
+class Text extends Field
 {
     /**
      * The field's component.
      *
      * @var string
      */
-    public $component = 'input-number';
-
-    /**
-     * The default value for the field.
-     *
-     * @var mixed
-     */
-    public $defaultValue = 0;
+    public $component = 'input-text';
 
     /**
      * The options to apply to the field type.

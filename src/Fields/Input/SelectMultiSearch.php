@@ -1,15 +1,22 @@
 <?php
 
-namespace Signifly\Travy\Fields;
+namespace Signifly\Travy\Fields\Input;
 
-class SelectSearch extends Field
+class SelectMultiSearch extends Field
 {
     /**
      * The field's component.
      *
      * @var string
      */
-    public $component = 'select-search';
+    public $component = 'input-select-multi-search';
+
+    /**
+     * The default value for the field.
+     *
+     * @var mixed
+     */
+    public $defaultValue = [];
 
     /**
      * Indicates if the element should be shown on the index view.
@@ -21,9 +28,8 @@ class SelectSearch extends Field
     public function options(array $options = [])
     {
         $options = array_merge([
-            'endpoint' => null,
+            'list' => null,
             'key' => 'data',
-            'itemKey' => 'data',
             'label' => null,
             'value' => 'id',
         ], $options);
@@ -38,6 +44,6 @@ class SelectSearch extends Field
      */
     public function applyOptions()
     {
-        $this->withMeta(['value' => $this->attribute]);
+        $this->withMeta(['values' => $this->attribute]);
     }
 }

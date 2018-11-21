@@ -1,22 +1,20 @@
 <?php
 
-namespace Signifly\Travy\Fields;
+namespace Signifly\Travy\Fields\Input;
 
-class Toggle extends Field
+class Search extends Field
 {
     /**
      * The field's component.
      *
      * @var string
      */
-    public $component = 'switch';
+    public $component = 'input-search';
 
-    /**
-     * The default value for the field.
-     *
-     * @var mixed
-     */
-    public $defaultValue = false;
+    public function options(array $options)
+    {
+        return $this->withMeta(['options' => $options]);
+    }
 
     /**
      * The options to apply to the field type.

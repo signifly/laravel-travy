@@ -1,15 +1,15 @@
 <?php
 
-namespace Signifly\Travy\Fields;
+namespace Signifly\Travy\Fields\Input;
 
-class InputEditor extends Field
+class Image extends Field
 {
     /**
      * The field's component.
      *
      * @var string
      */
-    public $component = 'input-editor-markdown';
+    public $component = 'input-image';
 
     /**
      * Indicates if the element should be shown on the index view.
@@ -18,6 +18,11 @@ class InputEditor extends Field
      */
     public $showOnIndex = false;
 
+    public function url(string $key)
+    {
+        return $this->withMeta(['url' => $key]);
+    }
+
     /**
      * The options to apply to the field type.
      *
@@ -25,6 +30,6 @@ class InputEditor extends Field
      */
     public function applyOptions()
     {
-        $this->withMeta(['content' => $this->attribute]);
+        $this->withMeta(['file' => $this->attribute]);
     }
 }

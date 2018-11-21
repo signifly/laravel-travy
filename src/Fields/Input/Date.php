@@ -1,15 +1,15 @@
 <?php
 
-namespace Signifly\Travy\Fields;
+namespace Signifly\Travy\Fields\Input;
 
-class InputDateTimeRange extends Field
+class Date extends Field
 {
     /**
      * The field's component.
      *
      * @var string
      */
-    public $component = 'input-date-time-range';
+    public $component = 'input-date';
 
     /**
      * Indicates if the element should be shown on the index view.
@@ -18,9 +18,14 @@ class InputDateTimeRange extends Field
      */
     public $showOnIndex = false;
 
-    public function end(string $key)
+    public function format(string $value)
     {
-        return $this->withMeta(['dateEnd' => $key]);
+        return $this->withMeta(['format' => $value]);
+    }
+
+    public function formatValue(string $value)
+    {
+        return $this->withMeta(['formatValue' => $value]);
     }
 
     /**
@@ -30,6 +35,6 @@ class InputDateTimeRange extends Field
      */
     public function applyOptions()
     {
-        $this->withMeta(['dateStart' => $this->attribute]);
+        $this->withMeta(['date' => $this->attribute]);
     }
 }

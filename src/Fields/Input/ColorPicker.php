@@ -1,20 +1,15 @@
 <?php
 
-namespace Signifly\Travy\Fields;
+namespace Signifly\Travy\Fields\Input;
 
-class InputSearch extends Field
+class ColorPicker extends Field
 {
     /**
      * The field's component.
      *
      * @var string
      */
-    public $component = 'input-search';
-
-    public function options(array $options)
-    {
-        return $this->withMeta(['options' => $options]);
-    }
+    public $component = 'input-color-picker';
 
     /**
      * The options to apply to the field type.

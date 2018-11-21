@@ -1,6 +1,6 @@
 <?php
 
-namespace Signifly\Travy\Fields;
+namespace Signifly\Travy\Fields\Input;
 
 class Upload extends Field
 {
@@ -9,7 +9,7 @@ class Upload extends Field
      *
      * @var string
      */
-    public $component = 'upload';
+    public $component = 'input-upload';
 
     /**
      * The default value for the field.

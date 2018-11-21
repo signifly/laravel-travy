@@ -1,8 +1,8 @@
 <?php
 
-namespace Signifly\Travy\Fields;
+namespace Signifly\Travy\Fields\Input;
 
-class InputFile extends Field
+class File extends Field
 {
     /**
      * The field's component.

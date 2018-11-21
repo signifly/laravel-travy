@@ -1,6 +1,6 @@
 <?php
 
-namespace Signifly\Travy\Fields;
+namespace Signifly\Travy\Fields\Input;
 
 class SelectMultiSearchAdd extends SelectMultiSearch
 {
@@ -9,5 +9,5 @@ class SelectMultiSearchAdd extends SelectMultiSearch
      *
      * @var string
      */
-    public $component = 'select-multi-search-add';
+    public $component = 'input-select-multi-search-add';
 }

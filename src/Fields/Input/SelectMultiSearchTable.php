@@ -1,6 +1,6 @@
 <?php
 
-namespace Signifly\Travy\Fields;
+namespace Signifly\Travy\Fields\Input;
 
 use Signifly\Travy\Schema\Concerns\HasColumns;
 
@@ -13,7 +13,7 @@ class SelectMultiSearchTable extends SelectMultiSearch
      *
      * @var string
      */
-    public $component = 'select-multi-search-table';
+    public $component = 'input-select-multi-search-table';
 
     /**
      * Set the columnsDataOverwrite prop.

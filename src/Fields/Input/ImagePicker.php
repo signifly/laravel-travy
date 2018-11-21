@@ -1,8 +1,8 @@
 <?php
 
-namespace Signifly\Travy\Fields;
+namespace Signifly\Travy\Fields\Input;
 
-class InputImagePicker extends Field
+class ImagePicker extends Field
 {
     /**
      * The field's component.

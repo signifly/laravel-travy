@@ -1,15 +1,22 @@
 <?php
 
-namespace Signifly\Travy\Fields;
+namespace Signifly\Travy\Fields\Input;
 
-class ColorPicker extends Field
+class Toggle extends Field
 {
     /**
      * The field's component.
      *
      * @var string
      */
-    public $component = 'color-picker';
+    public $component = 'input-switch';
+
+    /**
+     * The default value for the field.
+     *
+     * @var mixed
+     */
+    public $defaultValue = false;
 
     /**
      * The options to apply to the field type.

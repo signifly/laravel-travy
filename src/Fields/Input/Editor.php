@@ -1,15 +1,15 @@
 <?php
 
-namespace Signifly\Travy\Fields;
+namespace Signifly\Travy\Fields\Input;
 
-class InputDateRange extends Field
+class Editor extends Field
 {
     /**
      * The field's component.
      *
      * @var string
      */
-    public $component = 'input-date-range';
+    public $component = 'input-editor-markdown';
 
     /**
      * Indicates if the element should be shown on the index view.
@@ -18,11 +18,6 @@ class InputDateRange extends Field
      */
     public $showOnIndex = false;
 
-    public function end(string $key)
-    {
-        return $this->withMeta(['dateEnd' => $key]);
-    }
-
     /**
      * The options to apply to the field type.
      *
@@ -30,6 +25,6 @@ class InputDateRange extends Field
      */
     public function applyOptions()
     {
-        $this->withMeta(['dateStart' => $this->attribute]);
+        $this->withMeta(['content' => $this->attribute]);
     }
 }
