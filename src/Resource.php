@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use Signifly\Travy\Fields\Tab;
 use Spatie\QueryBuilder\Filter;
 use Illuminate\Support\Collection;
-use Signifly\Travy\Fields\Sidebar;
 use Signifly\Travy\Support\RulesetSorter;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Signifly\Travy\Http\Filters\SearchFilter;
@@ -324,7 +323,7 @@ abstract class Resource
     {
         return collect($this->fields())
             ->map(function ($field) {
-                if ($field instanceof Tab || $field instanceof Sidebar) {
+                if ($field instanceof Tab) {
                     return $field->fields;
                 }
 
