@@ -28,12 +28,20 @@ class DefaultTableDefinition extends TableDefinition
                 ->actions([
                     Action::make('View')
                         ->type('show')
-                        ->endpoint("/t/{$this->getResourceKey()}/{id}", 'get'),
+                        ->endpoint("/t/{$this->getResourceKey()}/{id}", 'get')
+                        ->hide('is_deleted', true),
 
                     Action::make('Delete')
                         ->type('popup')
                         ->endpoint(url("v1/admin/{$this->getResourceKey()}/{id}"), 'delete')
                         ->text('Are you sure? Please confirm this action.')
+                        ->hide('is_deleted', true),
+
+                    Action::make('Restore')
+                        ->type('popup')
+                        ->endpoint(url("v1/admin/{$this->getResourceKey()}/{id}/restore"), 'post')
+                        ->text('Are you sure? Please confirm this action.')
+                        ->hide('is_deleted', false),
                 ])
                 ->width(120)
         );
