@@ -163,6 +163,9 @@ abstract class ViewDefinition extends Definition
         if ($modelTraits->contains(LogsActivity::class)) {
             $this->showsActivity();
         }
+
+        // Load modifiers
+        $this->loadModifiersFromResource();
     }
 
     /**
