@@ -16,9 +16,9 @@ class ProgressSet extends Field
         return $this->withProps(['status' => $key]);
     }
 
-    public function items(string $items)
+    public function percentage(string $percentage)
     {
-        return $this->withProps(compact('items'));
+        return $this->withProps(compact('percentage'));
     }
 
     public function title(string $title)
@@ -33,6 +33,6 @@ class ProgressSet extends Field
      */
     public function applyOptions()
     {
-        $this->withProps(['percentage' => $this->attribute]);
+        $this->withProps(['items' => $this->attribute]);
     }
 }

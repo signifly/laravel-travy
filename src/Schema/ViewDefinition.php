@@ -165,7 +165,7 @@ abstract class ViewDefinition extends Definition
         }
 
         // Load modifiers
-        $this->loadModifiersFromResource();
+        $this->modifiersFromResource();
     }
 
     /**
