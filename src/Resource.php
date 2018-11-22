@@ -323,8 +323,8 @@ abstract class Resource
     public function getPreparedFields() : Collection
     {
         return collect($this->fields())
-            ->filter(function ($field) {
-                return ! $field instanceof Sidebar;
+            ->reject(function ($field) {
+                return $field instanceof Sidebar;
             })
             ->map(function ($field) {
                 if ($field instanceof Tab) {
