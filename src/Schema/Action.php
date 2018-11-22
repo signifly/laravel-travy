@@ -77,6 +77,19 @@ class Action
     }
 
     /**
+     * Hide action on given constraint.
+     *
+     * @param  string $key
+     * @param  mixed $value
+     * @param  string $operator
+     * @return self
+     */
+    public function hide(string $key, $value, string $operator = 'eq')
+    {
+        return $this->withMeta(['hide' => compact('key', 'operator', 'value')]);
+    }
+
+    /**
      * Set the action's icon.
      *
      * @param  string $icon
