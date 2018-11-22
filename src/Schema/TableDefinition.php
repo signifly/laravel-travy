@@ -5,6 +5,8 @@ namespace Signifly\Travy\Schema;
 use Closure;
 use Illuminate\Support\Str;
 use Signifly\Travy\Schema\Column;
+use Signifly\Travy\Fields\Input\Toggle;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Signifly\Travy\Schema\Concerns\HasColumns;
 
 abstract class TableDefinition extends Definition
@@ -221,6 +223,12 @@ abstract class TableDefinition extends Definition
     public function filtersFromResource()
     {
         $fields = collect($this->request->resource()->filters());
+
+        $modelTraits = collect(class_uses_recursive($this->request->resource()->getModel()));
+
+        if ($modelTraits->contains(SoftDeletes::class)) {
+            $fields->push(Toggle::make('Show only deleted', 'trashed'));
+        }
 
         if ($fields->isEmpty()) {
             return;
