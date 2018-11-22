@@ -18,10 +18,10 @@ class Table extends Field
     /**
      * Set the columnsData prop.
      *
-     * @param  array  $data
+     * @param  string  $data
      * @return self
      */
-    public function data(array $data)
+    public function data(string $data)
     {
         return $this->withProps(['columnsData' => $data]);
     }
