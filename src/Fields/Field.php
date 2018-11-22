@@ -355,6 +355,19 @@ abstract class Field extends FieldElement implements JsonSerializable
     }
 
     /**
+     * Set the default value of the field.
+     *
+     * @param  mixed $value
+     * @return self
+     */
+    public function defaultValue($value)
+    {
+        $this->defaultValue = $value;
+
+        return $this;
+    }
+
+    /**
      * Specify the field description.
      *
      * @param  string $text

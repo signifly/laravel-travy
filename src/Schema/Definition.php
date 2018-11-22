@@ -105,12 +105,20 @@ abstract class Definition implements DefinitionContract
             return;
         }
 
+        // Prepare data
+        $data = $fields->mapWithKeys(function ($field) {
+                return [$field->attribute => $field->defaultValue ?? ''];
+            })
+            ->toArray();
+
         // Prepare fields
-        $this->modifiers = $fields->map(function ($field) {
+        $fields = $fields->map(function ($field) {
                 $field->linkable(false);
                 return $field->jsonSerialize();
             })
             ->toArray();
+
+        $this->modifiers = compact('data', 'fields');
 
         return $this;
     }
