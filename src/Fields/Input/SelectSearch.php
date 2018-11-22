@@ -25,10 +25,9 @@ class SelectSearch extends Field
         $options = array_merge([
             'endpoint' => null,
             'key' => 'data',
-            'value' => 'id',
-            'label' => null,
             'itemKey' => 'data',
-            'itemValue' => 'id',
+            'label' => null,
+            'value' => 'id',
         ], $options);
 
         return $this->withProps(['options' => $options]);
