@@ -84,10 +84,6 @@ abstract class TableDefinition extends Definition
             array_set($schema, 'filters', $this->filters);
         }
 
-        if ($this->hasIncludes()) {
-            array_set($schema, 'includes', $this->includes);
-        }
-
         if ($this->hasModifiers()) {
             array_set($schema, 'modifiers', $this->modifiers);
         }
@@ -286,10 +282,16 @@ abstract class TableDefinition extends Definition
      */
     protected function guessEndpoint()
     {
-        return [
+        $data = [
             'url' => url("v1/admin/{$this->getResourceKey()}"),
             'method' => 'get',
         ];
+
+        if ($this->hasIncludes()) {
+            array_set($data, 'params.include', $this->includes);
+        }
+
+        return $data;
     }
 
     /**

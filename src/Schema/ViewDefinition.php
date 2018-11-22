@@ -52,10 +52,6 @@ abstract class ViewDefinition extends Definition
             array_set($schema, 'actions', $this->preparedActions());
         }
 
-        if ($this->hasIncludes()) {
-            array_set($schema, 'includes', $this->includes);
-        }
-
         if ($this->hasModifiers()) {
             array_set($schema, 'modifiers', $this->modifiers);
         }
