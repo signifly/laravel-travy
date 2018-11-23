@@ -93,7 +93,7 @@ abstract class ViewDefinition extends Definition
             return $field->isHeaderImage;
         });
 
-        return $field ? $field->attribute : '';
+        return $field ? $field->attribute : null;
     }
 
     /**
