@@ -161,6 +161,6 @@ class TravyRequest extends FormRequest
      */
     protected function validationData()
     {
-        return $this->input('data', []);
+        return data_get($this->all(), 'data', []);
     }
 }
