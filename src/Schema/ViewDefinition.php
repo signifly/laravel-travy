@@ -6,6 +6,7 @@ use Signifly\Travy\Fields\Tab;
 use Signifly\Travy\Fields\Sidebar;
 use Signifly\Travy\Schema\Concerns\HasTabs;
 use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Activitylog\Traits\CausesActivity;
 use Signifly\Travy\Schema\Concerns\HasSidebars;
 
 abstract class ViewDefinition extends Definition
