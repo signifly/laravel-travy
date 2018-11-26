@@ -290,16 +290,13 @@ abstract class TableDefinition extends Definition
      */
     protected function guessEndpoint()
     {
-        $data = [
-            'url' => url("v1/admin/{$this->getResourceKey()}"),
-            'method' => 'get',
-        ];
+        $params = [];
 
         if ($this->hasIncludes()) {
-            array_set($data, 'params.include', $this->includes);
+            array_set($params, 'include', $this->includes);
         }
 
-        return $data;
+        return $this->endpoint(url("v1/admin/{$this->getResourceKey()}"), $params);
     }
 
     /**

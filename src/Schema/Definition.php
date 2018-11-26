@@ -63,12 +63,11 @@ abstract class Definition implements DefinitionContract
      *
      * @param  string $url
      * @param  array  $params
-     * @param  string $method
      * @return self
      */
-    public function endpoint($url, array $params = [], $method = 'get')
+    public function endpoint($url, array $params = [])
     {
-        $this->endpoint = compact('url', 'method', 'params');
+        $this->endpoint = compact('url', 'params');
 
         return $this;
     }

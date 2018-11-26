@@ -75,10 +75,7 @@ abstract class ViewDefinition extends Definition
      */
     protected function guessEndpoint()
     {
-        return [
-            'url' => url("v1/admin/{$this->getResourceKey()}/{id}"),
-            'method' => 'get',
-        ];
+        return $this->endpoint(url("v1/admin/{$this->getResourceKey()}/{id}"));
     }
 
     /**
