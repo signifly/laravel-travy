@@ -16,7 +16,7 @@ class ModelResponse extends Response
         $this->model = $model;
     }
 
-    public function toResponse()
+    public function toResponse($request)
     {
         // Model has recently been deleted, so we want to
         // respond accordingly.

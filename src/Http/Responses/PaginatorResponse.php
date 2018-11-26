@@ -18,7 +18,7 @@ class PaginatorResponse extends Response
         $this->model = $model;
     }
 
-    public function toResponse()
+    public function toResponse($request)
     {
         $resourceClass = $this->getHttpResourceFor($this->model);
 
