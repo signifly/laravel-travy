@@ -2,16 +2,16 @@
 
 namespace Signifly\Travy\Http\Actions;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Contracts\Support\Responsable;
 
 class ForceDestroyAction extends Action
 {
-    public function handle() : Model
+    public function handle() : Responsable
     {
         $model = $this->resource->withTrashed()->findOrFail($this->getId());
 
         $model->forceDelete();
 
-        return $model;
+        return $this->respondForModel($model);
     }
 }

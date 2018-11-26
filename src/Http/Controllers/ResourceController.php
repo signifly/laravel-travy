@@ -8,54 +8,31 @@ class ResourceController extends Controller
 {
     public function index(TravyRequest $request)
     {
-        $paginator = $this->dispatch($request->action());
-
-        return $this->respondForPaginator(
-            $paginator,
-            $request->resource()->getModel()
-        );
+        return $this->dispatch($request->action());
     }
 
     public function store(TravyRequest $request)
     {
-        $model = $this->dispatch($request->action());
-
-        return $this->respondForModel(
-            $model->load($request->resource()->with())
-        );
+        return $this->dispatch($request->action());
     }
 
     public function show(TravyRequest $request)
     {
-        $model = $this->dispatch($request->action());
-
-        return $this->respondForModel(
-            $model->load($request->resource()->with())
-        );
+        return $this->dispatch($request->action());
     }
 
     public function update(TravyRequest $request)
     {
-        $model = $this->dispatch($request->action());
-
-        return $this->respondForModel(
-            $model->fresh($request->resource()->with())
-        );
+        return $this->dispatch($request->action());
     }
 
     public function destroy(TravyRequest $request)
     {
-        $model = $this->dispatch($request->action());
-
-        return $this->respondForModel($model);
+        return $this->dispatch($request->action());
     }
 
     public function restore(TravyRequest $request)
     {
-        $model = $this->dispatch($request->action());
-
-        return $this->respondForModel(
-            $model->fresh($request->resource()->with())
-        );
+        return $this->dispatch($request->action());
     }
 }

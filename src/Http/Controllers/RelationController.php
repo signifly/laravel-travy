@@ -35,12 +35,7 @@ class RelationController extends Controller
             $relation->getQuery()
         );
 
-        $paginator = $this->dispatch($action);
-
-        return $this->respondForPaginator(
-            $paginator,
-            get_class($relation->getRelated())
-        );
+        return $this->dispatch($action);
     }
 
     public function show(TravyRequest $request)
@@ -56,7 +51,9 @@ class RelationController extends Controller
             ->with($relationResource->with())
             ->findOrFail($request->relationId());
 
-        return $this->respondForModel($relatedModel);
+        return $this->respondForModel(
+            $relatedModel->load($relationResource->with())
+        );
     }
 
     /**

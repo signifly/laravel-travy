@@ -2,12 +2,16 @@
 
 namespace Signifly\Travy\Http\Actions;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Contracts\Support\Responsable;
 
 class ShowAction extends Action
 {
-    public function handle() : Model
+    public function handle() : Responsable
     {
-        return $this->resource->findOrFail($this->getId());
+        $model = $this->resource->findOrFail($this->getId());
+
+        return $this->respondForModel(
+            $model->load($this->resource->with())
+        );
     }
 }

@@ -2,13 +2,13 @@
 
 namespace DummyNamespace;
 
-use Illuminate\Database\Eloquent\Model;
-use Signifly\Travy\Http\Actions\StoreAction;
+use Signifly\Travy\Http\Actions\Action;
+use Illuminate\Contracts\Support\Responsable;
 
-class DummyClass extends StoreAction
+class DummyClass extends Action
 {
-    public function handle() : Model
+    public function handle() : Responsable
     {
-        return $this->resource->create($this->request->input('data'));
+        //
     }
 }

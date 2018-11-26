@@ -2,14 +2,17 @@
 
 namespace Signifly\Travy\Http\Actions;
 
-use Signifly\Travy\Resource;
 use Illuminate\Http\Request;
-use Signifly\Travy\Support\ResourceFactory;
+use Signifly\Travy\Resource;
 use Illuminate\Foundation\Bus\Dispatchable;
+use Signifly\Travy\Support\ResourceFactory;
+use Illuminate\Contracts\Support\Responsable;
+use Signifly\Travy\Http\Concerns\HandlesApiResponses;
 
 abstract class Action
 {
     use Dispatchable;
+    use HandlesApiResponses;
 
     /** @var \Illuminate\Http\Request */
     protected $request;
@@ -30,11 +33,11 @@ abstract class Action
     }
 
     /**
-     * The action logic.
+     * Handle the action.
      *
-     * @return mixed
+     * @return \Illuminate\Contracts\Support\Responsable
      */
-    abstract public function handle();
+    abstract public function handle() : Responsable;
 
     /**
      * Check if the request has a resource id.

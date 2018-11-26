@@ -2,10 +2,10 @@
 
 namespace Signifly\Travy\Http\Actions;
 
-use Signifly\Travy\Resource;
 use Illuminate\Http\Request;
+use Signifly\Travy\Resource;
 use Spatie\QueryBuilder\QueryBuilder;
-use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Contracts\Support\Responsable;
 
 class IndexAction extends Action
 {
@@ -18,10 +18,12 @@ class IndexAction extends Action
         $this->defaultQuery = $defaultQuery;
     }
 
-    public function handle() : LengthAwarePaginator
+    public function handle() : Responsable
     {
-        return $this->buildQueryFor($this->resource)
+        $paginator = $this->buildQueryFor($this->resource)
             ->paginate($this->request->paginationCount());
+
+        return $this->respondForPaginator($paginator, $this->resource->getModel());
     }
 
     protected function buildQueryFor($resource)

@@ -2,12 +2,16 @@
 
 namespace Signifly\Travy\Http\Actions;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Contracts\Support\Responsable;
 
 class StoreAction extends Action
 {
-    public function handle() : Model
+    public function handle() : Responsable
     {
-        return $this->resource->create($this->request->input('data'));
+        $model = $this->resource->create($this->request->input('data'));
+
+        return $this->respondForModel(
+            $model->load($this->resource->with())
+        );
     }
 }
