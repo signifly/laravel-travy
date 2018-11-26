@@ -72,9 +72,13 @@ abstract class TableDefinition extends Definition
     {
         $this->schema();
 
+        if (! $this->endpoint) {
+            $this->guessEndpoint();
+        }
+
         $schema = [
             'columns' => $this->preparedColumns(),
-            'endpoint' => $this->endpoint ?? $this->guessEndpoint(),
+            'endpoint' => $this->endpoint,
             'defaults' => $this->defaults,
         ];
 

@@ -37,6 +37,10 @@ abstract class ViewDefinition extends Definition
     {
         $this->schema();
 
+        if (! $this->endpoint) {
+            $this->guessEndpoint();
+        }
+
         $schema = [
             'header' => [
                 'props' => [
@@ -45,7 +49,7 @@ abstract class ViewDefinition extends Definition
                     'tag' => $this->headerTag,
                 ],
             ],
-            'endpoint' => $this->endpoint ?? $this->guessEndpoint(),
+            'endpoint' => $this->endpoint,
             'tabs' => $this->preparedTabs(),
         ];
 
