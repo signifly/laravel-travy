@@ -133,10 +133,10 @@ class TravyRequest extends FormRequest
      *
      * @return \App\Travy\Resource
      */
-    public function relationResource()
+    public function relationResource($relationName = null)
     {
         if (! $this->relationResource) {
-            $this->relationResource = ResourceFactory::make($this->relationName());
+            $this->relationResource = ResourceFactory::make($relationName ?? $this->relationName());
         }
 
         return $this->relationResource;

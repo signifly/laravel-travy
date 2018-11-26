@@ -18,7 +18,8 @@ class RelationController extends Controller
         $this->guardAgainstInvalidRelation($model, $relationName);
 
         $relation = $model->$relationName();
-        $relationResource = $request->relationResource();
+        $relationModelName = class_basename($relation->getRelated());
+        $relationResource = $request->relationResource($relationModelName);
 
         // If the relation has a single association to another model
         // then retrieve the first result and return it
@@ -45,9 +46,11 @@ class RelationController extends Controller
 
         $this->guardAgainstInvalidRelation($model, $relationName);
 
-        $relationResource = $request->relationResource();
+        $relation = $model->$relationName();
+        $relationModelName = class_basename($relation->getRelated());
+        $relationResource = $request->relationResource($relationModelName);
 
-        $relatedModel = $model->$relationName()
+        $relatedModel = $relation
             ->with($relationResource->with())
             ->findOrFail($request->relationId());
 
