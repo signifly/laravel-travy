@@ -62,6 +62,7 @@ abstract class Definition implements DefinitionContract
      * Set the endpoint for the definition.
      *
      * @param  string $url
+     * @param  array  $params
      * @param  string $method
      * @return self
      */
