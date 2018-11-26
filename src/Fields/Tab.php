@@ -36,6 +36,13 @@ class Tab extends FieldElement implements JsonSerializable
     public $fields = [];
 
     /**
+     * The tab type: `fields` or `table`.
+     *
+     * @var string
+     */
+    public $type = 'fields';
+
+    /**
      * Create a new tab.
      *
      * @param string $name
@@ -95,6 +102,19 @@ class Tab extends FieldElement implements JsonSerializable
     }
 
     /**
+     * Set the tab type.
+     *
+     * @param  string $type
+     * @return self
+     */
+    public function type(string $type)
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    /**
      * Prepare the sidebar for JSON serialization.
      *
      * @return array
@@ -103,6 +123,7 @@ class Tab extends FieldElement implements JsonSerializable
     {
         return [
             'id' => $this->attribute,
+            'type' => $this->type,
             'endpoint' => $this->endpoint,
             'title' => $this->name,
             'fields' => collect($this->fields)->map->jsonSerialize(),
