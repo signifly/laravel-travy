@@ -20,18 +20,18 @@ class ModelResponse extends Response
     {
         // Model has recently been deleted, so we want to
         // respond accordingly.
-        if (! $model->exists) {
+        if (! $this->model->exists) {
             return new JsonResponse(null, 204);
         }
 
-        $modelTraits = collect(class_uses_recursive($model));
-        if ($modelTraits->contains(SoftDeletes::class) && $model->trashed()) {
+        $modelTraits = collect(class_uses_recursive($this->model));
+        if ($modelTraits->contains(SoftDeletes::class) && $this->model->trashed()) {
             return new JsonResponse(null, 204);
         }
 
         // Otherwise return with the associated http resource
-        $resourceClass = $this->getHttpResourceFor($this->model);
+        $resourceClass = $this->getHttpResourceFor(get_class($this->model));
 
-        return new $resourceClass($this->model);
+        return (new $resourceClass($this->model))->toResponse($request);
     }
 }

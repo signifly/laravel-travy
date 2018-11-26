@@ -22,6 +22,6 @@ class PaginatorResponse extends Response
     {
         $resourceClass = $this->getHttpResourceFor($this->model);
 
-        return $resourceClass::collection($this->paginator);
+        return $resourceClass::collection($this->paginator)->toResponse($request);
     }
 }

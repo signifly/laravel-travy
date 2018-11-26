@@ -22,6 +22,6 @@ class CollectionResponse extends Response
     {
         $resourceClass = $this->getHttpResourceFor($this->model);
 
-        return $resourceClass::collection($this->collection);
+        return $resourceClass::collection($this->collection)->toResponse($request);
     }
 }
