@@ -35,6 +35,7 @@ class SelectMultiSearchTable extends SelectMultiSearch
     {
         $this->withProps([
             'values' => $this->attribute,
+            'options' => $this->options(),
             'columns' => $this->preparedColumns(),
         ]);
     }
