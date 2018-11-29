@@ -3,11 +3,13 @@
 namespace Signifly\Travy\Schema;
 
 use Signifly\Travy\Schema\Concerns\HasProps;
+use Signifly\Travy\Schema\Concerns\HasActions;
 use Signifly\Travy\Schema\Concerns\HasMetaData;
 
 class Action
 {
     use HasProps;
+    use HasActions;
     use HasMetaData;
 
     /**
@@ -166,6 +168,10 @@ class Action
     {
         if ($this->status) {
             $this->withMeta(['status' => $this->status]);
+        }
+
+        if ($this->hasActions()) {
+            $this->withProps(['actions' => $this->preparedActions()]);
         }
 
         return array_merge([
