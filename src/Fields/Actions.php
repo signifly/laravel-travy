@@ -13,7 +13,7 @@ class Actions extends Field
      *
      * @var string
      */
-    public $component = 'actions';
+    public $component = 'button-actions';
 
     /**
      * The options to apply to the field type.
