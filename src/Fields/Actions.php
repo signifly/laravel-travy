@@ -15,6 +15,16 @@ class Actions extends Field
      */
     public $component = 'button-actions';
 
+    public function color(string $status)
+    {
+        return $this->withProps(compact('status'));
+    }
+
+    public function size(string $size)
+    {
+        return $this->withProps(compact('size'));
+    }
+
     /**
      * The options to apply to the field type.
      *
