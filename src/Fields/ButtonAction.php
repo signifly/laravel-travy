@@ -14,6 +14,11 @@ class ButtonAction extends Field
     protected $actionData = [];
     protected $actionProps = [];
 
+    public function color(string $status)
+    {
+        return $this->withProps(compact('status'));
+    }
+
     public function data(array $data)
     {
         $this->actionData = array_merge($this->actionData, $data);
