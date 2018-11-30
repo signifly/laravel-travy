@@ -13,9 +13,14 @@ class ItemsCollection extends Collection
      */
     public function toMenu() : array
     {
-        return $this->map(function ($item) {
-            return $item->toMenu();
-        })->toArray();
+        return $this->filter(function ($item) {
+                return $item->asMenu;
+            })
+            ->values()
+            ->map(function ($item) {
+                return $item->toMenu();
+            })
+            ->toArray();
     }
 
     /**

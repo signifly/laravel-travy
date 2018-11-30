@@ -50,6 +50,13 @@ class Item
     protected $items = [];
 
     /**
+     * Should the item be used as menu item.
+     *
+     * @var bool
+     */
+    public $asMenu = true;
+
+    /**
      * Create a new item.
      *
      * @param string $name
@@ -58,7 +65,7 @@ class Item
     public function __construct($name, $attribute = null)
     {
         $this->name = $name;
-        $this->attribute = $attribute ?? str_replace(' ', '_', Str::lower($name));
+        $this->attribute = $attribute ?? str_replace(' ', '-', Str::lower($name));
     }
 
     /**
@@ -72,6 +79,19 @@ class Item
     }
 
     /**
+     * Set the asMenu property.
+     *
+     * @param  bool $value
+     * @return self
+     */
+    public function asMenu($value = true)
+    {
+        $this->asMenu = $value;
+
+        return $this;
+    }
+
+    /**
      * Set the item as table.
      *
      * @param  string $title
@@ -82,7 +102,7 @@ class Item
     {
         if ($title) {
             $this->tableTitle = $title;
-            $this->tableKey = $key ?? str_replace(' ', '_', Str::lower($title));
+            $this->tableKey = $key ?? str_replace(' ', '-', Str::lower($title));
             return $this;
         }
 
@@ -132,7 +152,9 @@ class Item
      */
     public function items() : Collection
     {
-        return collect($this->items);
+        return collect($this->items)->filter(function ($item) {
+            return $item->asMenu;
+        })->values();
     }
 
     /**
