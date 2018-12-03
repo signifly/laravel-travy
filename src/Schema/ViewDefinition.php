@@ -138,6 +138,9 @@ abstract class ViewDefinition extends Definition
                         $field->asInput();
                     }
 
+                    // Ignore this as it is only used for tables
+                    $field->forgetProp('columnWidth');
+
                     return $field;
                 })
                 ->values()
