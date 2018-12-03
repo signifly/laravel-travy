@@ -43,7 +43,7 @@ class DefaultTableDefinition extends TableDefinition
                         ->text('Are you sure? Please confirm this action.')
                         ->hide('is_deleted', false),
                 ])
-                ->width(120)
+                ->columnWidth(120)
         );
         $this->addColumn($column);
     }
