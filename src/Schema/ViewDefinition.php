@@ -139,7 +139,7 @@ abstract class ViewDefinition extends Definition
                     }
 
                     // Ignore this as it is only used for tables
-                    $field->forgetProp('columnWidth');
+                    $field->forgetMeta('columnWidth');
 
                     return $field;
                 })
