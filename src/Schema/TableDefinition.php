@@ -155,7 +155,7 @@ abstract class TableDefinition extends Definition
 
                 // It's a minor hack, but it'll have to do for now
                 // TO DO: Consider refactoring
-                if ($this->hasProp('columnWidth')) {
+                if ($field->hasProp('columnWidth')) {
                     $field->width($field->getProp('columnWidth'));
                     $field->forgetProp('columnWidth');
                 }
