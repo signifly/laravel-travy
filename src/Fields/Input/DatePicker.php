@@ -30,6 +30,11 @@ class DatePicker extends Field
         return $this->withProps(['formatValue' => $value]);
     }
 
+    public function type(string $type)
+    {
+        return $this->withProps(compact('type'));
+    }
+
     /**
      * The options to apply to the field type.
      *

@@ -25,6 +25,21 @@ class DateRangePicker extends Field
         return $this->withProps(['dateEnd' => $key]);
     }
 
+    public function format(string $value)
+    {
+        return $this->withProps(['format' => $value]);
+    }
+
+    public function formatValue(string $value)
+    {
+        return $this->withProps(['formatValue' => $value]);
+    }
+
+    public function type(string $type)
+    {
+        return $this->withProps(compact('type'));
+    }
+
     /**
      * The options to apply to the field type.
      *
