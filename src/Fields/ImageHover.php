@@ -2,14 +2,14 @@
 
 namespace Signifly\Travy\Fields;
 
-class ImagePreview extends Field
+class ImageHover extends Field
 {
     /**
      * The field's component.
      *
      * @var string
      */
-    public $component = 'image';
+    public $component = 'image-hover';
 
     /**
      * The options to apply to the field type.
