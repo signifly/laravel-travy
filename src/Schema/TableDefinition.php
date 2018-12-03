@@ -149,6 +149,16 @@ abstract class TableDefinition extends Definition
                 if ($field->linkable && ! $field->linksTo) {
                     $field->linksTo = "/t/{$this->request->resourceKey()}/{id}";
                 }
+                // Remove width prop as it should not be used in this context
+                // unless it has been set from the columnWidth prop
+                $field->forgetProp('width');
+
+                // It's a minor hack, but it'll have to do for now
+                // TO DO: Consider refactoring
+                if ($this->hasProp('columnWidth')) {
+                    $field->width($field->getProp('columnWidth'));
+                    $field->forgetProp('columnWidth');
+                }
 
                 return $field;
             })
