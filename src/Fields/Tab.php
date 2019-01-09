@@ -79,26 +79,44 @@ class Tab extends FieldElement implements JsonSerializable
     }
 
     /**
-     * Check if the tab has an endpoint.
-     *
-     * @return bool
-     */
-    public function hasEndpoint() : bool
-    {
-        return ! empty($this->endpoint);
-    }
-
-    /**
      * Set the fields in the tab.
      *
      * @param  array  $fields
      * @return self
      */
-    public function fields(array $fields)
+    public function fields(array $fields): self
     {
         $this->fields = $fields;
 
         return $this;
+    }
+
+    /**
+     * Get the prepared fields.
+     *
+     * @return array
+     */
+    public function getPreparedFields(): array
+    {
+        return collect($this->fields)
+            ->map(function ($field) {
+                if (! $this->showOnIndex) {
+                    $field->hideFromIndex();
+                }
+
+                return $field;
+            })
+            ->toArray();
+    }
+
+    /**
+     * Check if the tab has an endpoint.
+     *
+     * @return bool
+     */
+    public function hasEndpoint(): bool
+    {
+        return ! empty($this->endpoint);
     }
 
     /**
@@ -107,7 +125,7 @@ class Tab extends FieldElement implements JsonSerializable
      * @param  string $type
      * @return self
      */
-    public function type(string $type)
+    public function type(string $type): self
     {
         $this->type = $type;
 

@@ -328,7 +328,7 @@ abstract class Resource
             })
             ->map(function ($field) {
                 if ($field instanceof Tab) {
-                    return $field->fields;
+                    return $field->getPreparedFields();
                 }
 
                 return [$field];
