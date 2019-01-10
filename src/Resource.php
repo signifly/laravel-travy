@@ -27,6 +27,9 @@ abstract class Resource
     protected $globalScopes = [];
 
     /** @var array */
+    protected $guardedActions = [];
+
+    /** @var array */
     protected $includes = [];
 
     /** @var array */
@@ -54,7 +57,7 @@ abstract class Resource
      *
      * @return string
      */
-    public function getModel() : string
+    public function getModel(): string
     {
         return $this->model ?? $this->guessModel();
     }
@@ -64,7 +67,7 @@ abstract class Resource
      *
      * @return string
      */
-    protected function guessModel() : string
+    protected function guessModel(): string
     {
         return config('travy.models.namespace') . '\\' . class_basename(get_called_class());
     }
@@ -99,7 +102,7 @@ abstract class Resource
      *
      * @return array
      */
-    protected function actions() : array
+    protected function actions(): array
     {
         return [];
     }
@@ -129,7 +132,7 @@ abstract class Resource
      *
      * @return array
      */
-    protected function defaultQueryFilters() : array
+    protected function defaultQueryFilters(): array
     {
         $filters = [];
 
@@ -157,7 +160,7 @@ abstract class Resource
      *
      * @return string
      */
-    public function displayAs() : string
+    public function displayAs(): string
     {
         return $this->displayAs ?? class_basename(get_called_class());
     }
@@ -168,7 +171,7 @@ abstract class Resource
      *
      * @return array
      */
-    protected function queryFilters() : array
+    protected function queryFilters(): array
     {
         return [];
     }
@@ -178,7 +181,7 @@ abstract class Resource
      *
      * @return bool
      */
-    protected function searchable() : bool
+    protected function searchable(): bool
     {
         return count($this->getSearchable()) > 0;
     }
@@ -188,7 +191,7 @@ abstract class Resource
      *
      * @return array
      */
-    public function allowedFilters() : array
+    public function allowedFilters(): array
     {
         return array_merge($this->defaultQueryFilters(), $this->queryFilters());
     }
@@ -198,7 +201,7 @@ abstract class Resource
      *
      * @return array
      */
-    public function allowedIncludes() : array
+    public function allowedIncludes(): array
     {
         return $this->includes;
     }
@@ -208,7 +211,7 @@ abstract class Resource
      *
      * @return array
      */
-    public function allowedSorts() : array
+    public function allowedSorts(): array
     {
         return $this->sorts;
     }
@@ -237,7 +240,7 @@ abstract class Resource
      *
      * @return array
      */
-    public function creationRules() : array
+    public function creationRules(): array
     {
         return [];
     }
@@ -247,7 +250,7 @@ abstract class Resource
      *
      * @return array
      */
-    public function fields() : array
+    public function fields(): array
     {
         return [];
     }
@@ -257,7 +260,7 @@ abstract class Resource
      *
      * @return array
      */
-    public function filters() : array
+    public function filters(): array
     {
         return [];
     }
@@ -267,7 +270,7 @@ abstract class Resource
      *
      * @return array
      */
-    public function modifiers() : array
+    public function modifiers(): array
     {
         return [];
     }
@@ -288,9 +291,19 @@ abstract class Resource
      *
      * @return array
      */
-    public function getActions() : array
+    public function getActions(): array
     {
         return array_merge($this->actions, $this->actions());
+    }
+
+    /**
+     * Get the guarded actions.
+     *
+     * @return array
+     */
+    public function getGuardedActions(): array
+    {
+        return $this->guardedActions;
     }
 
     /**
@@ -320,7 +333,7 @@ abstract class Resource
      *
      * @return \Illuminate\Support\Collection
      */
-    public function getPreparedFields() : Collection
+    public function getPreparedFields(): Collection
     {
         return collect($this->fields())
             ->reject(function ($field) {
@@ -342,7 +355,7 @@ abstract class Resource
      *
      * @return array
      */
-    public function getSearchable() : array
+    public function getSearchable(): array
     {
         $fields = $this->getPreparedFields()
             ->filter(function ($field) {
@@ -397,7 +410,7 @@ abstract class Resource
      *
      * @return array
      */
-    public function updateRules() : array
+    public function updateRules(): array
     {
         return [];
     }
@@ -407,7 +420,7 @@ abstract class Resource
      *
      * @return array
      */
-    public function with() : array
+    public function with(): array
     {
         return $this->with;
     }
@@ -417,7 +430,7 @@ abstract class Resource
      *
      * @return array
      */
-    public function withCount() : array
+    public function withCount(): array
     {
         return $this->withCount;
     }
