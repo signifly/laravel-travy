@@ -213,8 +213,9 @@ abstract class TableDefinition extends Definition
             ->values();
 
         // Prepare payload
-        $payload = $creatableFields->mapWithKeys(function ($field) {
-            return [$field->attribute => $field->defaultValue ?? ''];
+        $payload = [];
+        $creatableFields->each(function ($field) use (&$payload) {
+            array_set($payload, $field->attribute, $field->defaultValue ?? '');
         });
 
         $action = Action::make("Add {$resourceName}", 'primary')
@@ -223,7 +224,7 @@ abstract class TableDefinition extends Definition
             ->endpoint(url("v1/admin/{$resourceKey}"))
             ->onSubmit($this->creationRedirectTo ?? "/t/{$resourceKey}/{id}")
             ->fields($creatableFields->toArray())
-            ->payload(['data' => $payload->toArray()]);
+            ->payload(['data' => $payload]);
 
         $this->addAction($action);
 
