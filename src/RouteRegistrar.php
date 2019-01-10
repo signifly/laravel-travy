@@ -71,6 +71,9 @@ class RouteRegistrar
 
         $this->router->post('{resource}/{resourceId}/restore', 'ResourceController@restore')
             ->name('travy.restore');
+
+        $this->router->delete('{resource}/{resourceId}/force', 'ResourceController@forceDestroy')
+            ->name('travy.forceDestroy');
     }
 
     /**

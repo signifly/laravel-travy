@@ -35,4 +35,9 @@ class ResourceController extends Controller
     {
         return $this->dispatch($request->action());
     }
+
+    public function forceDestroy(TravyRequest $request)
+    {
+        return $this->dispatch($request->action());
+    }
 }
