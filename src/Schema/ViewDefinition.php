@@ -33,7 +33,7 @@ abstract class ViewDefinition extends Definition
      *
      * @return array
      */
-    public function build() : array
+    public function build(): array
     {
         $this->schema();
 

@@ -84,7 +84,7 @@ class Batch implements JsonSerializable
      *
      * @return array
      */
-    public function jsonSerialize() : array
+    public function jsonSerialize(): array
     {
         $data = [
             'selectedOptions' => [

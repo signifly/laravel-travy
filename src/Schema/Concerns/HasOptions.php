@@ -16,7 +16,7 @@ trait HasOptions
      *
      * @return array
      */
-    public function defaultOptions() : array
+    public function defaultOptions(): array
     {
         return [];
     }

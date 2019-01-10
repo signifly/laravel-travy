@@ -59,7 +59,7 @@ class Column
      *
      * @return array
      */
-    public function jsonSerialize() : array
+    public function jsonSerialize(): array
     {
         if (method_exists($this->field, 'applyOptions')) {
             $this->field->applyOptions();

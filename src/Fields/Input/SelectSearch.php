@@ -50,7 +50,7 @@ class SelectSearch extends Field
      *
      * @return array
      */
-    public function defaultOptions() : array
+    public function defaultOptions(): array
     {
         return [
             'key' => 'data',

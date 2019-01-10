@@ -11,7 +11,7 @@ class ItemsCollection extends Collection
      *
      * @return array
      */
-    public function toMenu() : array
+    public function toMenu(): array
     {
         return $this->filter(function ($item) {
                 return $item->asMenu;
@@ -28,7 +28,7 @@ class ItemsCollection extends Collection
      *
      * @return array
      */
-    public function toTable() : array
+    public function toTable(): array
     {
         $tables = collect();
 

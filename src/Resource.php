@@ -281,7 +281,7 @@ abstract class Resource
      * @param  string $key
      * @return string
      */
-    public function getAction(string $key) : string
+    public function getAction(string $key): string
     {
         return array_get($this->getActions(), $key);
     }
@@ -312,7 +312,7 @@ abstract class Resource
      * @param  Request $request
      * @return array
      */
-    public function getCreationRules(Request $request) : array
+    public function getCreationRules(Request $request): array
     {
         $rules = $this->getPreparedFields()
             ->filter(function ($field) {
@@ -376,7 +376,7 @@ abstract class Resource
      * @param  Request $request
      * @return array
      */
-    public function getUpdateRules(Request $request) : array
+    public function getUpdateRules(Request $request): array
     {
         $rules = $this->getPreparedFields()
             ->filter(function ($field) {

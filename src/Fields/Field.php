@@ -427,7 +427,7 @@ abstract class Field extends FieldElement implements JsonSerializable
      *
      * @return array
      */
-    public function jsonSerialize() : array
+    public function jsonSerialize(): array
     {
         if (method_exists($this, 'applyOptions')) {
             $this->applyOptions();

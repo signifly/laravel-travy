@@ -9,5 +9,5 @@ interface DefinitionContract
      *
      * @return array
      */
-    public function build() : array;
+    public function build(): array;
 }

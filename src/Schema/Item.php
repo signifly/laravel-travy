@@ -130,7 +130,7 @@ class Item
      *
      * @return bool
      */
-    public function hasItems() : bool
+    public function hasItems(): bool
     {
         return count($this->items) > 0;
     }
@@ -140,7 +140,7 @@ class Item
      *
      * @return bool
      */
-    public function hasTable() : bool
+    public function hasTable(): bool
     {
         return $this->tableTitle && $this->tableKey;
     }
@@ -175,7 +175,7 @@ class Item
      *
      * @return array
      */
-    public function toMenu() : array
+    public function toMenu(): array
     {
         $data = [
             'title' => $this->name,
@@ -194,7 +194,7 @@ class Item
      *
      * @return array
      */
-    public function toTable() : array
+    public function toTable(): array
     {
         return [$this->tableKey => [
             'title' => $this->tableTitle,
