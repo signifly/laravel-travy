@@ -12,7 +12,7 @@ class DummyClass extends Resource
      *
      * @return array
      */
-    protected function actions() : array
+    protected function actions(): array
     {
         return [];
     }
@@ -22,7 +22,7 @@ class DummyClass extends Resource
      *
      * @return array
      */
-    public function fields() : array
+    public function fields(): array
     {
         return [];
     }
@@ -32,7 +32,7 @@ class DummyClass extends Resource
      *
      * @return array
      */
-    public function filters() : array
+    public function filters(): array
     {
         return [];
     }
@@ -42,7 +42,7 @@ class DummyClass extends Resource
      *
      * @return array
      */
-    public function modifiers() : array
+    public function modifiers(): array
     {
         return [];
     }
@@ -53,7 +53,7 @@ class DummyClass extends Resource
      *
      * @return array
      */
-    protected function queryFilters() : array
+    protected function queryFilters(): array
     {
         return [];
     }
