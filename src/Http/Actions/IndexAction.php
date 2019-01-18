@@ -18,7 +18,7 @@ class IndexAction extends Action
         $this->defaultQuery = $defaultQuery;
     }
 
-    public function handle() : Responsable
+    public function handle(): Responsable
     {
         $paginator = $this->buildQueryFor($this->resource)
             ->paginate($this->request->paginationCount());
@@ -26,12 +26,18 @@ class IndexAction extends Action
         return $this->respondForPaginator($paginator, $this->resource->getModel());
     }
 
-    protected function buildQueryFor($resource)
+    protected function buildQueryFor($resource): QueryBuilder
     {
-        return QueryBuilder::for($this->defaultQuery ?? $resource->newQuery())
+        $queryBuilder = QueryBuilder::for($this->defaultQuery ?? $resource->newQuery())
             ->allowedFilters($resource->allowedFilters())
-            ->allowedIncludes($resource->allowedIncludes())
-            ->allowedSorts($resource->allowedSorts())
-            ->withCount($resource->withCount());
+            ->allowedIncludes($resource->allowedIncludes());
+
+        if (! in_array('*', $resource->allowedSorts() && ! empty($resource->allowedSorts())) {
+            $queryBuilder->allowedSorts($resource->allowedSorts());
+        }
+
+        $queryBuilder->withCount($resource->withCount());
+
+        return $queryBuilder;
     }
 }

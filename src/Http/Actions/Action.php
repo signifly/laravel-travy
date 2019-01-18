@@ -37,14 +37,14 @@ abstract class Action
      *
      * @return \Illuminate\Contracts\Support\Responsable
      */
-    abstract public function handle() : Responsable;
+    abstract public function handle(): Responsable;
 
     /**
      * Check if the request has a resource id.
      *
      * @return bool
      */
-    public function hasId()
+    public function hasId(): bool
     {
         return (bool) $this->request->route()->hasParameter('resourceId');
     }

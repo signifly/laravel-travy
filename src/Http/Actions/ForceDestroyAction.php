@@ -6,7 +6,7 @@ use Illuminate\Contracts\Support\Responsable;
 
 class ForceDestroyAction extends Action
 {
-    public function handle() : Responsable
+    public function handle(): Responsable
     {
         $model = $this->resource->withTrashed()->findOrFail($this->getId());
 

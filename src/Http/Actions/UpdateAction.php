@@ -6,7 +6,7 @@ use Illuminate\Contracts\Support\Responsable;
 
 class UpdateAction extends Action
 {
-    public function handle() : Responsable
+    public function handle(): Responsable
     {
         $model = $this->resource->findOrFail($this->getId());
 
