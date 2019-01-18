@@ -3,6 +3,7 @@
 namespace Signifly\Travy\Schema;
 
 use Signifly\Travy\Fields\Tab;
+use Signifly\Travy\Schema\Width;
 use Signifly\Travy\Fields\Sidebar;
 use Signifly\Travy\Schema\Concerns\HasTabs;
 use Spatie\Activitylog\Traits\LogsActivity;
