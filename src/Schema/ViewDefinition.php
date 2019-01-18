@@ -139,7 +139,9 @@ abstract class ViewDefinition extends Definition
                     }
 
                     // Set width
-                    $field->withMeta(['width' => $field->width->getOnUpdate()]);
+                    if ($field->width instanceof Width) {
+                        $field->withMeta(['width' => $field->width->getOnUpdate()]);
+                    }
 
                     return $field;
                 })

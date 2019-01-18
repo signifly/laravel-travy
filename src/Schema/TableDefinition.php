@@ -4,6 +4,7 @@ namespace Signifly\Travy\Schema;
 
 use Closure;
 use Illuminate\Support\Str;
+use Signifly\Travy\Schema\Width;
 use Signifly\Travy\Schema\Column;
 use Signifly\Travy\Fields\Input\Toggle;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -151,7 +152,7 @@ abstract class TableDefinition extends Definition
                 }
 
                 // Set the width
-                if ($width = $field->width->getForColumn()) {
+                if ($width = optional($field->width)->getForColumn()) {
                     $field->withMeta(['width' => $width]);
                 }
 
@@ -203,7 +204,9 @@ abstract class TableDefinition extends Definition
                 }
 
                 // Set width
-                $field->withMeta(['width' => $field->width->getOnCreation()]);
+                if ($field->width instanceof Width) {
+                    $field->withMeta(['width' => $field->width->getOnCreation()]);
+                }
 
                 return $field;
             })
