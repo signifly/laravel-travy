@@ -2,6 +2,7 @@
 
 namespace Signifly\Travy\Fields;
 
+use Closure;
 use JsonSerializable;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
