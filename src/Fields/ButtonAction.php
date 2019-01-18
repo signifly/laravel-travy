@@ -81,7 +81,7 @@ class ButtonAction extends Field
     public function applyOptions()
     {
         $this->withProps([
-            'title' => $this->name,
+            'title' => __($this->name),
             'action' => array_merge(
                 ['id' => $this->attribute, 'title' => $this->name, 'data' => $this->actionData],
                 $this->actionProps

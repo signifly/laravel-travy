@@ -175,7 +175,7 @@ class Action
         }
 
         return array_merge([
-            'title' => $this->title,
+            'title' => __($this->title),
             'props' => $this->props(),
         ], $this->meta());
     }

@@ -72,7 +72,7 @@ class Sidebar extends FieldElement implements JsonSerializable
     {
         return [
             'id' => $this->attribute,
-            'title' => $this->name,
+            'title' => __($this->name),
             'fields' => collect($this->fields)->map->jsonSerialize(),
         ];
     }

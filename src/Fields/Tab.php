@@ -143,7 +143,7 @@ class Tab extends FieldElement implements JsonSerializable
             'id' => $this->attribute,
             'type' => $this->type,
             'endpoint' => $this->endpoint,
-            'title' => $this->name,
+            'title' => __($this->name),
             'fields' => collect($this->fields)->map->jsonSerialize(),
         ];
     }

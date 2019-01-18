@@ -178,7 +178,7 @@ class Item
     public function toMenu(): array
     {
         $data = [
-            'title' => $this->name,
+            'title' => __($this->name),
             'link' => $this->link ?? "/t/{$this->attribute}",
         ];
 
@@ -197,7 +197,7 @@ class Item
     public function toTable(): array
     {
         return [$this->tableKey => [
-            'title' => $this->tableTitle,
+            'title' => __($this->tableTitle),
             'auth' => ['roles' => ['admin']],
         ]];
     }

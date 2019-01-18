@@ -177,10 +177,12 @@ abstract class TableDefinition extends Definition
         // Search placeholder
         $searchable = $fields->filter(function ($field) {
             return $field->searchable;
-        })->implode('name', ', ');
+        })->map(function ($field) {
+            return __($field->name);
+        })->implode(', ');
 
         $this->searchPlaceholder(
-            $searchable ? 'Search for ' . $searchable : 'Search...'
+            $searchable ? __('Search for ') . $searchable : __('Search...')
         );
 
         return $this;
