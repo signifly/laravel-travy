@@ -20,7 +20,7 @@ class Precision extends Field
      */
     public $defaultValue = 0;
 
-    public function max(int $value)
+    public function max(float $value)
     {
         return $this->withProps(['max' => $value]);
     }
@@ -30,7 +30,7 @@ class Precision extends Field
         return $this->withProps(['precision' => $value]);
     }
 
-    public function step(int $value)
+    public function step(float $value)
     {
         return $this->withProps(['step' => $value]);
     }
