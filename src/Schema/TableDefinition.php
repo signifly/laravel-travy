@@ -152,7 +152,7 @@ abstract class TableDefinition extends Definition
                 }
 
                 // Set the width
-                if ($width = optional($field->width)->getForColumn()) {
+                if ($width = optional($field->width)->getOnIndex()) {
                     $field->withMeta(['width' => $width]);
                 }
 

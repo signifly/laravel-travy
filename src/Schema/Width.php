@@ -8,10 +8,10 @@ class Width
     protected $value;
 
     /** @var int|null */
-    protected $forColumn = null;
+    protected $onCreation = null;
 
     /** @var int|null */
-    protected $onCreation = null;
+    protected $onIndex = null;
 
     /** @var int|null */
     protected $onUpdate = null;
@@ -26,16 +26,16 @@ class Width
         $this->value = $value;
     }
 
-    public function forColumn(int $value): self
+    public function onCreation(int $value): self
     {
-        $this->forColumn = $value;
+        $this->onCreation = $value;
 
         return $this;
     }
 
-    public function onCreation(int $value): self
+    public function onIndex(int $value): self
     {
-        $this->onCreation = $value;
+        $this->onIndex = $value;
 
         return $this;
     }
@@ -47,14 +47,14 @@ class Width
         return $this;
     }
 
-    public function getForColumn()
-    {
-        return $this->forColumn;
-    }
-
     public function getOnCreation(): int
     {
         return $this->onCreation ?? $this->value;
+    }
+
+    public function getOnIndex()
+    {
+        return $this->onIndex;
     }
 
     public function getOnUpdate(): int
