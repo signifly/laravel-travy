@@ -5,6 +5,7 @@ namespace Signifly\Travy\Fields;
 use JsonSerializable;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Signifly\Travy\Schema\Width;
 use Signifly\Travy\Schema\Concerns\HasProps;
 use Signifly\Travy\Schema\Concerns\HasMetaData;
 
@@ -141,6 +142,13 @@ abstract class Field extends FieldElement implements JsonSerializable
     public $sortBy;
 
     /**
+     * The width configuration.
+     *
+     * @var \Signifly\Travy\Schema\Width
+     */
+    public $width;
+
+    /**
      * Create a new field.
      *
      * @param string $name
@@ -168,7 +176,7 @@ abstract class Field extends FieldElement implements JsonSerializable
      * @param  bool $value
      * @return self
      */
-    public function batchLabel($value = true)
+    public function batchLabel($value = true): self
     {
         $this->isBatchLabel = $value;
 
@@ -181,7 +189,7 @@ abstract class Field extends FieldElement implements JsonSerializable
      * @param  bool $value
      * @return self
      */
-    public function headerImage($value = true)
+    public function headerImage($value = true): self
     {
         $this->headerImage = $value;
 
@@ -194,7 +202,7 @@ abstract class Field extends FieldElement implements JsonSerializable
      * @param  bool $value
      * @return self
      */
-    public function headerTitle($value = true)
+    public function headerTitle($value = true): self
     {
         $this->isHeaderTitle = $value;
 
@@ -207,7 +215,7 @@ abstract class Field extends FieldElement implements JsonSerializable
      * @param  bool  $value
      * @return self
      */
-    public function disabled($value = true)
+    public function disabled($value = true): self
     {
         return $this->withProps(['disabled' => $value]);
     }
@@ -218,7 +226,7 @@ abstract class Field extends FieldElement implements JsonSerializable
      * @param  callable|array|string  $rules
      * @return self
      */
-    public function rules($rules)
+    public function rules($rules): self
     {
         $this->rules = is_string($rules) ? func_get_args() : $rules;
 
@@ -231,7 +239,7 @@ abstract class Field extends FieldElement implements JsonSerializable
      * @param  \Illuminate\Http\Request  $request
      * @return array
      */
-    public function getRules(Request $request)
+    public function getRules(Request $request): array
     {
         return [$this->attribute => is_callable($this->rules)
                             ? call_user_func($this->rules, $request)
@@ -261,7 +269,7 @@ abstract class Field extends FieldElement implements JsonSerializable
      * @param  callable|array|string  $rules
      * @return self
      */
-    public function creationRules($rules)
+    public function creationRules($rules): self
     {
         $this->creationRules = is_string($rules) ? func_get_args() : $rules;
 
@@ -291,7 +299,7 @@ abstract class Field extends FieldElement implements JsonSerializable
      * @param  callable|array|string  $rules
      * @return self
      */
-    public function updateRules($rules)
+    public function updateRules($rules): self
     {
         $this->updateRules = is_string($rules) ? func_get_args() : $rules;
 
@@ -305,7 +313,7 @@ abstract class Field extends FieldElement implements JsonSerializable
      * @param  string  $uri
      * @return self
      */
-    public function linkable($value = true, $uri = null)
+    public function linkable($value = true, $uri = null): self
     {
         $this->linkable = $value;
         $this->linksTo = $uri;
@@ -319,7 +327,7 @@ abstract class Field extends FieldElement implements JsonSerializable
      * @param  bool  $value
      * @return self
      */
-    public function searchable($value = true)
+    public function searchable($value = true): self
     {
         $this->searchable = $value;
 
@@ -332,7 +340,7 @@ abstract class Field extends FieldElement implements JsonSerializable
      * @param  bool  $value
      * @return self
      */
-    public function sortable($value = true, $attribute = null)
+    public function sortable($value = true, $attribute = null): self
     {
         $this->sortable = $value;
         $this->sortBy = $attribute ?? $this->attribute;
@@ -346,7 +354,7 @@ abstract class Field extends FieldElement implements JsonSerializable
      * @param  bool $value
      * @return self
      */
-    public function defaultSort($value = true, $order = 'asc')
+    public function defaultSort($value = true, $order = 'asc'): self
     {
         $this->defaultSort = $value;
         $this->defaultSortOrder = ($order == 'asc' ? 'ascending' : 'descending');
@@ -360,7 +368,7 @@ abstract class Field extends FieldElement implements JsonSerializable
      * @param  mixed $value
      * @return self
      */
-    public function defaultValue($value)
+    public function defaultValue($value): self
     {
         $this->defaultValue = $value;
 
@@ -374,7 +382,7 @@ abstract class Field extends FieldElement implements JsonSerializable
      * @param  int    $value
      * @return self
      */
-    public function columnWidth(int $value)
+    public function columnWidth(int $value): self
     {
         return $this->withMeta(['columnWidth' => $value]);
     }
@@ -385,7 +393,7 @@ abstract class Field extends FieldElement implements JsonSerializable
      * @param  string $text
      * @return self
      */
-    public function description(string $text)
+    public function description(string $text): self
     {
         return $this->withMeta(['description' => $text]);
     }
@@ -396,7 +404,7 @@ abstract class Field extends FieldElement implements JsonSerializable
      * @param  string $text
      * @return self
      */
-    public function tooltip(string $text)
+    public function tooltip(string $text): self
     {
         return $this->withMeta(['tooltip' => $text]);
     }
@@ -407,12 +415,20 @@ abstract class Field extends FieldElement implements JsonSerializable
      * @param  int    $value
      * @return self
      */
-    public function width(int $value)
+    public function width(int $value, ?Closure $callable = null): self
     {
-        return $this->withMeta(['width' => $value]);
+        $width = new Width($value);
+
+        if (! is_null($callable)) {
+            $callable($width);
+        }
+
+        $this->width = $width;
+
+        return $this;
     }
 
-    public function fieldType()
+    public function fieldType(): array
     {
         $data = [
             'id' => $this->component,

@@ -150,15 +150,9 @@ abstract class TableDefinition extends Definition
                     $field->linksTo = "/t/{$this->request->resourceKey()}/{id}";
                 }
 
-                // Remove width meta data as it should not be used in this context
-                // unless it has been set from the columnWidth meta data
-                $field->forgetMeta('width');
-
-                // It's a minor hack, but it'll have to do for now
-                // TO DO: Consider refactoring
-                if ($field->hasMeta('columnWidth')) {
-                    $field->width($field->getMeta('columnWidth'));
-                    $field->forgetMeta('columnWidth');
+                // Set the width
+                if ($width = $field->width->getForColumn()) {
+                    $field->withMeta(['width' => $width]);
                 }
 
                 return $field;
@@ -208,6 +202,9 @@ abstract class TableDefinition extends Definition
                     $field->asInput();
                 }
 
+                // Set width
+                $field->withMeta(['width' => $field->width->getOnCreation()]);
+
                 return $field;
             })
             ->values();
@@ -228,7 +225,7 @@ abstract class TableDefinition extends Definition
 
         $this->addAction($action);
 
-        return $this;
+        return $action;
     }
 
     /**
