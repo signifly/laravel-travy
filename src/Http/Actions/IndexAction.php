@@ -32,7 +32,7 @@ class IndexAction extends Action
             ->allowedFilters($resource->allowedFilters())
             ->allowedIncludes($resource->allowedIncludes());
 
-        if (! in_array('*', $resource->allowedSorts() && ! empty($resource->allowedSorts())) {
+        if (! in_array('*', $resource->allowedSorts() && ! empty($resource->allowedSorts()))) {
             $queryBuilder->allowedSorts($resource->allowedSorts());
         }
 
