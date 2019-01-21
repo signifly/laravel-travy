@@ -145,7 +145,7 @@ class Action
     {
         $this->title = $title;
 
-        return $this->withProps(compact('title'));
+        return $this->withProps(['title' => __($title)]);
     }
 
     /**
