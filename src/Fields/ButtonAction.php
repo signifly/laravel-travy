@@ -11,29 +11,58 @@ class ButtonAction extends Field
      */
     public $component = 'button-action';
 
+    /** @var array */
     protected $actionData = [];
+
+    /** @var array */
     protected $actionProps = [];
 
-    public function color(string $status)
+    /**
+     * Set the color of the button-action.
+     *
+     * @param  string $status
+     * @return self
+     */
+    public function color(string $status): self
     {
         return $this->withProps(compact('status'));
     }
 
-    public function data(array $data)
+    /**
+     * Set the data of the button-action.
+     *
+     * @param  array  $data
+     * @return self
+     */
+    public function data(array $data): self
     {
         $this->actionData = array_merge($this->actionData, $data);
 
         return $this;
     }
 
-    public function endpoint(string $url, string $method = 'post', array $params = [])
+    /**
+     * Set the endpoint of the button-action.
+     *
+     * @param  string $url
+     * @param  string $method
+     * @param  array  $params
+     * @return self
+     */
+    public function endpoint(string $url, string $method = 'post', array $params = []): self
     {
         array_set($this->actionProps, 'endpoint', compact('url', 'method', 'params'));
 
         return $this;
     }
 
-    public function fields(array $fields)
+    /**
+     * Set the fields of the button-action.
+     *
+     * @param  array  $fields
+     * @return self
+     */
+    public function fields(array $fields): self
     {
         $fields = collect($fields);
 
@@ -56,21 +85,39 @@ class ButtonAction extends Field
         return $this;
     }
 
-    public function icon(string $icon)
+    /**
+     * Set the icon of the button-action.
+     *
+     * @param  string $icon
+     * @return self
+     */
+    public function icon(string $icon): self
     {
         return $this->withProps(compact('icon'));
     }
 
-    public function onSubmit(string $link)
+    /**
+     * Set on submit link of the button-action.
+     *
+     * @param  string $link
+     * @return self
+     */
+    public function onSubmit(string $link): self
     {
         array_set($this->actionProps, 'onSubmit', $link);
 
         return $this;
     }
 
-    public function status(string $status)
+    /**
+     * Set the size of the button-action.
+     *
+     * @param  string $size
+     * @return self
+     */
+    public function size(string $size): self
     {
-        return $this->withProps(compact('status'));
+        return $this->withProps(compact('size'));
     }
 
     /**
