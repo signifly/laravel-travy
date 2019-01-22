@@ -37,7 +37,7 @@ class Sidebar extends FieldElement implements JsonSerializable
     public function __construct($name, $attribute = null)
     {
         $this->name = $name;
-        $this->attribute = $attribute ?? str_replace(' ', '_', Str::lower($name));
+        $this->attribute = $attribute ?? str_replace(' ', '-', Str::lower($name));
     }
 
     /**
