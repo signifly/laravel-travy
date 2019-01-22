@@ -16,6 +16,13 @@ class Table extends Field
     public $component = 'table';
 
     /**
+     * Indicates if the element should be shown on the index view.
+     *
+     * @var bool
+     */
+    public $showOnIndex = false;
+
+    /**
      * Set the columnsData prop.
      *
      * @param  string  $data
