@@ -10,13 +10,10 @@ use Signifly\Travy\Exceptions\InvalidDefinitionException;
 
 class DefinitionFactory
 {
-    /**
-     * The request instance.
-     *
-     * @var \Signifly\Travy\Http\Requests\TravyRequest
-     */
+    /** @var \Signifly\Travy\Http\Requests\TravyRequest */
     protected $request;
 
+    /** @var array */
     protected $validTypes = [
         'table',
         'view',
@@ -44,12 +41,10 @@ class DefinitionFactory
         $resource = Str::studly($this->request->resourceKey());
         $class = "{$namespace}\\{$type}\\{$resource}{$type}Definition";
 
+        $this->guardAgainstInvalidDefinitionType($type);
+
         if (class_exists($class)) {
             return new $class($this->request);
-        }
-
-        if (! in_array(strtolower($type), $this->validTypes)) {
-            throw new InvalidDefinitionException();
         }
 
         if ($type == 'Table') {
@@ -57,5 +52,18 @@ class DefinitionFactory
         }
 
         return new DefaultViewDefinition($this->request);
+    }
+
+    /**
+     * Guard against invalid definition type.
+     *
+     * @param  string $type
+     * @return void
+     */
+    protected function guardAgainstInvalidDefinitionType(string $type)
+    {
+        if (! in_array(strtolower($type), $this->validTypes)) {
+            throw new InvalidDefinitionException();
+        }
     }
 }
