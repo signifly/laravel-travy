@@ -18,20 +18,6 @@ class SearchFilter implements Filter
     {
         $value = is_array($value) ? join(',', $value) : $value;
 
-        return $query->where(function ($query) use ($value) {
-            foreach ($this->columns as $column) {
-                if (str_contains($column, '.')) {
-                    list($relation, $columnName) = explode('.', $column);
-                    $query->orWhereHas(camel_case($relation),
-                        function ($query) use ($columnName, $value) {
-                            $query->where($query->qualifyColumn($columnName), 'LIKE', "%{$value}%");
-                        }
-                    );
-                    continue;
-                }
-
-                $query->orWhere($query->qualifyColumn($column), 'LIKE', "%{$value}%");
-            }
-        });
+        return $query->whereLike($this->columns, $value);
     }
 }
