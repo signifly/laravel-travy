@@ -456,7 +456,7 @@ abstract class Field extends FieldElement implements JsonSerializable
 
         return array_merge([
             'name' => $this->attribute,
-            'label' => __($this->name),
+            'label' => $this->localize($this->name),
             'fieldType' => $this->fieldType(),
         ], $this->meta());
 

@@ -180,4 +180,15 @@ abstract class FieldElement
 
         return $this;
     }
+
+    /**
+     * Localize text.
+     *
+     * @param  mixed $text
+     * @return mixed
+     */
+    protected function localize($text)
+    {
+        return is_string($text) ? __($text) : $text;
+    }
 }
