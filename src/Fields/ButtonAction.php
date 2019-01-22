@@ -59,6 +59,9 @@ class ButtonAction extends Field
     {
         $endpoint = new Endpoint($url);
 
+        // Set defaut method
+        $endpoint->usingMethod('post');
+
         if (! is_null($callable)) {
             $callable($endpoint);
         }
