@@ -2,7 +2,9 @@
 
 namespace Signifly\Travy\Schema;
 
-class Endpoint
+use Illuminate\Contracts\Support\Arrayable;
+
+class Endpoint implements Arrayable
 {
     /** @var array */
     protected $params = [];
