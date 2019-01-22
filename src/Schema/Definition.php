@@ -2,6 +2,8 @@
 
 namespace Signifly\Travy\Schema;
 
+use Closure;
+use Signifly\Travy\Schema\Endpoint;
 use Signifly\Travy\Http\Requests\TravyRequest;
 use Signifly\Travy\Schema\Concerns\HasActions;
 use Signifly\Travy\Schema\Contracts\DefinitionContract;
@@ -11,9 +13,9 @@ abstract class Definition implements DefinitionContract
     use HasActions;
 
     /**
-     * The endpoint array.
+     * The endpoint instance.
      *
-     * @var array
+     * @var \Signifly\Travy\Schema\Endpoint
      */
     protected $endpoint;
 
@@ -52,22 +54,31 @@ abstract class Definition implements DefinitionContract
      * Add includes to the definition schema.
      *
      * @param $includes
+     * @return self
      */
-    public function addIncludes(...$includes)
+    public function addIncludes(...$includes): self
     {
         $this->includes = $includes;
+
+        return $this;
     }
 
     /**
      * Set the endpoint for the definition.
      *
      * @param  string $url
-     * @param  array  $params
+     * @param Clousure|null $callback
      * @return self
      */
-    public function endpoint($url, array $params = [])
+    public function endpoint($url, ?Closure $callback = null): self
     {
-        $this->endpoint = compact('url', 'params');
+        $endpoint = new Endpoint($url);
+
+        if (! is_null($callable)) {
+            $callable($endpoint);
+        }
+
+        $this->endpoint = $endpoint;
 
         return $this;
     }
@@ -77,7 +88,7 @@ abstract class Definition implements DefinitionContract
      *
      * @return string
      */
-    public function getResourceKey()
+    public function getResourceKey(): string
     {
         return $this->request->resourceKey();
     }
@@ -87,17 +98,17 @@ abstract class Definition implements DefinitionContract
      *
      * @return bool
      */
-    public function hasIncludes()
+    public function hasIncludes(): bool
     {
         return count($this->includes) > 0;
     }
 
-    public function hasModifiers()
+    public function hasModifiers(): bool
     {
         return count($this->modifiers) > 0;
     }
 
-    public function modifiersFromResource()
+    public function modifiersFromResource(): self
     {
         $fields = collect($this->request->resource()->modifiers());
 

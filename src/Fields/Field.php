@@ -377,18 +377,6 @@ abstract class Field extends FieldElement implements JsonSerializable
     }
 
     /**
-     * Specify the field column width.
-     * - it overwrites the `width` prop and is only used for tables
-     *
-     * @param  int    $value
-     * @return self
-     */
-    public function columnWidth(int $value): self
-    {
-        return $this->withMeta(['columnWidth' => $value]);
-    }
-
-    /**
      * Specify the field description.
      *
      * @param  string $text

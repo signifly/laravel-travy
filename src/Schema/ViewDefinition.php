@@ -50,7 +50,7 @@ abstract class ViewDefinition extends Definition
                     'tag' => $this->headerTag,
                 ],
             ],
-            'endpoint' => $this->endpoint,
+            'endpoint' => $this->endpoint->toArray(),
             'tabs' => $this->preparedTabs(),
         ];
 

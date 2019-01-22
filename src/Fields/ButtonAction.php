@@ -2,6 +2,9 @@
 
 namespace Signifly\Travy\Fields;
 
+use Closure;
+use Signifly\Travy\Schema\Endpoint;
+
 class ButtonAction extends Field
 {
     /**
@@ -16,6 +19,9 @@ class ButtonAction extends Field
 
     /** @var array */
     protected $actionProps = [];
+
+    /** @var \Signifly\Travy\Schema\Endpoint */
+    protected $endpoint;
 
     /**
      * Set the color of the button-action.
@@ -49,9 +55,15 @@ class ButtonAction extends Field
      * @param  array  $params
      * @return self
      */
-    public function endpoint(string $url, string $method = 'post', array $params = []): self
+    public function endpoint(string $url, ?Closure $callback = null): self
     {
-        array_set($this->actionProps, 'endpoint', compact('url', 'method', 'params'));
+        $endpoint = new Endpoint($url);
+
+        if (! is_null($callable)) {
+            $callable($endpoint);
+        }
+
+        $this->endpoint = $endpoint;
 
         return $this;
     }
@@ -127,6 +139,10 @@ class ButtonAction extends Field
      */
     public function applyOptions()
     {
+        if ($this->endpoint) {
+            array_set($this->actionProps, 'endpoint', $this->endpoint->toArray());
+        }
+
         $this->withProps([
             'title' => __($this->name),
             'action' => array_merge(

@@ -2,6 +2,8 @@
 
 namespace Signifly\Travy\Schema;
 
+use Closure;
+use Signifly\Travy\Schema\Endpoint;
 use Signifly\Travy\Schema\Concerns\HasProps;
 use Signifly\Travy\Schema\Concerns\HasActions;
 use Signifly\Travy\Schema\Concerns\HasMetaData;
@@ -11,6 +13,9 @@ class Action
     use HasProps;
     use HasActions;
     use HasMetaData;
+
+    /** @var \Signifly\Travy\Schema\Endpoint */
+    public $endpoint;
 
     /**
      * The displayable title of the action.
@@ -55,9 +60,20 @@ class Action
      * @param  string $method
      * @return self
      */
-    public function endpoint(string $url, $method = 'post')
+    public function endpoint(string $url, ?Closure $callback = null): self
     {
-        return $this->withProps(['endpoint' => compact('url', 'method')]);
+        $endpoint = new Endpoint($url);
+
+        // Set default method
+        $endpoint->usingMethod('post');
+
+        if (! is_null($callable)) {
+            $callable($endpoint);
+        }
+
+        $this->endpoint = $endpoint;
+
+        return $this;
     }
 
     /**
@@ -172,6 +188,10 @@ class Action
 
         if ($this->hasActions()) {
             $this->withProps(['actions' => $this->preparedActions()]);
+        }
+
+        if ($this->endpoint) {
+            $this->withProps(['endpoint' => $this->endpoint->toArray()]);
         }
 
         return array_merge([

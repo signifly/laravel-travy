@@ -2,7 +2,9 @@
 
 namespace Signifly\Travy\Fields\Input;
 
+use Closure;
 use Signifly\Travy\Fields\Field;
+use Signifly\Travy\Schema\Endpoint;
 use Signifly\Travy\Schema\Concerns\HasOptions;
 
 class SelectSearch extends Field
@@ -15,6 +17,9 @@ class SelectSearch extends Field
      * @var string
      */
     public $component = 'input-select-search';
+
+    /** @var \Signifly\Travy\Schema\Endpoint */
+    public $endpoint;
 
     /**
      * Indicates if the element should be shown on the index view.
@@ -66,9 +71,17 @@ class SelectSearch extends Field
      * @param  array  $params
      * @return self
      */
-    public function endpoint(string $url, array $params = [])
+    public function endpoint(string $url, ?Closure $callback = null): self
     {
-        return $this->withOptions(['endpoint' => compact('url', 'params')]);
+        $endpoint = new Endpoint($url);
+
+        if (! is_null($callable)) {
+            $callable($endpoint);
+        }
+
+        $this->endpoint = $endpoint;
+
+        return $this;
     }
 
     /**
@@ -122,6 +135,10 @@ class SelectSearch extends Field
      */
     public function applyOptions()
     {
+        if ($this->endpoint) {
+            $this->withOptions(['endpoint' => $this->endpoint->toArray()]);
+        }
+
         $this->withProps([
             'value' => $this->attribute,
             'options' => $this->options(),

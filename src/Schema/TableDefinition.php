@@ -79,7 +79,7 @@ abstract class TableDefinition extends Definition
 
         $schema = [
             'columns' => $this->preparedColumns(),
-            'endpoint' => $this->endpoint,
+            'endpoint' => $this->endpoint->toArray(),
             'defaults' => $this->defaults,
         ];
 
@@ -308,13 +308,13 @@ abstract class TableDefinition extends Definition
      */
     protected function guessEndpoint()
     {
-        $params = [];
+        $url = url("v1/admin/{$this->getResourceKey()}");
 
-        if ($this->hasIncludes()) {
-            array_set($params, 'include', $this->includes);
-        }
-
-        return $this->endpoint(url("v1/admin/{$this->getResourceKey()}"), $params);
+        return $this->endpoint($url, function ($endpoint) {
+            if ($this->hasIncludes()) {
+                $endpoint->addParam('include', $this->includes);
+            }
+        });
     }
 
     /**
