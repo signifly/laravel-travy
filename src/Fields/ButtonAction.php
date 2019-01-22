@@ -83,7 +83,7 @@ class ButtonAction extends Field
         $this->withProps([
             'title' => __($this->name),
             'action' => array_merge(
-                ['id' => $this->attribute, 'title' => $this->name, 'data' => $this->actionData],
+                ['id' => $this->attribute, 'title' => __($this->name), 'data' => $this->actionData],
                 $this->actionProps
             ),
         ]);
