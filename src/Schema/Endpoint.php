@@ -23,7 +23,6 @@ class Endpoint implements Arrayable
     public function __construct(string $url)
     {
         $this->url = $url;
-        $this->method = $method;
     }
 
     /**
