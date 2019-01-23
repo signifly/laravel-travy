@@ -113,7 +113,7 @@ abstract class Definition implements DefinitionContract
         $fields = collect($this->request->resource()->modifiers());
 
         if ($fields->isEmpty()) {
-            return;
+            return $this;
         }
 
         // Prepare data
