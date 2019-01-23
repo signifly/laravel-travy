@@ -9,7 +9,7 @@ class Travy
     /**
      * Binds the Travy routes into the controller.
      *
-     * @param  callable|null  $callback
+     * @param  callable|null  $callable
      * @param  array  $options
      * @return void
      */
