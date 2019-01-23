@@ -68,10 +68,10 @@ class SelectSearch extends Field
      * Set the endpoint option.
      *
      * @param  string $url
-     * @param  array  $params
+     * @param  Closure|null $callable
      * @return self
      */
-    public function endpoint(string $url, ?Closure $callback = null): self
+    public function endpoint(string $url, ?Closure $callable = null): self
     {
         $endpoint = new Endpoint($url);
 

@@ -60,7 +60,7 @@ class Action
      * @param  string $method
      * @return self
      */
-    public function endpoint(string $url, ?Closure $callback = null): self
+    public function endpoint(string $url, ?Closure $callable = null): self
     {
         $endpoint = new Endpoint($url);
 
