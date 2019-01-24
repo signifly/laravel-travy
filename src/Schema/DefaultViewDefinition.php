@@ -14,7 +14,12 @@ class DefaultViewDefinition extends ViewDefinition
             Action::make('Delete', 'danger')
                 ->icon('delete')
                 ->type('popup')
-                ->endpoint(url("v1/admin/{$this->getResourceKey()}/{id}"), 'delete')
+                ->endpoint(
+                    url("v1/admin/{$this->getResourceKey()}/{id}"),
+                    function ($endpoint) {
+                        $endpoint->usingMethod('delete');
+                    }
+                )
                 ->onSubmit("/t/{$this->getResourceKey()}")
                 ->text('Are you sure? Please confirm the action.'),
         ]);

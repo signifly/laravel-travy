@@ -67,10 +67,10 @@ abstract class Definition implements DefinitionContract
      * Set the endpoint for the definition.
      *
      * @param  string $url
-     * @param Clousure|null $callback
+     * @param Clousure|null $callable
      * @return self
      */
-    public function endpoint($url, ?Closure $callback = null): self
+    public function endpoint($url, ?Closure $callable = null): self
     {
         $endpoint = new Endpoint($url);
 
@@ -113,7 +113,7 @@ abstract class Definition implements DefinitionContract
         $fields = collect($this->request->resource()->modifiers());
 
         if ($fields->isEmpty()) {
-            return;
+            return $this;
         }
 
         // Prepare data

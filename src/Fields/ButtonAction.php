@@ -51,11 +51,10 @@ class ButtonAction extends Field
      * Set the endpoint of the button-action.
      *
      * @param  string $url
-     * @param  string $method
-     * @param  array  $params
+     * @param Closure|null $callable
      * @return self
      */
-    public function endpoint(string $url, ?Closure $callback = null): self
+    public function endpoint(string $url, ?Closure $callable = null): self
     {
         $endpoint = new Endpoint($url);
 

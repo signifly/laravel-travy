@@ -9,13 +9,13 @@ class Travy
     /**
      * Binds the Travy routes into the controller.
      *
-     * @param  callable|null  $callback
+     * @param  callable|null  $callable
      * @param  array  $options
      * @return void
      */
-    public static function routes($callback = null, array $options = [])
+    public static function routes($callable = null, array $options = [])
     {
-        $callback = $callback ?: function ($router) {
+        $callable = $callable ?: function ($router) {
             $router->all();
         };
 
@@ -25,8 +25,8 @@ class Travy
 
         $options = array_merge($defaultOptions, $options);
 
-        Route::group($options, function ($router) use ($callback) {
-            $callback(new RouteRegistrar($router));
+        Route::group($options, function ($router) use ($callable) {
+            $callable(new RouteRegistrar($router));
         });
     }
 }
