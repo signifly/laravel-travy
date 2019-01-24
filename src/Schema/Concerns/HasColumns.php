@@ -3,6 +3,7 @@
 namespace Signifly\Travy\Schema\Concerns;
 
 use Exception;
+use Signifly\Travy\Fields\Field;
 use Signifly\Travy\Schema\Column;
 
 trait HasColumns
@@ -17,13 +18,25 @@ trait HasColumns
     /**
      * Add an instance of a column.
      *
-     * @param Column $column
+     * @param \Signifly\Travy\Schema\Column $column
      */
-    public function addColumn(Column $column)
+    public function addColumn(Column $column): Column
     {
         array_push($this->columns, $column);
 
         return $column;
+    }
+
+    /**
+     * Add column from a field.
+     *
+     * @param \Signifly\Travy\Fields\Field $field
+     */
+    public function addColumnFromField(Field $field): Column
+    {
+        $column = Column::make($field);
+
+        return $this->addColumn($column);
     }
 
     /**
@@ -32,7 +45,7 @@ trait HasColumns
      * @param  array  $fields
      * @return self
      */
-    public function columns(array $fields)
+    public function columns(array $fields): self
     {
         $this->columns = collect($fields)
             ->mapInto(Column::class)
@@ -46,7 +59,7 @@ trait HasColumns
      *
      * @return bool
      */
-    public function hasColumns()
+    public function hasColumns(): bool
     {
         return count($this->columns) > 0;
     }
@@ -56,7 +69,7 @@ trait HasColumns
      *
      * @return array
      */
-    protected function preparedColumns()
+    protected function preparedColumns(): array
     {
         return collect($this->columns)
             ->map(function ($column, $index) {
