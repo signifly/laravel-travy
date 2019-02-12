@@ -2,7 +2,6 @@
 
 namespace Signifly\Travy\FieldTypes;
 
-use Closure;
 use Signifly\Travy\Schema\Concerns\HasColumns;
 
 class TableFieldType extends FieldType

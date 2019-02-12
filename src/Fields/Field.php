@@ -2,8 +2,8 @@
 
 namespace Signifly\Travy\Fields;
 
-use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 abstract class Field extends FieldElement
 {
@@ -144,7 +144,7 @@ abstract class Field extends FieldElement
     /**
      * Create a new field.
      *
-     * @param string $name
+     * @param string      $name
      * @param string|null $attribute
      */
     public function __construct($name, $attribute = null)
@@ -166,7 +166,8 @@ abstract class Field extends FieldElement
     /**
      * Specify that this field should be disabled.
      *
-     * @param  bool  $value
+     * @param bool $value
+     *
      * @return self
      */
     public function disabled($value = true)
@@ -179,7 +180,8 @@ abstract class Field extends FieldElement
     /**
      * Set the validation rules for the field.
      *
-     * @param  callable|array|string  $rules
+     * @param callable|array|string $rules
+     *
      * @return self
      */
     public function rules($rules)
@@ -192,7 +194,8 @@ abstract class Field extends FieldElement
     /**
      * Get the validation rules for this field.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return array
      */
     public function getRules(Request $request)
@@ -205,7 +208,8 @@ abstract class Field extends FieldElement
     /**
      * Get the creation rules for this field.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return array|string
      */
     public function getCreationRules(Request $request)
@@ -222,7 +226,8 @@ abstract class Field extends FieldElement
     /**
      * Set the creation validation rules for the field.
      *
-     * @param  callable|array|string  $rules
+     * @param callable|array|string $rules
+     *
      * @return self
      */
     public function creationRules($rules)
@@ -235,7 +240,8 @@ abstract class Field extends FieldElement
     /**
      * Get the update rules for this field.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return array
      */
     public function getUpdateRules(Request $request)
@@ -252,7 +258,8 @@ abstract class Field extends FieldElement
     /**
      * Set the creation validation rules for the field.
      *
-     * @param  callable|array|string  $rules
+     * @param callable|array|string $rules
+     *
      * @return self
      */
     public function updateRules($rules)
@@ -265,8 +272,9 @@ abstract class Field extends FieldElement
     /**
      * Specify that this field should be linkable.
      *
-     * @param  bool $value
-     * @param  string  $uri
+     * @param bool   $value
+     * @param string $uri
+     *
      * @return self
      */
     public function linkable($value = true, $uri = null)
@@ -290,7 +298,8 @@ abstract class Field extends FieldElement
     /**
      * Specify that this field should be searchable.
      *
-     * @param  bool  $value
+     * @param bool $value
+     *
      * @return self
      */
     public function searchable($value = true)
@@ -303,7 +312,8 @@ abstract class Field extends FieldElement
     /**
      * Specify that this field should be sortable.
      *
-     * @param  bool  $value
+     * @param bool $value
+     *
      * @return self
      */
     public function sortable($value = true, $attribute = null)
@@ -317,7 +327,8 @@ abstract class Field extends FieldElement
     /**
      * Specify that this field is default sort.
      *
-     * @param  bool $value
+     * @param bool $value
+     *
      * @return self
      */
     public function defaultSort($value = true, $order = 'asc')
@@ -331,7 +342,8 @@ abstract class Field extends FieldElement
     /**
      * Specify the column width.
      *
-     * @param  int    $value
+     * @param int $value
+     *
      * @return self
      */
     public function columnWidth(int $value)
@@ -344,7 +356,8 @@ abstract class Field extends FieldElement
     /**
      * Specify the field width.
      *
-     * @param  int    $value
+     * @param int $value
+     *
      * @return self
      */
     public function width(int $value)
@@ -357,7 +370,8 @@ abstract class Field extends FieldElement
     /**
      * Set additional meta information for the element.
      *
-     * @param  array  $meta
+     * @param array $meta
+     *
      * @return $this
      */
     public function withMeta(array $meta)

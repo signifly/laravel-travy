@@ -18,11 +18,11 @@ class Batch implements Arrayable
     /**
      * Checks if sequential is active.
      *
-     * @return boolean
+     * @return bool
      */
     public function hasSequential()
     {
-        return !! $this->sequential;
+        return (bool) $this->sequential;
     }
 
     /**
@@ -40,8 +40,9 @@ class Batch implements Arrayable
     /**
      * Add selected options.
      *
-     * @param  string $label
-     * @param  string $link
+     * @param string $label
+     * @param string $link
+     *
      * @return self
      */
     public function selectedOptions($label, $link)
@@ -59,8 +60,8 @@ class Batch implements Arrayable
     public function toArray()
     {
         $data = [
-            'bulk' => $this->hasActions(),
-            'actions' => $this->preparedActions(),
+            'bulk'            => $this->hasActions(),
+            'actions'         => $this->preparedActions(),
             'selectedOptions' => $this->selectedOptions ?: (object) [],
         ];
 

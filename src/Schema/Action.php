@@ -2,10 +2,9 @@
 
 namespace Signifly\Travy\Schema;
 
-use Closure;
 use Illuminate\Contracts\Support\Arrayable;
-use Signifly\Travy\Schema\Concerns\HasProps;
 use Signifly\Travy\Schema\Concerns\HasFields;
+use Signifly\Travy\Schema\Concerns\HasProps;
 
 class Action implements Arrayable
 {
@@ -73,9 +72,10 @@ class Action implements Arrayable
     /**
      * Hide field type.
      *
-     * @param  string $key
-     * @param  mixed $value
-     * @param  string $operator
+     * @param string $key
+     * @param mixed  $value
+     * @param string $operator
+     *
      * @return self
      */
     public function hide(string $key, $value, string $operator = 'eq')

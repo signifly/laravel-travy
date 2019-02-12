@@ -4,11 +4,11 @@ namespace Signifly\Travy\Schema;
 
 use Closure;
 use Illuminate\Support\Str;
-use Signifly\Travy\Support\FieldResolver;
-use Signifly\Travy\Support\ColumnResolver;
-use Signifly\Travy\Support\FilterResolver;
 use Signifly\Travy\Schema\Concerns\HasColumns;
 use Signifly\Travy\Schema\Concerns\HasFilters;
+use Signifly\Travy\Support\ColumnResolver;
+use Signifly\Travy\Support\FieldResolver;
+use Signifly\Travy\Support\FilterResolver;
 
 abstract class TableDefinition extends Definition
 {
@@ -24,7 +24,7 @@ abstract class TableDefinition extends Definition
 
     /**
      * The endpoint to redirect to on creation.
-     * - defaults to /t/{resource}/{id}
+     * - defaults to /t/{resource}/{id}.
      *
      * @var string|null
      */
@@ -48,7 +48,8 @@ abstract class TableDefinition extends Definition
      * Add default to the definition schema.
      *
      * @param string $key
-     * @param mixed $value
+     * @param mixed  $value
+     *
      * @return self
      */
     public function addDefault($key, $value)
@@ -68,7 +69,7 @@ abstract class TableDefinition extends Definition
         $this->schema();
 
         $schema = [
-            'columns' => $this->preparedColumns(),
+            'columns'  => $this->preparedColumns(),
             'endpoint' => $this->endpoint ?? $this->guessEndpoint(),
             'defaults' => $this->defaults,
         ];
@@ -103,7 +104,8 @@ abstract class TableDefinition extends Definition
     /**
      * Build the batch schema.
      *
-     * @param  Closure $callable
+     * @param Closure $callable
+     *
      * @return void
      */
     public function buildBatch(Closure $callable)
@@ -135,7 +137,7 @@ abstract class TableDefinition extends Definition
 
         if ($defaultSort) {
             $this->addDefault('sort', [
-                'prop' => $defaultSort->sortBy,
+                'prop'  => $defaultSort->sortBy,
                 'order' => $defaultSort->defaultSortOrder,
             ]);
         }
@@ -146,7 +148,7 @@ abstract class TableDefinition extends Definition
         })->implode('name', ', ');
 
         $this->searchPlaceholder(
-            $searchable ? 'Search for ' . $searchable : 'Search...'
+            $searchable ? 'Search for '.$searchable : 'Search...'
         );
 
         return $this;
@@ -238,7 +240,7 @@ abstract class TableDefinition extends Definition
     protected function guessEndpoint()
     {
         return [
-            'url' => url("v1/admin/{$this->getResourceKey()}"),
+            'url'    => url("v1/admin/{$this->getResourceKey()}"),
             'method' => 'get',
         ];
     }
@@ -246,7 +248,8 @@ abstract class TableDefinition extends Definition
     /**
      * Set the search placeholder.
      *
-     * @param  string $placeholder
+     * @param string $placeholder
+     *
      * @return self
      */
     public function searchPlaceholder($placeholder)

@@ -3,8 +3,8 @@
 namespace Signifly\Travy;
 
 use Illuminate\Support\ServiceProvider;
-use Signifly\Travy\Commands\ResourceTravyCommand;
 use Signifly\Travy\Commands\DefinitionTravyCommand;
+use Signifly\Travy\Commands\ResourceTravyCommand;
 
 class TravyServiceProvider extends ServiceProvider
 {

@@ -40,7 +40,8 @@ class Upload extends Field
     /**
      * The options to apply to the field type.
      *
-     * @param  FieldType $fieldType
+     * @param FieldType $fieldType
+     *
      * @return void
      */
     public function applyOptions(FieldType $fieldType)

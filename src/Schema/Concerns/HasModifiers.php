@@ -19,6 +19,7 @@ trait HasModifiers
      *
      * @param string $key
      * @param string $title
+     *
      * @return \Signifly\Travy\Modifier
      */
     public function addModifier($key, $title)
@@ -37,10 +38,10 @@ trait HasModifiers
      */
     public function addModifierFor(string $modifier)
     {
-        $class = new $modifier;
+        $class = new $modifier();
 
-        if (! is_callable($class)) {
-            throw new Exception($modifier . " must be callable.");
+        if (!is_callable($class)) {
+            throw new Exception($modifier.' must be callable.');
         }
 
         return $class($this);

@@ -24,9 +24,9 @@ class SelectSearch extends Field
     {
         $options = array_merge([
             'endpoint' => null,
-            'key' => 'data',
-            'label' => null,
-            'value' => 'id',
+            'key'      => 'data',
+            'label'    => null,
+            'value'    => 'id',
         ], $options);
 
         return $this->withMeta(['options' => $options]);
@@ -35,7 +35,8 @@ class SelectSearch extends Field
     /**
      * The options to apply to the field type.
      *
-     * @param  FieldType $fieldType
+     * @param FieldType $fieldType
+     *
      * @return void
      */
     public function applyOptions(FieldType $fieldType)

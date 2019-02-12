@@ -9,7 +9,8 @@ class TextFieldType extends FieldType
     /**
      * Add a text prop.
      *
-     * @param  string $value
+     * @param string $value
+     *
      * @return self
      */
     public function text(string $value)
@@ -20,7 +21,8 @@ class TextFieldType extends FieldType
     /**
      * Add a textDefault prop.
      *
-     * @param  string $value
+     * @param string $value
+     *
      * @return self
      */
     public function textDefault(string $value)

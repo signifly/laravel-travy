@@ -2,7 +2,6 @@
 
 namespace Signifly\Travy\FieldTypes;
 
-use Closure;
 use Signifly\Travy\Schema\Concerns\HasColumns;
 
 class SelectMultiSearchTableFieldType extends FieldType
@@ -30,7 +29,7 @@ class SelectMultiSearchTableFieldType extends FieldType
     {
         $this->addProp('columns', $this->preparedColumns());
 
-        if (! $this->hasProp('columnsDataOverwrite')) {
+        if (!$this->hasProp('columnsDataOverwrite')) {
             $this->overwrite([]);
         }
     }

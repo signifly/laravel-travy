@@ -38,15 +38,15 @@ class Tab implements Arrayable
     /**
      * Create a new tab.
      *
-     * @param string $key
-     * @param string $label
+     * @param string      $key
+     * @param string      $label
      * @param string|null $title
      */
     public function __construct($key, $label, $title = null)
     {
         $this->key = $key;
         $this->label = $this->title = $label;
-        if (! is_null($title)) {
+        if (!is_null($title)) {
             $this->title = $title;
         }
     }
@@ -67,9 +67,9 @@ class Tab implements Arrayable
         $sections = collect($this->sections)->map->toArray();
 
         return [
-            'id' => $this->key,
-            'label' => $this->label,
-            'title' => $this->title,
+            'id'       => $this->key,
+            'label'    => $this->label,
+            'title'    => $this->title,
             'sections' => $sections->all(),
         ];
     }

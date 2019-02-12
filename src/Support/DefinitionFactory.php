@@ -3,8 +3,8 @@
 namespace Signifly\Travy\Support;
 
 use Illuminate\Support\Str;
-use Signifly\Travy\Http\Requests\TravyRequest;
 use Signifly\Travy\Exceptions\InvalidDefinitionException;
+use Signifly\Travy\Http\Requests\TravyRequest;
 
 class DefinitionFactory
 {
@@ -37,7 +37,7 @@ class DefinitionFactory
         $resource = Str::studly($this->request->resourceKey());
         $class = "{$namespace}\\{$type}\\{$resource}{$type}Definition";
 
-        if (! class_exists($class)) {
+        if (!class_exists($class)) {
             throw new InvalidDefinitionException();
         }
 

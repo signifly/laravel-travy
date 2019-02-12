@@ -13,7 +13,7 @@ class MenuItem
     /**
      * Create a new MenuItem instance.
      *
-     * @param string $title
+     * @param string      $title
      * @param string|null $slug
      */
     public function __construct(string $title, $slug = null)
@@ -27,7 +27,7 @@ class MenuItem
      *
      * @param MenuItem $item
      */
-    public function addChild(MenuItem $item)
+    public function addChild(self $item)
     {
         $this->items[] = $item;
 
@@ -36,7 +36,7 @@ class MenuItem
 
     public function getSlug()
     {
-        if (! $this->slug) {
+        if (!$this->slug) {
             return str_slug($this->title);
         }
 
@@ -62,6 +62,7 @@ class MenuItem
         if ($this->hasItems()) {
             $items = collect($this->items)->map->toArray();
             $data->put('items', $items->all());
+
             return $data->toArray();
         }
 
@@ -75,7 +76,7 @@ class MenuItem
         return [
             $this->getSlug() => [
                 'title' => $this->title,
-                'auth' => ['roles' => ['admin']],
+                'auth'  => ['roles' => ['admin']],
             ],
         ];
     }

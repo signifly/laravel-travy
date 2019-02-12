@@ -16,9 +16,10 @@ trait HasTabs
     /**
      * Add modifier to the definition schema.
      *
-     * @param string $key
-     * @param string $label
+     * @param string      $key
+     * @param string      $label
      * @param string|null $title
+     *
      * @return \Signifly\Travy\Tab
      */
     public function addTab($key, $label, $title = null)

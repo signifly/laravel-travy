@@ -75,7 +75,8 @@ class Filter implements Arrayable
     /**
      * Tap into the field type.
      *
-     * @param  Closure $callable
+     * @param Closure $callable
+     *
      * @return void
      */
     public function tapFieldType(Closure $callable)
@@ -93,8 +94,8 @@ class Filter implements Arrayable
     public function toArray()
     {
         return [
-            'name' => $this->name,
-            'label' => $this->label,
+            'name'      => $this->name,
+            'label'     => $this->label,
             'fieldType' => $this->fieldType->build(),
         ];
     }

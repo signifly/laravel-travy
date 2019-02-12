@@ -31,6 +31,7 @@ class ResourceTravyCommand extends GeneratorCommand
      * Get the default namespace for the class.
      *
      * @param  $rootNamespace
+     *
      * @return string
      */
     protected function getDefaultNamespace($rootNamespace)
@@ -45,6 +46,6 @@ class ResourceTravyCommand extends GeneratorCommand
      */
     protected function getStub()
     {
-        return __DIR__ . '/stubs/resource.stub';
+        return __DIR__.'/stubs/resource.stub';
     }
 }

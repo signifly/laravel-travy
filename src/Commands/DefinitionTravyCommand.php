@@ -32,6 +32,7 @@ class DefinitionTravyCommand extends GeneratorCommand
      * Get the default namespace for the class.
      *
      * @param  $rootNamespace
+     *
      * @return string
      */
     protected function getDefaultNamespace($rootNamespace)
@@ -53,10 +54,10 @@ class DefinitionTravyCommand extends GeneratorCommand
     protected function getStub()
     {
         if ($this->option('view')) {
-            return __DIR__ . '/stubs/view.stub';
+            return __DIR__.'/stubs/view.stub';
         }
 
-        return __DIR__ . '/stubs/table.stub';
+        return __DIR__.'/stubs/table.stub';
     }
 
     /**

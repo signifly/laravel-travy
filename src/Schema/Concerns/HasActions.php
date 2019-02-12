@@ -19,6 +19,7 @@ trait HasActions
      *
      * @param string $title
      * @param string $status
+     *
      * @return \Signifly\Travy\Table\Actions\Action
      */
     public function addAction($title, $status = null)
@@ -37,10 +38,10 @@ trait HasActions
      */
     public function addActionFor(string $action)
     {
-        $class = new $action;
+        $class = new $action();
 
-        if (! is_callable($class)) {
-            throw new Exception($action . " must be callable.");
+        if (!is_callable($class)) {
+            throw new Exception($action.' must be callable.');
         }
 
         return $class($this);

@@ -15,7 +15,7 @@ trait HasProps
      * Add a new prop.
      *
      * @param string $key
-     * @param mixed $value
+     * @param mixed  $value
      */
     public function addProp(string $key, $value)
     {
@@ -27,7 +27,8 @@ trait HasProps
     /**
      * Get a prop for a given key.
      *
-     * @param  string $key
+     * @param string $key
+     *
      * @return mixed
      */
     public function getProp(string $key)
@@ -48,7 +49,8 @@ trait HasProps
     /**
      * Determine if a prop with the given key exists.
      *
-     * @param  string  $key
+     * @param string $key
+     *
      * @return bool
      */
     public function hasProp(string $key)
