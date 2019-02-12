@@ -3,7 +3,6 @@
 namespace Signifly\Travy\Schema;
 
 use Closure;
-use Signifly\Travy\Schema\Endpoint;
 use Signifly\Travy\Schema\Concerns\HasProps;
 use Signifly\Travy\Schema\Concerns\HasActions;
 use Signifly\Travy\Schema\Concerns\HasMetaData;
@@ -87,6 +86,7 @@ class Action
         $fields = collect($fields)
             ->map(function ($field) {
                 $field->linkable(false);
+
                 return $field->jsonSerialize();
             })
             ->toArray();

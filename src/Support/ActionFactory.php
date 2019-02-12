@@ -19,7 +19,7 @@ class ActionFactory
         $actionClass = $resource->getAction($method);
 
         if (! $actionClass) {
-            return null;
+            return;
         }
 
         return new $actionClass($request, $resource);

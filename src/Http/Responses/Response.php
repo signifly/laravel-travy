@@ -19,7 +19,7 @@ abstract class Response implements Responsable
         $class = "App\\Http\\Resources\\{$baseClass}";
 
         if (! class_exists($class)) {
-            throw new Exception('Could not find a resource for ' . $baseClass);
+            throw new Exception('Could not find a resource for '.$baseClass);
         }
 
         return $class;
