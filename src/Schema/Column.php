@@ -39,7 +39,7 @@ class Column implements Arrayable
     /**
      * Indicates if the column is sortable.
      *
-     * @var boolean
+     * @var bool
      */
     protected $sortable = false;
 
@@ -72,8 +72,9 @@ class Column implements Arrayable
     /**
      * Set the field type.
      *
-     * @param  string  $class
-     * @param  Closure $callable
+     * @param string  $class
+     * @param Closure $callable
+     *
      * @return self
      */
     public function fieldType(string $class, Closure $callable)
@@ -90,7 +91,8 @@ class Column implements Arrayable
     /**
      * Set the label property.
      *
-     * @param  string $label
+     * @param string $label
+     *
      * @return self
      */
     public function label(string $label)
@@ -103,7 +105,8 @@ class Column implements Arrayable
     /**
      * Set the name property.
      *
-     * @param  string $name
+     * @param string $name
+     *
      * @return self
      */
     public function name(string $name)
@@ -116,7 +119,8 @@ class Column implements Arrayable
     /**
      * Set the order property.
      *
-     * @param  int $order
+     * @param int $order
+     *
      * @return self
      */
     public function order($order)
@@ -129,12 +133,13 @@ class Column implements Arrayable
     /**
      * Set the sortable field.
      *
-     * @param  bool|string $sortable
+     * @param bool|string $sortable
+     *
      * @return self
      */
     public function sortable($sortable = true)
     {
-        if ($sortable && ! is_bool($sortable)) {
+        if ($sortable && !is_bool($sortable)) {
             $this->sortable = true;
             $this->sortBy = $sortable;
 
@@ -149,7 +154,8 @@ class Column implements Arrayable
     /**
      * Set the column to sort by.
      *
-     * @param  string $sortBy
+     * @param string $sortBy
+     *
      * @return self
      */
     public function sortBy(string $sortBy)
@@ -162,7 +168,8 @@ class Column implements Arrayable
     /**
      * Tap into the field type.
      *
-     * @param  Closure $callable
+     * @param Closure $callable
+     *
      * @return void
      */
     public function tapFieldType(Closure $callable)
@@ -173,7 +180,8 @@ class Column implements Arrayable
     /**
      * Set the width of the column.
      *
-     * @param  int $width
+     * @param int $width
+     *
      * @return self
      */
     public function width($width)

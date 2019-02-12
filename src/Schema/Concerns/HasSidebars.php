@@ -19,6 +19,7 @@ trait HasSidebars
      *
      * @param string $key
      * @param string $title
+     *
      * @return \Signifly\Travy\Section
      */
     public function addSidebar($key, $title)
@@ -37,10 +38,10 @@ trait HasSidebars
      */
     public function addSidebarFor(string $sidebar)
     {
-        $class = new $sidebar;
+        $class = new $sidebar();
 
-        if (! is_callable($class)) {
-            throw new Exception($sidebar . " must be callable.");
+        if (!is_callable($class)) {
+            throw new Exception($sidebar.' must be callable.');
         }
 
         return $class($this);

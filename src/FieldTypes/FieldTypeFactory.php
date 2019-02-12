@@ -31,11 +31,11 @@ class FieldTypeFactory
     public function make()
     {
         if (Str::contains($this->name, 'FieldType') && class_exists($this->name)) {
-            return new $this->name;
+            return new $this->name();
         }
 
-        $class = __NAMESPACE__ . "\\" . Str::studly($this->name) . 'FieldType';
+        $class = __NAMESPACE__.'\\'.Str::studly($this->name).'FieldType';
 
-        return new $class;
+        return new $class();
     }
 }

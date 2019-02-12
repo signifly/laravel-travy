@@ -2,13 +2,12 @@
 
 namespace Signifly\Travy\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Signifly\Pagination\Pagination;
-use Illuminate\Foundation\Bus\DispatchesJobs;
-use Illuminate\Routing\Controller as BaseController;
-use Signifly\Travy\Http\Concerns\HandlesApiResponses;
-use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Foundation\Bus\DispatchesJobs;
+use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Routing\Controller as BaseController;
+use Signifly\Pagination\Pagination;
+use Signifly\Travy\Http\Concerns\HandlesApiResponses;
 
 class Controller extends BaseController
 {

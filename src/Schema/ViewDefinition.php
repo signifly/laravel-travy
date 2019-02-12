@@ -2,9 +2,9 @@
 
 namespace Signifly\Travy\Schema;
 
-use Signifly\Travy\Schema\Concerns\HasTabs;
 use Signifly\Travy\Schema\Concerns\HasFields;
 use Signifly\Travy\Schema\Concerns\HasSidebars;
+use Signifly\Travy\Schema\Concerns\HasTabs;
 
 abstract class ViewDefinition extends Definition
 {
@@ -29,9 +29,9 @@ abstract class ViewDefinition extends Definition
         $this->schema();
 
         $schema = [
-            'header' => ['fields' => $this->hasFields() ? $this->preparedFields() : (object) []],
+            'header'   => ['fields' => $this->hasFields() ? $this->preparedFields() : (object) []],
             'endpoint' => $this->endpoint ?? $this->guessEndpoint(),
-            'tabs' => $this->preparedTabs(),
+            'tabs'     => $this->preparedTabs(),
         ];
 
         if ($this->hasActions()) {
@@ -65,7 +65,7 @@ abstract class ViewDefinition extends Definition
     protected function guessEndpoint()
     {
         return [
-            'url' => url("v1/admin/{$this->getResourceKey()}/{id}"),
+            'url'    => url("v1/admin/{$this->getResourceKey()}/{id}"),
             'method' => 'get',
         ];
     }
@@ -73,7 +73,8 @@ abstract class ViewDefinition extends Definition
     /**
      * Show activity.
      *
-     * @param  bool $value
+     * @param bool $value
+     *
      * @return self
      */
     protected function showsActivity($value = true)

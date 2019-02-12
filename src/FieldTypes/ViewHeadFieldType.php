@@ -33,7 +33,7 @@ class ViewHeadFieldType extends FieldType
 
     protected function beforeBuild()
     {
-        if (! $this->hasProp('imageActive')) {
+        if (!$this->hasProp('imageActive')) {
             $this->imageActive(false);
         }
     }

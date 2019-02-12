@@ -4,8 +4,8 @@ namespace Signifly\Travy\Http\Controllers;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
-use Signifly\Travy\Support\DefinitionFactory;
 use Signifly\Travy\Http\Requests\TravyRequest;
+use Signifly\Travy\Support\DefinitionFactory;
 
 class DefinitionController extends Controller
 {

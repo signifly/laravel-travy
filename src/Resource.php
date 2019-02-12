@@ -2,12 +2,12 @@
 
 namespace Signifly\Travy;
 
-use Illuminate\Http\Request;
-use Spatie\QueryBuilder\Filter;
-use Signifly\Travy\Support\RulesetSorter;
-use Signifly\Travy\Http\Filters\SearchFilter;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Http\Request;
+use Signifly\Travy\Http\Filters\SearchFilter;
 use Signifly\Travy\Http\Filters\TrashedFilter;
+use Signifly\Travy\Support\RulesetSorter;
+use Spatie\QueryBuilder\Filter;
 
 abstract class Resource
 {
@@ -53,7 +53,7 @@ abstract class Resource
      */
     public function getModel() : string
     {
-        return $this->model ?? 'App\\Models\\' . class_basename(get_called_class());
+        return $this->model ?? 'App\\Models\\'.class_basename(get_called_class());
     }
 
     /**
@@ -64,7 +64,8 @@ abstract class Resource
     public function newModelInstance()
     {
         $model = $this->getModel();
-        return new $model;
+
+        return new $model();
     }
 
     /**
@@ -99,10 +100,10 @@ abstract class Resource
     protected function defaultActions(array $overwrites = [])
     {
         $this->actions = array_merge([
-            'index' => Http\Actions\IndexAction::class,
-            'store' => Http\Actions\StoreAction::class,
-            'show' => Http\Actions\ShowAction::class,
-            'update' => Http\Actions\UpdateAction::class,
+            'index'   => Http\Actions\IndexAction::class,
+            'store'   => Http\Actions\StoreAction::class,
+            'show'    => Http\Actions\ShowAction::class,
+            'update'  => Http\Actions\UpdateAction::class,
             'destroy' => Http\Actions\DestroyAction::class,
             'restore' => Http\Actions\RestoreAction::class,
         ], $overwrites);
@@ -201,7 +202,8 @@ abstract class Resource
     /**
      * Apply global scopes.
      *
-     * @param  \Illuminate\Database\Eloquent\Builder $query
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     *
      * @return void
      */
     public function applyGlobalScopes($query)
@@ -250,7 +252,8 @@ abstract class Resource
     /**
      * Retrieve an action by the specified key.
      *
-     * @param  string $key
+     * @param string $key
+     *
      * @return string
      */
     public function getAction(string $key)
@@ -271,7 +274,8 @@ abstract class Resource
     /**
      * The validation rules for creation.
      *
-     * @param  Request $request
+     * @param Request $request
+     *
      * @return array
      */
     public function getCreationRules(Request $request)
@@ -312,7 +316,8 @@ abstract class Resource
     /**
      * The validation rules for updates.
      *
-     * @param  Request $request
+     * @param Request $request
+     *
      * @return array
      */
     public function getUpdateRules(Request $request)

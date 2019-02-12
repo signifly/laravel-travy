@@ -4,9 +4,9 @@ namespace Signifly\Travy\Schema;
 
 use Closure;
 use Illuminate\Contracts\Support\Arrayable;
+use Signifly\Travy\Exceptions\InvalidFieldTypeException;
 use Signifly\Travy\FieldTypes\FieldType;
 use Signifly\Travy\FieldTypes\FieldTypeFactory;
-use Signifly\Travy\Exceptions\InvalidFieldTypeException;
 
 class Field implements Arrayable
 {
@@ -34,7 +34,7 @@ class Field implements Arrayable
     /**
      * Whether the field is required.
      *
-     * @var boolean
+     * @var bool
      */
     protected $required = true;
 
@@ -60,15 +60,16 @@ class Field implements Arrayable
     /**
      * Set the field type.
      *
-     * @param  string  $className
-     * @param  Closure $callable
+     * @param string  $className
+     * @param Closure $callable
+     *
      * @return self
      */
     public function fieldType(string $className, Closure $callable)
     {
         $fieldType = (new FieldTypeFactory($className))->make();
 
-        if (! $fieldType instanceof FieldType) {
+        if (!$fieldType instanceof FieldType) {
             throw new InvalidFieldTypeException();
         }
 
@@ -82,7 +83,8 @@ class Field implements Arrayable
     /**
      * Set the label property.
      *
-     * @param  string $value
+     * @param string $value
+     *
      * @return self
      */
     public function label(string $value)
@@ -95,7 +97,8 @@ class Field implements Arrayable
     /**
      * Set the name property.
      *
-     * @param  string $value
+     * @param string $value
+     *
      * @return self
      */
     public function name(string $value)
@@ -108,7 +111,8 @@ class Field implements Arrayable
     /**
      * Set the required property.
      *
-     * @param  bool   $value
+     * @param bool $value
+     *
      * @return self
      */
     public function required(bool $value)
@@ -121,7 +125,8 @@ class Field implements Arrayable
     /**
      * Tap into the field type.
      *
-     * @param  Closure $callable
+     * @param Closure $callable
+     *
      * @return void
      */
     public function tapFieldType(Closure $callable)
@@ -137,9 +142,9 @@ class Field implements Arrayable
     public function toArray()
     {
         $data = [
-            'name' => $this->name,
-            'label' => $this->label,
-            'required' => $this->required,
+            'name'      => $this->name,
+            'label'     => $this->label,
+            'required'  => $this->required,
             'fieldType' => $this->fieldType->build(),
         ];
 

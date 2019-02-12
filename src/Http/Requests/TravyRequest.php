@@ -2,10 +2,9 @@
 
 namespace Signifly\Travy\Http\Requests;
 
-use Signifly\Travy\Support\RulesetSorter;
+use Illuminate\Foundation\Http\FormRequest;
 use Signifly\Travy\Support\ActionFactory;
 use Signifly\Travy\Support\ResourceFactory;
-use Illuminate\Foundation\Http\FormRequest;
 
 class TravyRequest extends FormRequest
 {
@@ -34,7 +33,7 @@ class TravyRequest extends FormRequest
     {
         $actionMethod = $this->route()->getActionMethod();
 
-        if (! in_array($actionMethod, ['store', 'update'])) {
+        if (!in_array($actionMethod, ['store', 'update'])) {
             return [];
         }
 
@@ -61,7 +60,6 @@ class TravyRequest extends FormRequest
         parent::validateResolved();
     }
 
-
     /**
      * Get the action.
      *
@@ -69,7 +67,7 @@ class TravyRequest extends FormRequest
      */
     public function action($key = null)
     {
-        if (! $this->action) {
+        if (!$this->action) {
             $this->action = ActionFactory::make(
                 $key ?? $this->route()->getActionMethod(),
                 $this,
@@ -147,7 +145,7 @@ class TravyRequest extends FormRequest
      */
     public function relationResource()
     {
-        if (! $this->relationResource) {
+        if (!$this->relationResource) {
             $this->relationResource = ResourceFactory::make($this->relationName());
         }
 

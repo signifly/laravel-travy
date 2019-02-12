@@ -2,10 +2,10 @@
 
 namespace Signifly\Travy\Http\Actions;
 
-use Signifly\Travy\Resource;
-use Illuminate\Http\Request;
-use Spatie\QueryBuilder\QueryBuilder;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Http\Request;
+use Signifly\Travy\Resource;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class IndexAction extends Action
 {

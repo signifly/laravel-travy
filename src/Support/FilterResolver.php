@@ -3,10 +3,9 @@
 namespace Signifly\Travy\Support;
 
 use Closure;
-use Illuminate\Support\Str;
 use Signifly\Travy\Fields\Field;
-use Signifly\Travy\Schema\Filter;
 use Signifly\Travy\Http\Requests\TravyRequest;
+use Signifly\Travy\Schema\Filter;
 
 class FilterResolver
 {
@@ -32,7 +31,8 @@ class FilterResolver
     /**
      * Resolve the field.
      *
-     * @param  \Signifly\Travy\Fields\Field  $field
+     * @param \Signifly\Travy\Fields\Field $field
+     *
      * @return \Signifly\Travy\Schema\Filter
      */
     public function resolve(Field $field)

@@ -2,8 +2,8 @@
 
 namespace Signifly\Travy\Http\Filters;
 
-use Spatie\QueryBuilder\Filters\Filter;
 use Illuminate\Database\Eloquent\Builder;
+use Spatie\QueryBuilder\Filters\Filter;
 
 class SearchFilter implements Filter
 {
@@ -16,7 +16,7 @@ class SearchFilter implements Filter
 
     public function __invoke(Builder $query, $value, string $property) : Builder
     {
-        $value = is_array($value) ? join(',', $value) : $value;
+        $value = is_array($value) ? implode(',', $value) : $value;
 
         return $query->where(function ($query) use ($value) {
             foreach ($this->columns as $column) {

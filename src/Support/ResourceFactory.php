@@ -16,6 +16,6 @@ class ResourceFactory
             'Not Found.'
         );
 
-        return new $resource;
+        return new $resource();
     }
 }

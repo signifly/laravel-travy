@@ -19,6 +19,7 @@ trait HasFilters
      *
      * @param string $name
      * @param string $label
+     *
      * @return \Signifly\Travy\Table\Filters\Filter
      */
     public function addFilter($name, $label)
@@ -37,10 +38,10 @@ trait HasFilters
      */
     public function addFilterFor(string $filter)
     {
-        $class = new $filter;
+        $class = new $filter();
 
-        if (! is_callable($class)) {
-            throw new Exception($filter . " must be callable.");
+        if (!is_callable($class)) {
+            throw new Exception($filter.' must be callable.');
         }
 
         return $class($this);
@@ -80,7 +81,7 @@ trait HasFilters
 
         return [
             'fields' => $filterFields->all(),
-            'data' => (object) $filterData->all(),
+            'data'   => (object) $filterData->all(),
         ];
     }
 }

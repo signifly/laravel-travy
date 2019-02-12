@@ -62,7 +62,8 @@ abstract class FieldType
     /**
      * Set the action of the field type.
      *
-     * @param  string $action
+     * @param string $action
+     *
      * @return self
      */
     public function action(string $action)
@@ -82,9 +83,9 @@ abstract class FieldType
         $this->beforeBuild();
 
         $schema = [
-            'id' => $this->id,
+            'id'     => $this->id,
             'action' => $this->action ?: false,
-            'props' => $this->props,
+            'props'  => $this->props,
         ];
 
         if ($this->hide) {
@@ -109,7 +110,8 @@ abstract class FieldType
     /**
      * Set the disabled prop of the field type.
      *
-     * @param  bool $value
+     * @param bool $value
+     *
      * @return self
      */
     public function disabled($value = true)
@@ -132,9 +134,10 @@ abstract class FieldType
     /**
      * Hide field type.
      *
-     * @param  string $key
-     * @param  mixed $value
-     * @param  string $operator
+     * @param string $key
+     * @param mixed  $value
+     * @param string $operator
+     *
      * @return self
      */
     public function hide(string $key, $value, string $operator = 'eq')
@@ -147,7 +150,8 @@ abstract class FieldType
     /**
      * Set a reference text.
      *
-     * @param  string $reference
+     * @param string $reference
+     *
      * @return self
      */
     public function reference(string $reference)
@@ -160,7 +164,8 @@ abstract class FieldType
     /**
      * Set the show property.
      *
-     * @param  string $show
+     * @param string $show
+     *
      * @return self
      */
     public function show(string $show)
@@ -173,7 +178,8 @@ abstract class FieldType
     /**
      * Set a width of the field type.
      *
-     * @param  int    $width
+     * @param int $width
+     *
      * @return self
      */
     public function width(int $width)

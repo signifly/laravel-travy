@@ -2,7 +2,6 @@
 
 namespace Signifly\Travy\Http\Controllers;
 
-use Spatie\QueryBuilder\QueryBuilder;
 use Signifly\Travy\Http\Actions\IndexAction;
 use Signifly\Travy\Http\Requests\TravyRequest;
 
@@ -58,10 +57,10 @@ class RelationController extends Controller
     }
 
     /**
-     * Guard against invalid relations
+     * Guard against invalid relations.
      *
-     * @param  \Illuminate\Database\Eloquent\Model $model
-     * @param  string $relationName
+     * @param \Illuminate\Database\Eloquent\Model $model
+     * @param string                              $relationName
      */
     protected function guardAgainstInvalidRelation($model, $relationName)
     {
@@ -73,9 +72,10 @@ class RelationController extends Controller
     }
 
     /**
-     * Determines if the relation returns a single association
+     * Determines if the relation returns a single association.
      *
-     * @param  \Illuminate\Database\Eloquent\Relations\Relation $relation
+     * @param \Illuminate\Database\Eloquent\Relations\Relation $relation
+     *
      * @return bool
      */
     protected function returnSingleAssociation($relation)

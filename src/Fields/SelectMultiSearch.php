@@ -30,8 +30,8 @@ class SelectMultiSearch extends Field
     public function options(array $options = [])
     {
         $options = array_merge([
-            'list' => null,
-            'key' => 'data',
+            'list'  => null,
+            'key'   => 'data',
             'label' => null,
             'value' => 'id',
         ], $options);
@@ -42,7 +42,8 @@ class SelectMultiSearch extends Field
     /**
      * The options to apply to the field type.
      *
-     * @param  FieldType $fieldType
+     * @param FieldType $fieldType
+     *
      * @return void
      */
     public function applyOptions(FieldType $fieldType)

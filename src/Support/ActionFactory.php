@@ -2,8 +2,8 @@
 
 namespace Signifly\Travy\Support;
 
-use Signifly\Travy\Resource;
 use Illuminate\Http\Request;
+use Signifly\Travy\Resource;
 
 class ActionFactory
 {
@@ -11,8 +11,8 @@ class ActionFactory
     {
         $actionClass = $resource->getAction($method);
 
-        if (! $actionClass) {
-            return null;
+        if (!$actionClass) {
+            return;
         }
 
         return new $actionClass($request, $resource);

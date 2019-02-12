@@ -19,6 +19,7 @@ trait HasColumns
      *
      * @param string $name
      * @param string $label
+     *
      * @return \Signifly\Travy\Column
      */
     public function addColumn($name, $label)
@@ -37,10 +38,10 @@ trait HasColumns
      */
     public function addColumnFor(string $column)
     {
-        $class = new $column;
+        $class = new $column();
 
-        if (! is_callable($class)) {
-            throw new Exception($column . " must be callable.");
+        if (!is_callable($class)) {
+            throw new Exception($column.' must be callable.');
         }
 
         return $class($this);

@@ -3,10 +3,9 @@
 namespace Signifly\Travy\Support;
 
 use Closure;
-use Illuminate\Support\Str;
 use Signifly\Travy\Fields\Field;
-use Signifly\Travy\Schema\Column;
 use Signifly\Travy\Http\Requests\TravyRequest;
+use Signifly\Travy\Schema\Column;
 
 class ColumnResolver
 {
@@ -32,7 +31,8 @@ class ColumnResolver
     /**
      * Resolve the field.
      *
-     * @param  \Signifly\Travy\Fields\Field  $field
+     * @param \Signifly\Travy\Fields\Field $field
+     *
      * @return \Signifly\Travy\Schema\Column
      */
     public function resolve(Field $field)
@@ -84,7 +84,7 @@ class ColumnResolver
                     $fieldType->$key($value);
                 }
 
-                if (! $this->field->linkable) {
+                if (!$this->field->linkable) {
                     return;
                 }
 

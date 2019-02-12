@@ -2,8 +2,8 @@
 
 namespace Signifly\Travy\Schema;
 
-use Signifly\Travy\Schema\Concerns\HasFields;
 use Illuminate\Contracts\Support\Arrayable;
+use Signifly\Travy\Schema\Concerns\HasFields;
 
 class Section implements Arrayable
 {
@@ -22,8 +22,8 @@ class Section implements Arrayable
     public function toArray()
     {
         return [
-            'id' => $this->key,
-            'title' => $this->title,
+            'id'     => $this->key,
+            'title'  => $this->title,
             'fields' => $this->preparedFields(),
         ];
     }

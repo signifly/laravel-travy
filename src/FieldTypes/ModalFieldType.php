@@ -2,7 +2,6 @@
 
 namespace Signifly\Travy\FieldTypes;
 
-use Closure;
 use Signifly\Travy\Schema\Concerns\HasFields;
 
 class ModalFieldType extends FieldType
@@ -23,6 +22,7 @@ class ModalFieldType extends FieldType
     {
         $this->addProp('title', $text);
         $this->addProp('icon', $icon);
+
         return $this->addProp('type', $type);
     }
 
@@ -57,11 +57,11 @@ class ModalFieldType extends FieldType
     protected function beforeBuild()
     {
         $this->addProp('action', [
-            'id' => 'modal',
+            'id'       => 'modal',
             'endpoint' => $this->endpoint,
-            'title' => $this->title ?? $this->props['title'],
-            'fields' => $this->preparedFields(),
-            'data' => $this->data,
+            'title'    => $this->title ?? $this->props['title'],
+            'fields'   => $this->preparedFields(),
+            'data'     => $this->data,
         ]);
     }
 }
