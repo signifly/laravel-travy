@@ -2,8 +2,6 @@
 
 namespace Signifly\Travy\Schema;
 
-use Signifly\Travy\Schema\Action;
-use Signifly\Travy\Schema\Column;
 use Signifly\Travy\Fields\Actions;
 
 class DefaultTableDefinition extends TableDefinition

@@ -2,7 +2,6 @@
 
 namespace Signifly\Travy\Schema\Concerns;
 
-use Exception;
 use Signifly\Travy\Schema\Action;
 
 trait HasActions

@@ -103,6 +103,7 @@ class Item
         if ($title) {
             $this->tableTitle = $title;
             $this->tableKey = $key ?? str_replace(' ', '-', Str::lower($title));
+
             return $this;
         }
 

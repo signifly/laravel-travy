@@ -5,7 +5,6 @@ namespace Signifly\Travy\Http\Actions;
 use Illuminate\Http\Request;
 use Signifly\Travy\Resource;
 use Illuminate\Foundation\Bus\Dispatchable;
-use Signifly\Travy\Support\ResourceFactory;
 use Illuminate\Contracts\Support\Responsable;
 use Signifly\Travy\Http\Concerns\HandlesApiResponses;
 
@@ -24,7 +23,7 @@ abstract class Action
      * Create a new action instance.
      *
      * @param Request $request
-     * @param Resource  $resource
+     * @param resource  $resource
      */
     public function __construct(Request $request, Resource $resource)
     {

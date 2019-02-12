@@ -52,7 +52,6 @@ class Batch implements JsonSerializable
         return new static(...$arguments);
     }
 
-
     /**
      * Set the link of the sequential tooltip.
      *

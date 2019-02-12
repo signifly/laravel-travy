@@ -2,10 +2,7 @@
 
 namespace Signifly\Travy\Schema;
 
-use Closure;
 use Illuminate\Support\Str;
-use Signifly\Travy\Schema\Width;
-use Signifly\Travy\Schema\Column;
 use Signifly\Travy\Fields\Input\Toggle;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Signifly\Travy\Schema\Concerns\HasColumns;
@@ -23,7 +20,7 @@ abstract class TableDefinition extends Definition
 
     /**
      * The endpoint to redirect to on creation.
-     * - defaults to /t/{resource}/{id}
+     * - defaults to /t/{resource}/{id}.
      *
      * @var string|null
      */
@@ -144,8 +141,8 @@ abstract class TableDefinition extends Definition
         $fields = $this->request->resource()->getPreparedFields();
 
         $columnFields = $fields->filter(function ($field) {
-                return $field->showOnIndex;
-            })
+            return $field->showOnIndex;
+        })
             ->map(function ($field) {
                 if ($field->linkable && ! $field->linksTo) {
                     $field->linksTo = "/t/{$this->request->resourceKey()}/{id}";
@@ -182,7 +179,7 @@ abstract class TableDefinition extends Definition
         })->implode(', ');
 
         $this->searchPlaceholder(
-            $searchable ? __('Search for ') . $searchable : __('Search...')
+            $searchable ? __('Search for ').$searchable : __('Search...')
         );
 
         return $this;
@@ -197,8 +194,8 @@ abstract class TableDefinition extends Definition
 
         // Only creatable fields
         $creatableFields = $fields->filter(function ($field) {
-                return $field->showOnCreation;
-            })
+            return $field->showOnCreation;
+        })
             ->map(function ($field) {
                 // Convert text fields to input text
                 if ($field->component == 'text') {
@@ -254,14 +251,14 @@ abstract class TableDefinition extends Definition
 
         // Prepare data
         $data = $fields->mapWithKeys(function ($field) {
-                return [$field->attribute => $field->defaultValue ?? ''];
-            })
+            return [$field->attribute => $field->defaultValue ?? ''];
+        })
             ->toArray();
 
         // Prepare fields
         $fields = $fields->map(function ($field) {
-                return $field->jsonSerialize();
-            })
+            return $field->jsonSerialize();
+        })
             ->toArray();
 
         $this->filters = compact('data', 'fields');

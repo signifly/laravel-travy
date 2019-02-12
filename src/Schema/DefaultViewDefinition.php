@@ -2,8 +2,6 @@
 
 namespace Signifly\Travy\Schema;
 
-use Signifly\Travy\Schema\Action;
-
 class DefaultViewDefinition extends ViewDefinition
 {
     protected function schema()
