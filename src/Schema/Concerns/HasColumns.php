@@ -73,6 +73,7 @@ trait HasColumns
     {
         return collect($this->columns)
             ->map(function ($column, $index) {
+                $column->setWidth();
                 return $column->order($index + 1)->jsonSerialize();
             })
             ->toArray();

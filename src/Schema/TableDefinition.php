@@ -151,11 +151,6 @@ abstract class TableDefinition extends Definition
                     $field->linksTo = "/t/{$this->request->resourceKey()}/{id}";
                 }
 
-                // Set the width
-                if ($width = optional($field->width)->getOnIndex()) {
-                    $field->withMeta(['width' => $width]);
-                }
-
                 return $field;
             })
             ->values();

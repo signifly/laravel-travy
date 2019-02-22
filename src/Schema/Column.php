@@ -55,6 +55,19 @@ class Column
     }
 
     /**
+     * Set width from field.
+     *
+     * @return void
+     */
+    public function setWidth()
+    {
+        // Set the width
+        if ($width = optional($this->field->width)->getOnIndex()) {
+            $this->field->withMeta(['width' => $width]);
+        }
+    }
+
+    /**
      * Prepare the column for JSON serialization.
      *
      * @return array
