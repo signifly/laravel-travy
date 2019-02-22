@@ -81,9 +81,10 @@ class ButtonAction extends Field
         $fields = collect($fields);
 
         $preparedFields = $fields->map(function ($field) {
-                $field->linkable(false);
-                return $field->jsonSerialize();
-            })
+            $field->linkable(false);
+
+            return $field->jsonSerialize();
+        })
             ->toArray();
 
         $data = $fields

@@ -94,7 +94,6 @@ abstract class FieldElement
      */
     public function onlyOnCreation()
     {
-
         $this->showOnIndex = false;
         $this->showOnDetail = false;
         $this->showOnCreation = true;
@@ -110,7 +109,6 @@ abstract class FieldElement
      */
     public function onlyOnUpdate()
     {
-
         $this->showOnIndex = false;
         $this->showOnDetail = false;
         $this->showOnCreation = false;

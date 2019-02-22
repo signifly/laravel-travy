@@ -14,8 +14,8 @@ class ItemsCollection extends Collection
     public function toMenu(): array
     {
         return $this->filter(function ($item) {
-                return $item->asMenu;
-            })
+            return $item->asMenu;
+        })
             ->values()
             ->map(function ($item) {
                 return $item->toMenu();

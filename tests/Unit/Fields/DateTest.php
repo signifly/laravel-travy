@@ -8,7 +8,7 @@ use Signifly\Travy\Test\TestCase;
 class DateTest extends TestCase
 {
     /** @test */
-    function is_serializes_to_json()
+    public function is_serializes_to_json()
     {
         $date = Date::make('Created at');
 
@@ -20,13 +20,13 @@ class DateTest extends TestCase
                 'props' => [
                     'timestamp' => 'created_at',
                 ],
-            ]
+            ],
         ];
         $this->assertEquals($expected, $date->jsonSerialize());
     }
 
     /** @test */
-    function it_allows_to_set_width()
+    public function it_allows_to_set_width()
     {
         $date = Date::make('Created at')->width(50);
 

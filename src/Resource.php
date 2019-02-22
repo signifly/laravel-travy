@@ -69,7 +69,7 @@ abstract class Resource
      */
     protected function guessModel(): string
     {
-        return config('travy.models.namespace') . '\\' . class_basename(get_called_class());
+        return config('travy.models.namespace').'\\'.class_basename(get_called_class());
     }
 
     /**
@@ -80,6 +80,7 @@ abstract class Resource
     public function newModelInstance(array $attributes = [])
     {
         $model = $this->getModel();
+
         return new $model($attributes);
     }
 

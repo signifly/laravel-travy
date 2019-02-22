@@ -2,10 +2,9 @@
 
 namespace Signifly\Travy\Http\Requests;
 
-use Signifly\Travy\Support\RulesetSorter;
 use Signifly\Travy\Support\ActionFactory;
-use Signifly\Travy\Support\ResourceFactory;
 use Illuminate\Foundation\Http\FormRequest;
+use Signifly\Travy\Support\ResourceFactory;
 
 class TravyRequest extends FormRequest
 {

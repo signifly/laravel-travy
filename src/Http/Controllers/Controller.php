@@ -2,7 +2,6 @@
 
 namespace Signifly\Travy\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Signifly\Pagination\Pagination;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;

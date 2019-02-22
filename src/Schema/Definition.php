@@ -3,7 +3,6 @@
 namespace Signifly\Travy\Schema;
 
 use Closure;
-use Signifly\Travy\Schema\Endpoint;
 use Signifly\Travy\Http\Requests\TravyRequest;
 use Signifly\Travy\Schema\Concerns\HasActions;
 use Signifly\Travy\Schema\Contracts\DefinitionContract;
@@ -118,15 +117,16 @@ abstract class Definition implements DefinitionContract
 
         // Prepare data
         $data = $fields->mapWithKeys(function ($field) {
-                return [$field->attribute => $field->defaultValue ?? ''];
-            })
+            return [$field->attribute => $field->defaultValue ?? ''];
+        })
             ->toArray();
 
         // Prepare fields
         $fields = $fields->map(function ($field) {
-                $field->linkable(false);
-                return $field->jsonSerialize();
-            })
+            $field->linkable(false);
+
+            return $field->jsonSerialize();
+        })
             ->toArray();
 
         $this->modifiers = compact('data', 'fields');

@@ -2,7 +2,6 @@
 
 namespace Signifly\Travy\Schema\Concerns;
 
-use Exception;
 use Signifly\Travy\Fields\Field;
 use Signifly\Travy\Schema\Column;
 
