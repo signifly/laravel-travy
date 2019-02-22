@@ -52,7 +52,7 @@ class Width
         return $this->onCreation ?? $this->value;
     }
 
-    public function getOnIndex()
+    public function getOnIndex(): int
     {
         return $this->onIndex ?? $this->value;
     }

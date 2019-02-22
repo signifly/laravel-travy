@@ -57,14 +57,16 @@ class Column
     /**
      * Set width from field.
      *
-     * @return void
+     * @return self
      */
-    public function setWidth()
+    public function setWidth(): self
     {
         // Set the width
         if ($width = optional($this->field->width)->getOnIndex()) {
             $this->field->withMeta(['width' => $width]);
         }
+
+        return $this;
     }
 
     /**
