@@ -54,7 +54,7 @@ class Width
 
     public function getOnIndex()
     {
-        return $this->onIndex;
+        return $this->onIndex ?? $this->value;
     }
 
     public function getOnUpdate(): int
