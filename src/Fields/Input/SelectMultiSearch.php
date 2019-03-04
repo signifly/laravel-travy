@@ -27,6 +27,10 @@ class SelectMultiSearch extends SelectSearch
      */
     public function applyOptions()
     {
+        if ($this->endpoint) {
+            $this->withOptions(['endpoint' => $this->endpoint->toArray()]);
+        }
+
         $this->withProps([
             'values' => $this->attribute,
             'options' => $this->options(),
