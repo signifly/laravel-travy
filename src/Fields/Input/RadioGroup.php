@@ -1,6 +1,6 @@
 <?php
 
-namespace Signifly\Travy\Fields;
+namespace Signifly\Travy\Fields\Input;
 
 class RadioGroup extends Field
 {
@@ -9,7 +9,7 @@ class RadioGroup extends Field
      *
      * @var string
      */
-    public $component = 'radio-group';
+    public $component = 'input-radio-group';
 
     /**
      * Set the items.
