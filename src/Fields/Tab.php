@@ -45,6 +45,13 @@ class Tab extends FieldElement implements JsonSerializable
     public $type = 'fields';
 
     /**
+     * The url it should link to.
+     *
+     * @var string
+     */
+    public $url = null;
+
+    /**
      * Create a new tab.
      *
      * @param string $name
@@ -141,6 +148,19 @@ class Tab extends FieldElement implements JsonSerializable
     }
 
     /**
+     * Set the tab url.
+     *
+     * @param  string $url
+     * @return self
+     */
+    public function url(string $url): self
+    {
+        $this->url = $url;
+
+        return $this;
+    }
+
+    /**
      * Prepare the sidebar for JSON serialization.
      *
      * @return array
@@ -151,7 +171,7 @@ class Tab extends FieldElement implements JsonSerializable
             'id' => $this->attribute,
             'type' => $this->type,
             'endpoint' => $this->endpoint->toArray(),
-            'title' => $this->localize($this->name),
+            'title' => ['text' => $this->localize($this->name), 'url' => $this->url],
             'fields' => collect($this->fields)->map->jsonSerialize(),
         ];
     }
