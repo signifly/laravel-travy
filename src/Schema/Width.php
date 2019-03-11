@@ -47,17 +47,17 @@ class Width
         return $this;
     }
 
-    public function getOnCreation(): int
+    public function getOnCreation()
     {
         return $this->onCreation ?? $this->value;
     }
 
-    public function getOnIndex(): int
+    public function getOnIndex()
     {
         return $this->onIndex ?? $this->value;
     }
 
-    public function getOnUpdate(): int
+    public function getOnUpdate()
     {
         return $this->onUpdate ?? $this->value;
     }
