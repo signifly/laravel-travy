@@ -3,6 +3,7 @@
 namespace Signifly\Travy\Support;
 
 use ReflectionClass;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class ModelFactory
 {
