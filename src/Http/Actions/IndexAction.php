@@ -9,13 +9,13 @@ use Illuminate\Contracts\Support\Responsable;
 
 class IndexAction extends Action
 {
-    protected $defaultQuery;
+    protected $customQuery;
 
-    public function __construct(Request $request, Resource $resource, $defaultQuery = null)
+    public function __construct(Request $request, Resource $resource, $customQuery = null)
     {
         parent::__construct($request, $resource);
 
-        $this->defaultQuery = $defaultQuery;
+        $this->customQuery = $customQuery;
     }
 
     public function handle(): Responsable
@@ -28,7 +28,7 @@ class IndexAction extends Action
 
     protected function buildQueryFor($resource): QueryBuilder
     {
-        $queryBuilder = QueryBuilder::for($this->defaultQuery ?? $resource->newQuery())
+        $queryBuilder = QueryBuilder::for($this->customQuery ?? $resource->newQuery())
             ->allowedFilters($resource->allowedFilters())
             ->allowedIncludes($resource->allowedIncludes());
 

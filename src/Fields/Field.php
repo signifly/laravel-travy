@@ -260,7 +260,8 @@ abstract class Field extends FieldElement implements JsonSerializable
                             : $this->creationRules, ];
 
         return array_merge_recursive(
-            $this->getRules($request), $rules
+            $this->getRules($request),
+            $rules
         );
     }
 
@@ -290,7 +291,8 @@ abstract class Field extends FieldElement implements JsonSerializable
                             : $this->updateRules, ];
 
         return array_merge_recursive(
-            $this->getRules($request), $rules
+            $this->getRules($request),
+            $rules
         );
     }
 

@@ -234,7 +234,7 @@ abstract class TableDefinition extends Definition
     {
         $fields = collect($this->request->resource()->filters());
 
-        $modelTraits = collect(class_uses_recursive($this->request->resource()->getModel()));
+        $modelTraits = collect(class_uses_recursive($this->request->resource()->modelClass()));
 
         if ($modelTraits->contains(SoftDeletes::class)) {
             $fields->push(Toggle::make('Show only deleted', 'trashed'));

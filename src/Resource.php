@@ -7,14 +7,17 @@ use Signifly\Travy\Fields\Tab;
 use Spatie\QueryBuilder\Filter;
 use Illuminate\Support\Collection;
 use Signifly\Travy\Fields\Sidebar;
+use Illuminate\Database\Eloquent\Model;
 use Signifly\Travy\Support\RulesetSorter;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Signifly\Travy\Http\Filters\SearchFilter;
 use Signifly\Travy\Http\Filters\TrashedFilter;
+use Illuminate\Http\Resources\DelegatesToResource;
 
 abstract class Resource
 {
     use Authorizable;
+    use DelegatesToResource;
 
     /** @var array */
     protected $actions = [];
@@ -24,6 +27,9 @@ abstract class Resource
 
     /** @var string */
     protected $model;
+
+    /** @var \Illuminate\Database\Eloquent\Model */
+    protected $resource;
 
     /** @var array */
     protected $globalScopes = [];
@@ -49,29 +55,40 @@ abstract class Resource
     /**
      * Create a new resource.
      */
-    public function __construct()
+    public function __construct(Model $model)
     {
+        $this->resource = $model;
         $this->defaultActions();
     }
 
     /**
      * Get the model.
      *
-     * @return string
+     * @return \Illuminate\Database\Eloquent\Model
      */
-    public function getModel(): string
+    public function model(): Model
     {
-        return $this->model ?? $this->guessModel();
+        return $this->resource;
     }
 
     /**
-     * Guess model.
+     * Get the model class.
      *
      * @return string
      */
-    protected function guessModel(): string
+    public function modelClass(): string
     {
-        return config('travy.models.namespace').'\\'.class_basename(get_called_class());
+        return $this->model ?? get_class($this->resource);
+    }
+
+    /**
+     * Try to guess the model name.
+     *
+     * @return string
+     */
+    public static function guessModel(): string
+    {
+        return config('travy.models.namespace').'\\'.class_basename(static::class);
     }
 
     /**
@@ -79,11 +96,9 @@ abstract class Resource
      *
      * @return \Illuminate\Database\Eloquent\Model
      */
-    public function newModelInstance(array $attributes = [])
+    public function newModelInstance(array $attributes = []): Model
     {
-        $model = $this->getModel();
-
-        return new $model($attributes);
+        return $this->model->newInstance($attributes);
     }
 
     /**
@@ -93,7 +108,7 @@ abstract class Resource
      */
     public function newQuery()
     {
-        $query = $this->newModelInstance()->query();
+        $query = $this->model()->newQuery();
 
         $this->applyGlobalScopes($query);
 
@@ -139,7 +154,7 @@ abstract class Resource
     {
         $filters = [];
 
-        $modelTraits = collect(class_uses_recursive($this->getModel()));
+        $modelTraits = collect(class_uses_recursive($this->modelClass()));
 
         if ($modelTraits->contains(SoftDeletes::class)) {
             array_push(
@@ -436,17 +451,5 @@ abstract class Resource
     public function withCount(): array
     {
         return $this->withCount;
-    }
-
-    /**
-     * Forward calls to query builder.
-     *
-     * @param  string $method
-     * @param  array $parameters
-     * @return mixed
-     */
-    public function __call($method, $parameters)
-    {
-        return $this->newQuery()->$method(...$parameters);
     }
 }

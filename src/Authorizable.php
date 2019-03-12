@@ -2,7 +2,6 @@
 
 namespace Signifly\Travy;
 
-use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Auth\Access\AuthorizationException;
@@ -16,7 +15,7 @@ trait Authorizable
      */
     public function authorizable()
     {
-        return ! is_null(Gate::getPolicyFor($this->newModelInstance()));
+        return ! is_null(Gate::getPolicyFor($this->model()));
     }
 
     /**
@@ -31,7 +30,7 @@ trait Authorizable
             return;
         }
 
-        if (method_exists(Gate::getPolicyFor($this->newModelInstance()), 'viewAny')) {
+        if (method_exists(Gate::getPolicyFor($this->model()), 'viewAny')) {
             $this->authorizeTo($request, 'viewAny');
         }
     }
@@ -48,8 +47,8 @@ trait Authorizable
             return true;
         }
 
-        return method_exists(Gate::getPolicyFor($this->newModelInstance()), 'viewAny')
-            ? Gate::check('viewAny', $this->getModel())
+        return method_exists(Gate::getPolicyFor($this->model()), 'viewAny')
+            ? Gate::check('viewAny', get_class($this->model()))
             : true;
     }
 
@@ -99,7 +98,7 @@ trait Authorizable
     public function authorizedToCreate(Request $request)
     {
         if ($this->authorizable()) {
-            return Gate::check('create', get_class($this->newModelInstance()));
+            return Gate::check('create', get_class($this->model()));
         }
 
         return true;
@@ -212,7 +211,11 @@ trait Authorizable
      */
     public function authorizeTo(Request $request, $ability)
     {
-        throw_unless($this->authorizedTo($request, $ability), AuthorizationException::class);
+        throw_unless(
+            $this->authorizedTo($request, $ability),
+            AuthorizationException::class,
+            'Unauthorized.'
+        );
     }
 
     /**
@@ -224,6 +227,6 @@ trait Authorizable
      */
     public function authorizedTo(Request $request, $ability)
     {
-        return $this->authorizable() ? Gate::check($ability, $this->getModel()) : true;
+        return $this->authorizable() ? Gate::check($ability, $this->model()) : true;
     }
 }

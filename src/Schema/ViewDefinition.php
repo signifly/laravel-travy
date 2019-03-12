@@ -161,7 +161,7 @@ abstract class ViewDefinition extends Definition
         });
 
         // Check activity
-        $modelTraits = collect(class_uses_recursive($this->request->resource()->getModel()));
+        $modelTraits = collect(class_uses_recursive($this->request->resource()->modelClass()));
 
         if (
             $modelTraits->contains(LogsActivity::class) ||

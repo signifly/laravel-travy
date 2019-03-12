@@ -8,7 +8,9 @@ class DestroyAction extends Action
 {
     public function handle(): Responsable
     {
-        $model = $this->resource->findOrFail($this->getId());
+        $model = $this->resource->model();
+
+        $this->guardAgainstModelNotExists($model);
 
         $model->delete();
 

@@ -135,7 +135,10 @@ class TravyRequest extends FormRequest
     public function relationResource($relationName = null)
     {
         if (! $this->relationResource) {
-            $this->relationResource = ResourceFactory::make($relationName ?? $this->relationName());
+            $this->relationResource = ResourceFactory::make(
+                $relationName ?? $this->relationName(),
+                $this->relationId()
+            );
         }
 
         return $this->relationResource;
@@ -149,7 +152,8 @@ class TravyRequest extends FormRequest
     protected function prepareForValidation()
     {
         $this->resource = ResourceFactory::make(
-            $this->resourceKey()
+            $this->resourceKey(),
+            $this->resourceId()
         );
     }
 
