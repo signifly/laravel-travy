@@ -14,6 +14,8 @@ use Signifly\Travy\Http\Filters\TrashedFilter;
 
 abstract class Resource
 {
+    use Authorizable;
+
     /** @var array */
     protected $actions = [];
 
