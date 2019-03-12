@@ -78,7 +78,9 @@ abstract class Resource
      */
     public function modelClass(): string
     {
-        return $this->model ?? get_class($this->resource);
+        return $this->model ?? (isset($this->resource)
+            ? get_class($this->resource)
+            : $this->guessModel());
     }
 
     /**
@@ -86,7 +88,7 @@ abstract class Resource
      *
      * @return string
      */
-    public static function guessModel(): string
+    protected function guessModel(): string
     {
         return config('travy.models.namespace').'\\'.class_basename(static::class);
     }

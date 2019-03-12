@@ -10,8 +10,6 @@ class UpdateAction extends Action
     {
         $model = $this->resource->model();
 
-        $this->guardAgainstModelNotExists($model);
-
         $model->update($this->request->input('data', []));
 
         return $this->respondForModel(

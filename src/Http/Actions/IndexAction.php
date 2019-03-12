@@ -23,7 +23,7 @@ class IndexAction extends Action
         $paginator = $this->buildQueryFor($this->resource)
             ->paginate($this->request->paginationCount());
 
-        return $this->respondForPaginator($paginator, $this->resource->getModel());
+        return $this->respondForPaginator($paginator, $this->resource->modelClass());
     }
 
     protected function buildQueryFor($resource): QueryBuilder

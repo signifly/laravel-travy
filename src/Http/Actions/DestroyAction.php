@@ -10,8 +10,6 @@ class DestroyAction extends Action
     {
         $model = $this->resource->model();
 
-        $this->guardAgainstModelNotExists($model);
-
         $model->delete();
 
         return $this->respondForModel($model);

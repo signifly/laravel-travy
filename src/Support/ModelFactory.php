@@ -11,7 +11,7 @@ class ModelFactory
     {
         $reflection = new ReflectionClass($resourceClass);
         $reflectionInstance = $reflection->newInstanceWithoutConstructor();
-        $modelClass = $reflectionInstance->modelClass() ?? $resourceClass::guessModel();
+        $modelClass = $reflectionInstance->modelClass();
 
         abort_unless(
             class_exists($modelClass),

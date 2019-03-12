@@ -8,7 +8,7 @@ class ForceDestroyAction extends Action
 {
     public function handle(): Responsable
     {
-        $model = $this->resource->withTrashed()->findOrFail($this->getId());
+        $model = $this->resource->model();
 
         $model->forceDelete();
 

@@ -10,8 +10,6 @@ class ShowAction extends Action
     {
         $model = $this->resource->model();
 
-        $this->guardAgainstModelNotExists($model);
-
         return $this->respondForModel(
             $model->load($this->resource->with())
         );
