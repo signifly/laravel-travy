@@ -10,7 +10,7 @@ class UpdateAction extends Action
     {
         $model = $this->resource->model();
 
-        $model->update($this->request->input('data', []));
+        $model->update($this->input->all());
 
         return $this->respondForModel(
             $model->fresh($this->resource->with())

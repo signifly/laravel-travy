@@ -4,6 +4,7 @@ namespace Signifly\Travy\Http\Actions;
 
 use Illuminate\Http\Request;
 use Signifly\Travy\Resource;
+use Signifly\Travy\Support\Input;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Contracts\Support\Responsable;
 use Signifly\Travy\Http\Concerns\HandlesApiResponses;
@@ -12,6 +13,9 @@ abstract class Action
 {
     use Dispatchable;
     use HandlesApiResponses;
+
+    /** @var \Signifly\Travy\Support\Input */
+    protected $input;
 
     /** @var \Illuminate\Http\Request */
     protected $request;
@@ -29,6 +33,7 @@ abstract class Action
     {
         $this->request = $request;
         $this->resource = $resource;
+        $this->input = Input::make($request, $this->inputFilters());
     }
 
     /**
@@ -56,5 +61,15 @@ abstract class Action
     public function getId()
     {
         return $this->request->route()->parameter('resourceId');
+    }
+
+    /**
+     * The sanitize filters to use on the input.
+     *
+     * @return array
+     */
+    protected function inputFilters(): array
+    {
+        return [];
     }
 }
