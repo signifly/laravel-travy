@@ -38,7 +38,9 @@ class Input
      */
     public static function make(Request $request, array $filters)
     {
-        return new static($request->input('data', []), $filters);
+        $data = data_get($request->all(), 'data', []);
+
+        return new static($data, $filters);
     }
 
     /**
