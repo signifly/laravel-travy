@@ -391,6 +391,21 @@ abstract class Resource
     }
 
     /**
+     * The filters to use for sanitzing input data.
+     *
+     * @return array
+     */
+    public function getSanitizeFilters(): array
+    {
+        return $this->getPreparedFields()
+            ->mapWithKeys(function ($field) {
+                return $field->getSanitizeFilters();
+            })
+            ->filter()
+            ->toArray();
+    }
+
+    /**
      * The validation rules for updates.
      *
      * @param  Request $request

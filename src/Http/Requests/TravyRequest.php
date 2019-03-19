@@ -2,6 +2,7 @@
 
 namespace Signifly\Travy\Http\Requests;
 
+use Signifly\Travy\Support\Input;
 use Signifly\Travy\Support\ActionFactory;
 use Illuminate\Foundation\Http\FormRequest;
 use Signifly\Travy\Support\ResourceFactory;
@@ -164,6 +165,6 @@ class TravyRequest extends FormRequest
      */
     protected function validationData()
     {
-        return data_get($this->all(), 'data', []);
+        return Input::make($this)->data();
     }
 }

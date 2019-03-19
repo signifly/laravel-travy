@@ -36,7 +36,7 @@ class Input
      * @param  Request $request
      * @return static
      */
-    public static function make(Request $request, array $filters)
+    public static function make(Request $request, array $filters = [])
     {
         $data = data_get($request->all(), 'data', []);
 
@@ -51,6 +51,16 @@ class Input
     public function all(): array
     {
         return $this->sanitized;
+    }
+
+    /**
+     * Get raw input data.
+     *
+     * @return array
+     */
+    public function data(): array
+    {
+        return $this->data;
     }
 
     /**
@@ -106,6 +116,8 @@ class Input
      */
     protected function sanitizeInput(array $data, array $filters): array
     {
+        $filters = Arr::only($filters, array_keys($data));
+
         return Sanitizer::make($data, $filters)->sanitize();
     }
 }

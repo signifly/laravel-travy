@@ -70,6 +70,6 @@ abstract class Action
      */
     protected function inputFilters(): array
     {
-        return [];
+        return $this->resource->getSanitizeFilters();
     }
 }

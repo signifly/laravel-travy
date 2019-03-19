@@ -136,6 +136,13 @@ abstract class Field extends FieldElement implements JsonSerializable
     public $defaultSortOrder = 'ascending';
 
     /**
+     * The filters to sanitize with.
+     *
+     * @var array|string
+     */
+    public $sanitize;
+
+    /**
      * The attribute to sort by.
      *
      * @var string
@@ -310,6 +317,16 @@ abstract class Field extends FieldElement implements JsonSerializable
     }
 
     /**
+     * The filters to use for sanitzing input data.
+     *
+     * @return array
+     */
+    public function getSanitizeFilters(): array
+    {
+        return [$this->attribute => $this->sanitize];
+    }
+
+    /**
      * Specify that this field should be linkable.
      *
      * @param  bool $value
@@ -387,6 +404,19 @@ abstract class Field extends FieldElement implements JsonSerializable
     public function description(string $text): self
     {
         return $this->withMeta(['description' => $text]);
+    }
+
+    /**
+     * Set the filters to sanitize with.
+     *
+     * @param  array|string $filters
+     * @return self
+     */
+    public function sanitize($filters): self
+    {
+        $this->sanitize = is_string($filters) ? func_get_args() : $filters;
+
+        return $this;
     }
 
     /**
