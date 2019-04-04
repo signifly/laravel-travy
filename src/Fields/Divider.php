@@ -11,6 +11,13 @@ class Divider extends Field
      */
     public $component = 'divider';
 
+    /**
+     * Indicates if the element should be shown on the index view.
+     *
+     * @var bool
+     */
+    public $showOnIndex = false;
+
     public function text(string $text)
     {
         return $this->withProps(['text' => $text]);
