@@ -10,9 +10,11 @@ class ActionFactory
 {
     public static function make(string $method, Request $request, Resource $resource)
     {
+        $guarded = $resource->getGuardedActions();
+
         // Abort 404 if the action is guarded
         abort_if(
-            in_array($method, $resource->getGuardedActions()),
+            in_array('*', $guarded) || in_array($method, $guarded),
             Response::HTTP_NOT_FOUND
         );
 
