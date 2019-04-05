@@ -4,7 +4,6 @@ namespace Signifly\Travy;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
-use Illuminate\Auth\Access\AuthorizationException;
 
 trait Authorizable
 {
@@ -86,7 +85,9 @@ trait Authorizable
      */
     public function authorizeToCreate(Request $request)
     {
-        throw_unless($this->authorizedToCreate($request), AuthorizationException::class);
+        if ($this->authorizable()) {
+            Gate::authorize('create', get_class($this->model()));
+        }
     }
 
     /**
@@ -211,11 +212,7 @@ trait Authorizable
      */
     public function authorizeTo(Request $request, $ability)
     {
-        throw_unless(
-            $this->authorizedTo($request, $ability),
-            AuthorizationException::class,
-            'Unauthorized.'
-        );
+        $this->authorizable() ? Gate::authorize($ability, $this->model()) : null;
     }
 
     /**
