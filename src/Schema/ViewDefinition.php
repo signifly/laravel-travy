@@ -157,6 +157,18 @@ abstract class ViewDefinition extends Definition
                 return;
             }
 
+            $field->fields = collect($field->fields)
+                ->map(function ($field) {
+                    // Set width
+                    if ($field->width instanceof Width) {
+                        $field->withMeta(['width' => $field->width->getOnUpdate()]);
+                    }
+
+                    return $field;
+                })
+                ->values()
+                ->toArray();
+
             $this->addSidebar($field);
         });
 
