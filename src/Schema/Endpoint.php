@@ -2,6 +2,7 @@
 
 namespace Signifly\Travy\Schema;
 
+use Illuminate\Support\Arr;
 use Illuminate\Contracts\Support\Arrayable;
 
 class Endpoint implements Arrayable
@@ -46,7 +47,7 @@ class Endpoint implements Arrayable
      */
     public function addParam(string $key, $value): self
     {
-        array_set($this->params, $key, $value);
+        Arr::set($this->params, $key, $value);
 
         return $this;
     }
@@ -97,11 +98,11 @@ class Endpoint implements Arrayable
         ];
 
         if ($this->hasParams()) {
-            array_set($data, 'params', $this->params);
+            Arr::set($data, 'params', $this->params);
         }
 
         if ($this->method) {
-            array_set($data, 'method', $this->method);
+            Arr::set($data, 'method', $this->method);
         }
 
         return $data;
