@@ -8,7 +8,7 @@ use Signifly\Travy\Test\TestCase;
 class DateTest extends TestCase
 {
     /** @test */
-    public function is_serializes_to_json()
+    public function it_serializes_to_json()
     {
         $date = Date::make('Created at');
 
