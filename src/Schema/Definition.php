@@ -5,9 +5,9 @@ namespace Signifly\Travy\Schema;
 use Closure;
 use Signifly\Travy\Http\Requests\TravyRequest;
 use Signifly\Travy\Schema\Concerns\HasActions;
-use Signifly\Travy\Schema\Contracts\DefinitionContract;
+use Signifly\Travy\Contracts\Definition as Contract;
 
-abstract class Definition implements DefinitionContract
+abstract class Definition implements Contract
 {
     use HasActions;
 

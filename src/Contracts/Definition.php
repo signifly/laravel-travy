@@ -1,8 +1,8 @@
 <?php
 
-namespace Signifly\Travy\Schema\Contracts;
+namespace Signifly\Travy\Contracts;
 
-interface DefinitionContract
+interface Definition
 {
     /**
      * Build the schema.
