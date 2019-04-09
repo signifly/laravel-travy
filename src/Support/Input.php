@@ -64,6 +64,17 @@ class Input
     }
 
     /**
+     * Get a given key as a collection.
+     *
+     * @param  string $key
+     * @return \Illuminate\Support\Collection
+     */
+    public function collect(string $key, $default = null)
+    {
+        return collect($this->get($key));
+    }
+
+    /**
      * Get all of the sanitized input except for a specified array of keys.
      *
      * @param  array|string  $keys
