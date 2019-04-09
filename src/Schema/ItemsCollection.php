@@ -15,7 +15,7 @@ class ItemsCollection extends Collection
     {
         return $this->filter->asDashboard
             ->values()
-            ->map->toDashboard()
+            ->flatMap->toDashboard()
             ->toArray();
     }
 
