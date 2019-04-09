@@ -50,6 +50,13 @@ class Item
     protected $items = [];
 
     /**
+     * The roles for viewing tables and dashboards.
+     *
+     * @var array
+     */
+    protected $roles = ['admin'];
+
+    /**
      * Should the item be used as dashboard.
      *
      * @var bool
@@ -193,6 +200,19 @@ class Item
     }
 
     /**
+     * Set the roles.
+     *
+     * @param  array  $roles
+     * @return self
+     */
+    public function roles(array $roles): self
+    {
+        $this->roles = $roles;
+
+        return $this;
+    }
+
+    /**
      * Return dashboard schema.
      *
      * @return array
@@ -201,7 +221,7 @@ class Item
     {
         return [$this->attribute => [
             'title' => __($this->name),
-            'auth' => ['roles' => ['admin']],
+            'auth' => ['roles' => $this->roles],
         ]];
     }
 
@@ -233,7 +253,7 @@ class Item
     {
         return [$this->tableKey => [
             'title' => __($this->tableTitle),
-            'auth' => ['roles' => ['admin']],
+            'auth' => ['roles' => $this->roles],
         ]];
     }
 }
