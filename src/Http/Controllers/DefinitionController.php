@@ -11,7 +11,7 @@ class DefinitionController extends Controller
 {
     public function show(TravyRequest $request)
     {
-        $definition = (new DefinitionFactory($request))->make();
+        $definition = DefinitionFactory::make($request);
 
         return new JsonResponse($definition->build());
     }

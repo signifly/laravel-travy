@@ -8,7 +8,7 @@ use Signifly\Travy\Schema\DefaultViewDefinition;
 use Signifly\Travy\Schema\DefaultTableDefinition;
 use Signifly\Travy\Exceptions\InvalidDefinitionException;
 
-class DefinitionFactory
+class DefinitionFactory extends Factory
 {
     /** @var \Signifly\Travy\Http\Requests\TravyRequest */
     protected $request;
@@ -34,7 +34,7 @@ class DefinitionFactory
      *
      * @return \Signifly\Travy\Schema\Contracts\DefinitionContract
      */
-    public function make()
+    public function create()
     {
         $namespace = config('travy.definitions.namespace');
         $type = Str::studly($this->request->route()->parameter('type'));
@@ -62,8 +62,9 @@ class DefinitionFactory
      */
     protected function guardAgainstInvalidDefinitionType(string $type)
     {
-        if (! in_array(strtolower($type), $this->validTypes)) {
-            throw new InvalidDefinitionException();
-        }
+        throw_unless(
+            in_array(strtolower($type), $this->validTypes),
+            InvalidDefinitionException::class
+        );
     }
 }
