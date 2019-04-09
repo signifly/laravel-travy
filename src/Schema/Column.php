@@ -2,9 +2,10 @@
 
 namespace Signifly\Travy\Schema;
 
+use JsonSerializable;
 use Signifly\Travy\Fields\Field;
 
-class Column
+class Column implements JsonSerializable
 {
     /**
      * The field.
