@@ -9,7 +9,7 @@ use Signifly\Travy\Test\Support\Dashboard\DefaultDashboard;
 class DashboardFactoryTest extends TestCase
 {
     /** @test */
-    public function it_creates_a_factory()
+    public function it_creates_a_dashboard()
     {
         $dashboard = DashboardFactory::make('default');
 
