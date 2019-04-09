@@ -43,6 +43,9 @@ class RouteRegistrar
      */
     public function forDefinitions()
     {
+        $this->router->get('definitions/dashboard/{name}', 'DashboardController@show')
+            ->name('definitions.dashboard.show');
+
         $this->router->get('definitions/{type}/{resource}', 'DefinitionController@show')
             ->name('definitions.show');
     }
