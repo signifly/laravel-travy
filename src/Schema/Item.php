@@ -50,6 +50,13 @@ class Item
     protected $items = [];
 
     /**
+     * Should the item be used as dashboard.
+     *
+     * @var bool
+     */
+    public $asDashboard = false;
+
+    /**
      * Should the item be used as menu item.
      *
      * @var bool
@@ -79,12 +86,26 @@ class Item
     }
 
     /**
+     * Set the asDashboard property.
+     *
+     * @param  bool $value
+     * @return self
+     */
+    public function asDashboard($value = true): self
+    {
+        $this->asMenu(false);
+        $this->asDashboard = $value;
+
+        return $this;
+    }
+
+    /**
      * Set the asMenu property.
      *
      * @param  bool $value
      * @return self
      */
-    public function asMenu($value = true)
+    public function asMenu($value = true): self
     {
         $this->asMenu = $value;
 
@@ -98,7 +119,7 @@ class Item
      * @param  string $key
      * @return self
      */
-    public function asTable($title = null, $key = null)
+    public function asTable($title = null, $key = null): self
     {
         if ($title) {
             $this->tableTitle = $title;
@@ -119,7 +140,7 @@ class Item
      * @param  array  $items
      * @return self
      */
-    public function children(array $items)
+    public function children(array $items): self
     {
         $this->items = $items;
 
@@ -151,7 +172,7 @@ class Item
      *
      * @return \Illuminate\Support\Collection
      */
-    public function items() : Collection
+    public function items(): Collection
     {
         return collect($this->items)->filter(function ($item) {
             return $item->asMenu;
@@ -164,11 +185,24 @@ class Item
      * @param  string $link
      * @return self
      */
-    public function link(string $link)
+    public function link(string $link): self
     {
         $this->link = $link;
 
         return $this;
+    }
+
+    /**
+     * Return dashboard schema.
+     *
+     * @return array
+     */
+    public function toDashboard(): array
+    {
+        return [$this->attribute => [
+            'title' => __($this->name),
+            'auth' => ['roles' => ['admin']],
+        ]];
     }
 
     /**
