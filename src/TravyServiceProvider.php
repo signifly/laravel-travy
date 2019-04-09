@@ -5,6 +5,7 @@ namespace Signifly\Travy;
 use Illuminate\Support\ServiceProvider;
 use Signifly\Travy\Commands\ActionTravyCommand;
 use Signifly\Travy\Commands\ResourceTravyCommand;
+use Signifly\Travy\Commands\DashboardTravyCommand;
 use Signifly\Travy\Commands\DefinitionTravyCommand;
 
 class TravyServiceProvider extends ServiceProvider
@@ -28,6 +29,7 @@ class TravyServiceProvider extends ServiceProvider
         if ($this->app->runningInConsole()) {
             $this->commands([
                 ActionTravyCommand::class,
+                DashboardTravyCommand::class,
                 DefinitionTravyCommand::class,
                 ResourceTravyCommand::class,
             ]);

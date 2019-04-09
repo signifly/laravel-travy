@@ -1,0 +1,13 @@
+<?php
+
+namespace DummyNamespace;
+
+use Signifly\Travy\Schema\Dashboard;
+
+class DummyClass extends Dashboard
+{
+    public function sections(): array
+    {
+        return [];
+    }
+}
