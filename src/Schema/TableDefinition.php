@@ -78,6 +78,7 @@ abstract class TableDefinition extends Definition
             'columns' => $this->preparedColumns(),
             'endpoint' => $this->endpoint->toArray(),
             'defaults' => $this->defaults,
+            'pagination' => (object) [],
         ];
 
         if ($this->hasActions()) {
