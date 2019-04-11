@@ -16,7 +16,7 @@
         "signifly/laravel-builder-macros": "^1.2",
         "signifly/laravel-pagination-middleware": "^1.2",
         "spatie/laravel-activitylog": "^3.2",
-        "spatie/laravel-query-builder": "^1.15",
+        "spatie/laravel-query-builder": "^1.17",
         "waavi/sanitizer": "^1.0"
     },
     "require-dev": {
