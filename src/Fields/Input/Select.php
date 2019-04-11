@@ -3,12 +3,9 @@
 namespace Signifly\Travy\Fields\Input;
 
 use Signifly\Travy\Fields\Field;
-use Signifly\Travy\Schema\Concerns\HasOptions;
 
 class Select extends Field
 {
-    use HasOptions;
-
     /**
      * The field's component.
      *
@@ -24,47 +21,14 @@ class Select extends Field
     public $showOnIndex = false;
 
     /**
-     * Set the clearable prop.
+     * Set the items.
      *
-     * @param  bool $value
+     * @param  array  $items
      * @return self
      */
-    public function clearable($value = true)
+    public function items(array $items): self
     {
-        return $this->withProps(['clearable' => $value]);
-    }
-
-    /**
-     * Set the items prop.
-     *
-     * @param  string $items
-     * @return self
-     */
-    public function items(string $items)
-    {
-        return $this->withProps(compact('items'));
-    }
-
-    /**
-     * Set the label option.
-     *
-     * @param  string $label
-     * @return self
-     */
-    public function label(string $label)
-    {
-        return $this->withOptions(compact('label'));
-    }
-
-    /**
-     * Set the value option.
-     *
-     * @param  string $value
-     * @return self
-     */
-    public function value(string $value)
-    {
-        return $this->withOptions(compact('value'));
+        return $this->withProps(['items' => $items]);
     }
 
     /**
@@ -74,9 +38,6 @@ class Select extends Field
      */
     public function applyOptions()
     {
-        $this->withProps([
-            'value' => $this->attribute,
-            'options' => $this->options(),
-        ]);
+        $this->withProps(['value' => $this->attribute]);
     }
 }
