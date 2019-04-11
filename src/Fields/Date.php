@@ -11,6 +11,11 @@ class Date extends Field
      */
     public $component = 'date';
 
+    public function format(string $format)
+    {
+        return $this->withProps(compact('format'));
+    }
+
     /**
      * The options to apply to the field type.
      *
