@@ -74,31 +74,21 @@ class DefaultTable extends Table
         $column = Column::make(
             Actions::make('Actions')
                 ->actions([
-                    Action::make('View')
-                        ->type('show')
-                        ->endpoint(
-                            "/t/{$this->request->resourceKey()}/{id}",
-                            function ($endpoint) {
-                                $endpoint->usingMethod('get');
-                            }
-                        )
+                    Show::make('View')
+                        ->url("/t/{$this->request->resourceKey()}/{id}")
                         ->hide('is_deleted', true),
 
-                    Action::make('Delete')
-                        ->type('popup')
+                    Popup::make('Delete')
                         ->endpoint(
                             url("v1/admin/{$this->request->resourceKey()}/{id}"),
                             function ($endpoint) {
                                 $endpoint->usingMethod('delete');
                             }
                         )
-                        ->text('Are you sure? Please confirm this action.')
                         ->hide('is_deleted', true),
 
-                    Action::make('Restore')
-                        ->type('popup')
+                    Popup::make('Restore')
                         ->endpoint(url("v1/admin/{$this->request->resourceKey()}/{id}/restore"))
-                        ->text('Are you sure? Please confirm this action.')
                         ->hide('is_deleted', false),
                 ])
                 ->width(120)
