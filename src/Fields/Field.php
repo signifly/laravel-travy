@@ -179,6 +179,30 @@ abstract class Field extends FieldElement implements JsonSerializable
     }
 
     /**
+     * Create a field without a name.
+     *
+     * @param  string $attribute
+     * @return static
+     */
+    public static function withoutName($attribute)
+    {
+        return static::make(null, $attribute);
+    }
+
+    /**
+     * Set the Vue component name.
+     *
+     * @param  string $component
+     * @return self
+     */
+    public function component(string $component): self
+    {
+        $this->component = $component;
+
+        return $this;
+    }
+
+    /**
      * Set the isBatchLabel property.
      *
      * @param  bool $value
