@@ -35,5 +35,7 @@ class IndexAction extends Action
         }
 
         $queryBuilder->withCount($resource->withCount());
+
+        return $queryBuilder;
     }
 }
