@@ -119,6 +119,14 @@ class Tab extends FieldElement implements JsonSerializable
                     $field->hideFromIndex();
                 }
 
+                if (! $this->showOnCreation) {
+                    $field->hideWhenCreating();
+                }
+
+                if (! $this->showOnUpdate) {
+                    $field->hideWhenUpdating();
+                }
+
                 return $field;
             })
             ->toArray();
