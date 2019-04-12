@@ -146,7 +146,7 @@ class DefaultTable extends Table
 
     public function modifiers(): array
     {
-        $fields = new FieldCollection($this->resource->filters());
+        $fields = new FieldCollection($this->resource->modifiers());
 
         if ($fields->isEmpty()) {
             return [];
