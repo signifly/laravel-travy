@@ -81,7 +81,7 @@ class DefaultView extends View
 
     public function sidebars(): array
     {
-        return $this->resource->getPreparedFields()
+        return collect($this->resource->fields())
             ->filter(function ($field) {
                 return $field instanceof Sidebar;
             })
@@ -96,7 +96,7 @@ class DefaultView extends View
 
     public function tabs(): array
     {
-        return $this->resource->getPreparedFields()
+        return collect($this->resource->fields())
             ->filter(function ($field) {
                 return $field instanceof Tab && $field->showOnUpdate;
             })
@@ -119,8 +119,8 @@ class DefaultView extends View
             ->filter(function ($field) {
                 return $field->showOnUpdate;
             })
-            ->map(function ($field) {
-                if ($field instanceof Tab && $field->component == 'text') {
+            ->map(function ($field) use ($fieldElement) {
+                if ($fieldElement instanceof Tab && $field->component == 'text') {
                     $field->asInput();
                 }
 
