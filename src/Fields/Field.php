@@ -494,7 +494,7 @@ abstract class Field extends FieldElement implements JsonSerializable
             $this->applyOptions();
         }
 
-        if ($this->linkable) {
+        if ($this->linkable && $this->linksTo) {
             $this->withMeta(['onClick' => $this->linksTo]);
         }
 
@@ -503,7 +503,5 @@ abstract class Field extends FieldElement implements JsonSerializable
             'label' => $this->localize($this->name),
             'fieldType' => $this->fieldType(),
         ], $this->meta());
-
-        return $data;
     }
 }

@@ -3,6 +3,7 @@
 namespace Signifly\Travy\Schema;
 
 use JsonSerializable;
+use Illuminate\Support\Arr;
 use Signifly\Travy\Fields\Field;
 
 class Column implements JsonSerializable
@@ -81,10 +82,15 @@ class Column implements JsonSerializable
             $this->field->applyOptions();
         }
 
-        return array_merge([
+        $data = array_merge([
             'order' => $this->order,
             'sortable' => $this->field->sortable,
-            'sortBy' => $this->field->sortBy ?? null,
         ], $this->field->jsonSerialize());
+
+        if ($this->field->sortable) {
+            Arr::set($data, 'sortBy', $this->field->sortBy);
+        }
+
+        return $data;
     }
 }
