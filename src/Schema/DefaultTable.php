@@ -66,33 +66,31 @@ class DefaultTable extends Table
                     $field->linksTo = "/t/{$this->request->resourceKey()}/{id}";
                 }
 
-                return new Column($field);
+                return $field;
             })
             ->values();
 
         // Set actions
-        $column = Column::make(
-            Actions::make('Actions')
-                ->actions([
-                    Show::make('View')
-                        ->url("/t/{$this->request->resourceKey()}/{id}")
-                        ->hide('is_deleted', true),
+        $column = Actions::make('Actions')
+            ->actions([
+                Show::make('View')
+                    ->url("/t/{$this->request->resourceKey()}/{id}")
+                    ->hide('is_deleted', true),
 
-                    Popup::make('Delete')
-                        ->endpoint(
-                            url("v1/admin/{$this->request->resourceKey()}/{id}"),
-                            function ($endpoint) {
-                                $endpoint->usingMethod('delete');
-                            }
-                        )
-                        ->hide('is_deleted', true),
+                Popup::make('Delete')
+                    ->endpoint(
+                        url("v1/admin/{$this->request->resourceKey()}/{id}"),
+                        function ($endpoint) {
+                            $endpoint->usingMethod('delete');
+                        }
+                    )
+                    ->hide('is_deleted', true),
 
-                    Popup::make('Restore')
-                        ->endpoint(url("v1/admin/{$this->request->resourceKey()}/{id}/restore"))
-                        ->hide('is_deleted', false),
-                ])
-                ->width(120)
-        );
+                Popup::make('Restore')
+                    ->endpoint(url("v1/admin/{$this->request->resourceKey()}/{id}/restore"))
+                    ->hide('is_deleted', false),
+            ])
+            ->width(120);
 
         $columns->push($column);
 

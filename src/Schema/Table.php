@@ -62,6 +62,7 @@ abstract class Table implements Contract, Arrayable, JsonSerializable, Responsab
     public function preparedColumns(): array
     {
         return collect($this->columns())
+            ->mapInto(Column::class)
             ->map(function ($column, $index) {
                 return $column->setWidth()
                     ->order($index + 1)
