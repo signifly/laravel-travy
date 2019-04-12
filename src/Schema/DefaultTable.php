@@ -101,11 +101,7 @@ class DefaultTable extends Table
 
     public function defaults(): array
     {
-        $fields = $this->resource->getPreparedFields();
-
-        $defaultSort = $fields->first(function ($field) {
-            return $field->defaultSort;
-        });
+        $defaultSort = $this->resource->getPreparedFields()->first->defaultSort;
 
         if (! $defaultSort) {
             return [];
