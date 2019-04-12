@@ -36,7 +36,7 @@ class DefaultView extends View
                         $endpoint->usingMethod('delete');
                     }
                 )
-                ->onSubmit("/t/{$this->getResourceKey()}"),
+                ->onSubmit("/t/{$this->request->resourceKey()}"),
         ];
     }
 
