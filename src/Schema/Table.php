@@ -52,6 +52,11 @@ abstract class Table implements Contract, Arrayable, JsonSerializable, Responsab
         return [];
     }
 
+    public function subtable(): ?Subtable
+    {
+        return null;
+    }
+
     public function preparedActions(): array
     {
         return collect($this->actions())
@@ -106,6 +111,10 @@ abstract class Table implements Contract, Arrayable, JsonSerializable, Responsab
 
         if ($batch = $this->batch()) {
             Arr::set($schema, 'batch', $batch->jsonSerialize());
+        }
+
+        if ($subtable = $this->subtable()) {
+            Arr::set($schema, 'subtable', $subtable->jsonSerialize());
         }
 
         if ($this->channel) {

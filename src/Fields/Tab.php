@@ -2,13 +2,14 @@
 
 namespace Signifly\Travy\Fields;
 
-use Closure;
 use JsonSerializable;
 use Illuminate\Support\Str;
-use Signifly\Travy\Schema\Endpoint;
+use Signifly\Travy\Schema\Concerns\HasEndpoint;
 
 class Tab extends FieldElement implements JsonSerializable
 {
+    use HasEndpoint;
+
     /**
      * The displayable name of the tab.
      *
@@ -22,13 +23,6 @@ class Tab extends FieldElement implements JsonSerializable
      * @var string
      */
     public $attribute;
-
-    /**
-     * The tab's endpoint settings.
-     *
-     * @var \Signifly\Travy\Schema\Endpoint
-     */
-    public $endpoint;
 
     /**
      * The fields in the tab.
@@ -74,26 +68,6 @@ class Tab extends FieldElement implements JsonSerializable
     }
 
     /**
-     * Set the tab's endpoint.
-     *
-     * @param  string $url
-     * @param  array  $params
-     * @return self
-     */
-    public function endpoint(string $url, ?Closure $callable = null): self
-    {
-        $endpoint = new Endpoint($url);
-
-        if (! is_null($callable)) {
-            $callable($endpoint);
-        }
-
-        $this->endpoint = $endpoint;
-
-        return $this;
-    }
-
-    /**
      * Set the fields in the tab.
      *
      * @param  array  $fields
@@ -130,16 +104,6 @@ class Tab extends FieldElement implements JsonSerializable
                 return $field;
             })
             ->toArray();
-    }
-
-    /**
-     * Check if the tab has an endpoint.
-     *
-     * @return bool
-     */
-    public function hasEndpoint(): bool
-    {
-        return ! empty($this->endpoint);
     }
 
     /**

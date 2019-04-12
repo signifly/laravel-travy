@@ -2,13 +2,13 @@
 
 namespace Signifly\Travy\Fields\Input;
 
-use Closure;
 use Signifly\Travy\Fields\Field;
-use Signifly\Travy\Schema\Endpoint;
 use Signifly\Travy\Schema\Concerns\HasOptions;
+use Signifly\Travy\Schema\Concerns\HasEndpoint;
 
 class SelectSearch extends Field
 {
+    use HasEndpoint;
     use HasOptions;
 
     /**
@@ -17,9 +17,6 @@ class SelectSearch extends Field
      * @var string
      */
     public $component = 'input-select-search';
-
-    /** @var \Signifly\Travy\Schema\Endpoint */
-    public $endpoint;
 
     /**
      * Indicates if the element should be shown on the index view.
@@ -62,26 +59,6 @@ class SelectSearch extends Field
             'itemKey' => 'data',
             'value' => 'id',
         ];
-    }
-
-    /**
-     * Set the endpoint option.
-     *
-     * @param  string $url
-     * @param  Closure|null $callable
-     * @return self
-     */
-    public function endpoint(string $url, ?Closure $callable = null): self
-    {
-        $endpoint = new Endpoint($url);
-
-        if (! is_null($callable)) {
-            $callable($endpoint);
-        }
-
-        $this->endpoint = $endpoint;
-
-        return $this;
     }
 
     /**

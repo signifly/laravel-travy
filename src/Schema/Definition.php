@@ -2,21 +2,15 @@
 
 namespace Signifly\Travy\Schema;
 
-use Closure;
 use Signifly\Travy\Http\Requests\TravyRequest;
 use Signifly\Travy\Schema\Concerns\HasActions;
+use Signifly\Travy\Schema\Concerns\HasEndpoint;
 use Signifly\Travy\Contracts\Definition as Contract;
 
 abstract class Definition implements Contract
 {
     use HasActions;
-
-    /**
-     * The endpoint instance.
-     *
-     * @var \Signifly\Travy\Schema\Endpoint
-     */
-    protected $endpoint;
+    use HasEndpoint;
 
     /**
      * The includes for the definition schema.
@@ -58,26 +52,6 @@ abstract class Definition implements Contract
     public function addIncludes(...$includes): self
     {
         $this->includes = $includes;
-
-        return $this;
-    }
-
-    /**
-     * Set the endpoint for the definition.
-     *
-     * @param  string $url
-     * @param Clousure|null $callable
-     * @return self
-     */
-    public function endpoint($url, ?Closure $callable = null): self
-    {
-        $endpoint = new Endpoint($url);
-
-        if (! is_null($callable)) {
-            $callable($endpoint);
-        }
-
-        $this->endpoint = $endpoint;
 
         return $this;
     }
