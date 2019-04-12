@@ -16,6 +16,9 @@ abstract class Table implements Contract, Arrayable, JsonSerializable, Responsab
     protected $pagination = true;
 
     /** @var string */
+    protected $channel;
+
+    /** @var string */
     protected $creationRedirectTo;
 
     /** @var string */
@@ -102,6 +105,10 @@ abstract class Table implements Contract, Arrayable, JsonSerializable, Responsab
 
         if ($batch = $this->batch()) {
             Arr::set($schema, 'batch', $batch->jsonSerialize());
+        }
+
+        if ($this->channel) {
+            Arr::set($schema, 'ws.channel', $this->channel);
         }
 
         return $schema;
