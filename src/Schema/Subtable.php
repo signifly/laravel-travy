@@ -25,7 +25,7 @@ class Subtable implements JsonSerializable
 
     public function preparedColumns(): array
     {
-        return collect($this->columns())
+        return collect($this->columns)
             ->mapInto(Column::class)
             ->map(function ($column, $index) {
                 return $column->setWidth()
