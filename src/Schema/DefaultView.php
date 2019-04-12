@@ -6,6 +6,8 @@ use Signifly\Travy\Fields\Tab;
 use Signifly\Travy\Fields\Actions;
 use Signifly\Travy\Fields\Sidebar;
 use Signifly\Travy\Support\FieldCollection;
+use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Activitylog\Traits\CausesActivity;
 use Signifly\Travy\Http\Requests\TravyRequest;
 
 class DefaultView extends View
@@ -131,5 +133,20 @@ class DefaultView extends View
             })
             ->values()
             ->toArray();
+    }
+
+    public function toArray()
+    {
+        // Check activity
+        $modelTraits = collect(class_uses_recursive($this->resource->modelClass()));
+
+        if (
+            $modelTraits->contains(LogsActivity::class) ||
+            $modelTraits->contains(CausesActivity::class)
+        ) {
+            $this->activity = true;
+        }
+
+        return parent::toArray();
     }
 }

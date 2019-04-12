@@ -13,7 +13,7 @@ use Signifly\Travy\Contracts\View as Contract;
 abstract class View implements Contract, Arrayable, JsonSerializable, Responsable
 {
     /** @var bool */
-    protected $activity = true;
+    protected $activity = false;
 
     /** @var \Illuminate\Http\Request */
     protected $request;
