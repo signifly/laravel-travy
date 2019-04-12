@@ -51,8 +51,8 @@ class DefaultView extends View
     {
         $fields = $this->resource->getPreparedFields();
 
-        $headerTitle = $fields->first->headerTitle;
-        $headerImage = $fields->first->headerImage;
+        $headerTitle = $fields->first->isHeaderTitle;
+        $headerImage = $fields->first->isHeaderImage;
 
         return [
             'props' => [
