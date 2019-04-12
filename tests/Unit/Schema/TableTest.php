@@ -3,9 +3,9 @@
 namespace Signifly\Travy\Test\Unit\Schema;
 
 use Illuminate\Support\Arr;
+use Illuminate\Http\Request;
 use Signifly\Travy\Fields\Text;
 use Signifly\Travy\Schema\Table;
-use Signifly\Travy\Schema\Column;
 use Signifly\Travy\Test\TestCase;
 use Signifly\Travy\Schema\Endpoint;
 
@@ -14,14 +14,13 @@ class TableTest extends TestCase
     /** @test */
     public function it_serializes_to_json()
     {
-        $table = new class extends Table {
+        $request = app(Request::class);
+        $table = new class($request) extends Table {
             public function columns(): array
             {
                 return [
-                    Column::make(
-                        Text::make('Title')
-                            ->sortable()
-                    ),
+                    Text::make('Title')
+                        ->sortable(),
                 ];
             }
 
