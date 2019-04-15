@@ -9,6 +9,7 @@ use Illuminate\Support\Collection;
 use Signifly\Travy\Fields\Sidebar;
 use Illuminate\Database\Eloquent\Model;
 use Signifly\Travy\Support\RulesetSorter;
+use Signifly\Travy\Support\FieldCollection;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Signifly\Travy\Http\Filters\SearchFilter;
 use Signifly\Travy\Http\Filters\TrashedFilter;
@@ -355,7 +356,7 @@ abstract class Resource
      */
     public function getPreparedFields(): Collection
     {
-        return collect($this->fields())
+        return new FieldCollection($this->fields())
             ->reject(function ($field) {
                 return $field instanceof Sidebar;
             })
