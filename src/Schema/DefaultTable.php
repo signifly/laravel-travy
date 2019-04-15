@@ -27,7 +27,7 @@ class DefaultTable extends Table
     {
         $fields = new FieldCollection($this->resource->getPreparedFields()->toArray());
         $resourceKey = $this->request->resourceKey();
-        $resourceName = Str::snake($this->resource->displayAs());
+        $resourceName = Str::snake($this->resource->displayAs(), ' ');
 
         $creatableFields = $fields->filter->showOnCreation
             ->map(function ($field) {
