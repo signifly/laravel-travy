@@ -45,7 +45,7 @@ class DefinitionFactory extends Factory
     protected function guardAgainstInvalidDefinitionType(string $type)
     {
         throw_unless(
-            in_array(strtolower($type, $this->validTypes),
+            in_array(strtolower($type), $this->validTypes),
             InvalidDefinitionException::class
         );
     }
