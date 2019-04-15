@@ -85,7 +85,7 @@ abstract class View implements Contract, Arrayable, JsonSerializable, Responsabl
         }
 
         if (count($this->sidebars()) > 0) {
-            Arr::set($schema, 'sidebars', $this->sidebars());
+            Arr::set($schema, 'sidebar', $this->sidebars());
         }
 
         return $schema;
