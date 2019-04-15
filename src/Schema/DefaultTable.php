@@ -25,25 +25,9 @@ class DefaultTable extends Table
 
     public function actions(): array
     {
-        $fields = new FieldCollection($this->resource->getPreparedFields()->toArray());
         $resourceKey = $this->request->resourceKey();
         $resourceName = Str::snake($this->resource->displayAs(), ' ');
-
-        $creatableFields = $fields->filter->showOnCreation
-            ->map(function ($field) {
-                // Convert text fields to input text
-                if ($field->component == 'text') {
-                    $field->asInput();
-                }
-
-                // Set width
-                if ($field->width instanceof Width) {
-                    $field->withMeta(['width' => $field->width->getOnCreation()]);
-                }
-
-                return $field;
-            })
-            ->values();
+        $creatableFields = $this->getCreationFields();
 
         return [
             Action::make("Add {$resourceName}", 'primary')
@@ -58,17 +42,7 @@ class DefaultTable extends Table
 
     public function columns(): array
     {
-        $fields = $this->resource->getPreparedFields();
-
-        $columns = $fields->filter->showOnIndex
-            ->map(function ($field) {
-                if ($field->linkable && ! $field->linksTo) {
-                    $field->linksTo = "/t/{$this->request->resourceKey()}/{id}";
-                }
-
-                return $field;
-            })
-            ->values();
+        $columns = $this->getIndexFields();
 
         // Set actions
         $column = Actions::make('Actions')
@@ -158,20 +132,56 @@ class DefaultTable extends Table
         ];
     }
 
-    public function toArray()
+    protected function addSearchPlaceholder(): void
     {
-        // Add search placeholder from resource
-        $fields = $this->resource->getPreparedFields();
+        if (! $this->resource->searchable()) {
+            return;
+        }
 
-        $searchable = $fields->filter->searchable
-            ->map(function ($field) {
-                return __($field->name);
-            })
-            ->implode(', ');
+        $searchable = $this->resource->getPreparedFields()
+            ->toSearchPlaceholder();
 
         $this->searchPlaceholder = $searchable
             ? __('Search for ').$searchable
             : __('Search...');
+    }
+
+    protected function getCreationFields(): FieldCollection
+    {
+        return $this->resource->getPreparedFields()
+            ->onlyCreation()
+            ->map(function ($field) {
+                // Convert text fields to input text
+                if ($field->is('text')) {
+                    $field->asInput();
+                }
+
+                // Set width
+                if ($field->width instanceof Width) {
+                    $field->withMeta(['width' => $field->width->getOnCreation()]);
+                }
+
+                return $field;
+            });
+    }
+
+    protected function getIndexFields(): FieldCollection
+    {
+        return $this->resource->getPreparedFields()
+            ->onlyIndex()
+            ->map(function ($field) {
+                if ($field->linkable && ! $field->linksTo) {
+                    $field->linksTo = "/t/{$this->request->resourceKey()}/{id}";
+                }
+
+                return $field;
+            });
+    }
+
+    public function toArray()
+    {
+        // Add search placeholder from resource
+        $this->addSearchPlaceholder();
 
         return parent::toArray();
     }

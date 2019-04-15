@@ -3,7 +3,9 @@
 namespace Signifly\Travy\Support;
 
 use ReflectionClass;
+use Spatie\Activitylog\Traits\LogsActivity;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\Activitylog\Traits\CausesActivity;
 
 class ModelFactory
 {
@@ -28,6 +30,32 @@ class ModelFactory
         }
 
         return $modelClass::findOrFail($resourceId);
+    }
+
+    /**
+     * Determine if a model uses causes activity.
+     *
+     * @return bool
+     */
+    public static function causesActivity(string $modelClass)
+    {
+        return in_array(
+            CausesActivity::class,
+            class_uses_recursive($modelClass)
+        );
+    }
+
+    /**
+     * Determine if a model uses logs activity.
+     *
+     * @return bool
+     */
+    public static function logsActivity(string $modelClass)
+    {
+        return in_array(
+            LogsActivity::class,
+            class_uses_recursive($modelClass)
+        );
     }
 
     /**

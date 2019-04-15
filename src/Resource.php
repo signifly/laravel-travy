@@ -356,7 +356,7 @@ abstract class Resource
      */
     public function getPreparedFields(): Collection
     {
-        return new FieldCollection($this->fields())
+        return FieldCollection::make($this->fields())
             ->reject(function ($field) {
                 return $field instanceof Sidebar;
             })

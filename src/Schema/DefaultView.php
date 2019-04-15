@@ -5,6 +5,7 @@ namespace Signifly\Travy\Schema;
 use Signifly\Travy\Fields\Tab;
 use Signifly\Travy\Fields\Actions;
 use Signifly\Travy\Fields\Sidebar;
+use Signifly\Travy\Support\ModelFactory;
 use Signifly\Travy\Support\FieldCollection;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Activitylog\Traits\CausesActivity;
@@ -113,6 +114,15 @@ class DefaultView extends View
             ->toArray();
     }
 
+    protected function addActivity(): void
+    {
+        $class = $this->resource->modelClass();
+
+        if (ModelFactory::causesActivity($class) || ModelFactory::logsActivity($class)) {
+            $this->activity = true;
+        }
+    }
+
     protected function prepareFieldsFor($fieldElement): array
     {
         return collect($fieldElement->fields)
@@ -120,7 +130,7 @@ class DefaultView extends View
                 return $field->showOnUpdate;
             })
             ->map(function ($field) use ($fieldElement) {
-                if ($fieldElement instanceof Tab && $field->component == 'text') {
+                if ($fieldElement instanceof Tab && $field->is('text')) {
                     $field->asInput();
                 }
 
@@ -137,15 +147,8 @@ class DefaultView extends View
 
     public function toArray()
     {
-        // Check activity
-        $modelTraits = collect(class_uses_recursive($this->resource->modelClass()));
-
-        if (
-            $modelTraits->contains(LogsActivity::class) ||
-            $modelTraits->contains(CausesActivity::class)
-        ) {
-            $this->activity = true;
-        }
+        // Add activity from resource
+        $this->addActivity();
 
         return parent::toArray();
     }
