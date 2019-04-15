@@ -201,7 +201,7 @@ abstract class Resource
      *
      * @return bool
      */
-    protected function searchable(): bool
+    public function searchable(): bool
     {
         return count($this->getSearchable()) > 0;
     }
