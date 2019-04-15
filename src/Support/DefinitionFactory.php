@@ -2,10 +2,7 @@
 
 namespace Signifly\Travy\Support;
 
-use Illuminate\Support\Str;
 use Signifly\Travy\Http\Requests\TravyRequest;
-use Signifly\Travy\Schema\DefaultViewDefinition;
-use Signifly\Travy\Schema\DefaultTableDefinition;
 use Signifly\Travy\Exceptions\InvalidDefinitionException;
 
 class DefinitionFactory extends Factory
@@ -19,39 +16,24 @@ class DefinitionFactory extends Factory
         'view',
     ];
 
-    /**
-     * Create a new DefinitionFactory instance.
-     *
-     * @param \Signifly\Travy\Http\Requests\TravyRequest $request
-     */
     public function __construct(TravyRequest $request)
     {
         $this->request = $request;
     }
 
-    /**
-     * Create the definition by a given type and entity.
-     *
-     * @return \Signifly\Travy\Schema\Contracts\DefinitionContract
-     */
     public function create()
     {
-        $namespace = config('travy.definitions.namespace');
-        $type = Str::studly($this->request->route()->parameter('type'));
-        $resource = Str::studly($this->request->resourceKey());
-        $class = "{$namespace}\\{$type}\\{$resource}{$type}Definition";
+        $type = $this->request->route()->parameter('type');
 
         $this->guardAgainstInvalidDefinitionType($type);
 
-        if (class_exists($class)) {
-            return new $class($this->request);
-        }
+        switch ($type) {
+            case 'table':
+                return TableFactory::make($this->request);
 
-        if ($type == 'Table') {
-            return new DefaultTableDefinition($this->request);
+            case 'view':
+                return ViewFactory::make($this->request);
         }
-
-        return new DefaultViewDefinition($this->request);
     }
 
     /**
@@ -63,7 +45,7 @@ class DefinitionFactory extends Factory
     protected function guardAgainstInvalidDefinitionType(string $type)
     {
         throw_unless(
-            in_array(strtolower($type), $this->validTypes),
+            in_array(strtolower($type, $this->validTypes),
             InvalidDefinitionException::class
         );
     }

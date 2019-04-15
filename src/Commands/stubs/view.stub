@@ -2,12 +2,8 @@
 
 namespace DummyNamespace;
 
-use Signifly\Travy\Schema\ViewDefinition;
+use Signifly\Travy\Schema\DefaultView;
 
-class DummyClass extends ViewDefinition
+class DummyClass extends DefaultView
 {
-    protected function schema()
-    {
-        //
-    }
 }

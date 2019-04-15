@@ -2,12 +2,8 @@
 
 namespace DummyNamespace;
 
-use Signifly\Travy\Schema\TableDefinition;
+use Signifly\Travy\Schema\DefaultTable;
 
-class DummyClass extends TableDefinition
+class DummyClass extends DefaultTable
 {
-    protected function schema()
-    {
-        //
-    }
 }

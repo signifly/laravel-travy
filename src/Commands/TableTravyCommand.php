@@ -2,31 +2,31 @@
 
 namespace Signifly\Travy\Commands;
 
+use Illuminate\Support\Str;
 use Illuminate\Console\GeneratorCommand;
-use Symfony\Component\Console\Input\InputOption;
 
-class DefinitionTravyCommand extends GeneratorCommand
+class TableTravyCommand extends GeneratorCommand
 {
     /**
      * The console command name.
      *
      * @var string
      */
-    protected $name = 'travy:definition';
+    protected $name = 'travy:view';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Create a new Definition class.';
+    protected $description = 'Create a new View class.';
 
     /**
      * The type of class being generated.
      *
      * @var string
      */
-    protected $type = 'Definition';
+    protected $type = 'View';
 
     /**
      * Get the default namespace for the class.
@@ -38,11 +38,7 @@ class DefinitionTravyCommand extends GeneratorCommand
     {
         $namespace = config('travy.definitions.namespace');
 
-        if ($this->option('view')) {
-            return "{$namespace}\\View";
-        }
-
-        return "{$namespace}\\Table";
+        return "{$namespace}\\View";
     }
 
     /**
@@ -52,22 +48,16 @@ class DefinitionTravyCommand extends GeneratorCommand
      */
     protected function getStub()
     {
-        if ($this->option('view')) {
-            return __DIR__.'/stubs/view.stub';
-        }
-
-        return __DIR__.'/stubs/table.stub';
+        return __DIR__.'/stubs/view.stub';
     }
 
     /**
-     * Get the console command options.
+     * Get the desired class name from the input.
      *
-     * @return array
+     * @return string
      */
-    protected function getOptions()
+    protected function getNameInput()
     {
-        return [
-            ['view', null, InputOption::VALUE_NONE, 'Indicates if the generated definition should be a view definition.'],
-        ];
+        return Str::finish(parent::getNameInput(), 'View');
     }
 }

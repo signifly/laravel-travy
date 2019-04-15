@@ -3,10 +3,11 @@
 namespace Signifly\Travy;
 
 use Illuminate\Support\ServiceProvider;
+use Signifly\Travy\Commands\ViewTravyCommand;
+use Signifly\Travy\Commands\TableTravyCommand;
 use Signifly\Travy\Commands\ActionTravyCommand;
 use Signifly\Travy\Commands\ResourceTravyCommand;
 use Signifly\Travy\Commands\DashboardTravyCommand;
-use Signifly\Travy\Commands\DefinitionTravyCommand;
 
 class TravyServiceProvider extends ServiceProvider
 {
@@ -30,8 +31,9 @@ class TravyServiceProvider extends ServiceProvider
             $this->commands([
                 ActionTravyCommand::class,
                 DashboardTravyCommand::class,
-                DefinitionTravyCommand::class,
                 ResourceTravyCommand::class,
+                TableTravyCommand::class,
+                ViewTravyCommand::class,
             ]);
         }
     }
