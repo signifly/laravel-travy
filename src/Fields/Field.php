@@ -202,6 +202,11 @@ abstract class Field extends FieldElement implements JsonSerializable
         return $this;
     }
 
+    public function is(string $component): bool
+    {
+        return $this->component == $component;
+    }
+
     /**
      * Set the isBatchLabel property.
      *
@@ -274,8 +279,8 @@ abstract class Field extends FieldElement implements JsonSerializable
     public function getRules(Request $request): array
     {
         return [$this->attribute => is_callable($this->rules)
-                            ? call_user_func($this->rules, $request)
-                            : $this->rules, ];
+            ? call_user_func($this->rules, $request)
+            : $this->rules, ];
     }
 
     /**
@@ -287,8 +292,8 @@ abstract class Field extends FieldElement implements JsonSerializable
     public function getCreationRules(Request $request)
     {
         $rules = [$this->attribute => is_callable($this->creationRules)
-                            ? call_user_func($this->creationRules, $request)
-                            : $this->creationRules, ];
+            ? call_user_func($this->creationRules, $request)
+            : $this->creationRules, ];
 
         return array_merge_recursive(
             $this->getRules($request),
@@ -318,8 +323,8 @@ abstract class Field extends FieldElement implements JsonSerializable
     public function getUpdateRules(Request $request)
     {
         $rules = [$this->attribute => is_callable($this->updateRules)
-                            ? call_user_func($this->updateRules, $request)
-                            : $this->updateRules, ];
+            ? call_user_func($this->updateRules, $request)
+            : $this->updateRules, ];
 
         return array_merge_recursive(
             $this->getRules($request),
