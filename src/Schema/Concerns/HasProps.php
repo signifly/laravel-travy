@@ -2,6 +2,8 @@
 
 namespace Signifly\Travy\Schema\Concerns;
 
+use Illuminate\Support\Arr;
+
 trait HasProps
 {
     /**
@@ -14,12 +16,12 @@ trait HasProps
     /**
      * Forget a given prop.
      *
-     * @param  string $key
+     * @param  string|array $key
      * @return void
      */
-    public function forgetProp(string $key)
+    public function forgetProp($key)
     {
-        return array_forget($this->props, $key);
+        return Arr::forget($this->props, $key);
     }
 
     /**
@@ -30,7 +32,7 @@ trait HasProps
      */
     public function getProp(string $key)
     {
-        return array_get($this->props, $key);
+        return Arr::get($this->props, $key);
     }
 
     /**
@@ -41,7 +43,7 @@ trait HasProps
      */
     public function hasProp(string $key)
     {
-        return array_has($this->props, $key);
+        return Arr::has($this->props, $key);
     }
 
     /**

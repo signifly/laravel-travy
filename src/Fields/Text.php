@@ -23,11 +23,33 @@ class Text extends Field
      *
      * @return self
      */
-    public function asInput()
+    public function asInput(): self
     {
         $this->component = 'input-text';
 
         return $this;
+    }
+
+    /**
+     * Set the type prop.
+     *
+     * @param  string $type
+     * @return self
+     */
+    public function type(string $type): self
+    {
+        return $this->withProps(compact('type'));
+    }
+
+    /**
+     * Set the unit prop.
+     *
+     * @param  string $unit
+     * @return self
+     */
+    public function unit(string $unit): self
+    {
+        return $this->withProps(compact('unit'));
     }
 
     /**
@@ -39,6 +61,7 @@ class Text extends Field
     {
         if ($this->component == 'text') {
             $this->withProps(['text' => $this->attribute]);
+            $this->forgetProp(['type', 'unit']);
         }
 
         if (in_array($this->component, ['input-text', 'input-number'])) {

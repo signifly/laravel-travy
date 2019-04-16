@@ -21,6 +21,17 @@ class Number extends Field
     public $defaultValue = 0;
 
     /**
+     * Set the unit prop.
+     *
+     * @param  string $unit
+     * @return self
+     */
+    public function unit(string $unit): self
+    {
+        return $this->withProps(compact('unit'));
+    }
+
+    /**
      * The options to apply to the field type.
      *
      * @return void
