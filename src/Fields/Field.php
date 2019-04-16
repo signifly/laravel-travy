@@ -184,7 +184,7 @@ abstract class Field extends FieldElement implements JsonSerializable
      * @param  string $attribute
      * @return static
      */
-    public static function withoutName($attribute)
+    public static function attr($attribute)
     {
         return static::make(null, $attribute);
     }
