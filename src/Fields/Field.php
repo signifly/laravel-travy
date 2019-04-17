@@ -462,6 +462,17 @@ abstract class Field extends FieldElement implements JsonSerializable
     }
 
     /**
+     * Set the sublabel of the column.
+     *
+     * @param  string $text
+     * @return self
+     */
+    public function sublabel(string $text): self
+    {
+        return $this->withMeta(['sublabel' => $text]);
+    }
+
+    /**
      * Specify the field tooltip text.
      *
      * @param  string $text
