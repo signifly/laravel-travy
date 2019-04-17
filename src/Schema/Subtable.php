@@ -13,6 +13,9 @@ class Subtable implements JsonSerializable
     /** @var array */
     protected $columns;
 
+    /** @var string */
+    protected $key;
+
     public function __construct(array $columns)
     {
         $this->columns = $columns;
@@ -21,6 +24,13 @@ class Subtable implements JsonSerializable
     public static function make(...$args)
     {
         return new static(...$args);
+    }
+
+    public function key(string $key)
+    {
+        $this->key = $key;
+
+        return $this;
     }
 
     public function preparedColumns(): array
@@ -40,6 +50,10 @@ class Subtable implements JsonSerializable
         $schema = [
             'columns' => $this->preparedColumns(),
         ];
+
+        if ($this->key) {
+            Arr::set($schema, 'dataKey', $this->key);
+        }
 
         if ($this->endpoint) {
             Arr::set($schema, 'endpoint', $this->endpoint->toArray());
