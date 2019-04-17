@@ -60,7 +60,7 @@ class ViewTest extends TestCase
 
         tap($table->jsonSerialize(), function ($data) {
             $this->assertCount(1, Arr::get($data, 'tabs'));
-            $this->assertCount(1, Arr::get($data, 'sidebars'));
+            $this->assertCount(1, Arr::get($data, 'sidebar'));
             $this->assertEquals('some_url', Arr::get($data, 'endpoint.url'));
             $this->assertEquals('title', Arr::get($data, 'header.props.title'));
         });
