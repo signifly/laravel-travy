@@ -19,7 +19,7 @@ class Text extends Field
     public $linkable = true;
 
     /**
-     * Align the text.
+     * Set the align prop.
      *
      * @param  string $align
      * @return self
@@ -39,6 +39,17 @@ class Text extends Field
         $this->component = 'input-text';
 
         return $this;
+    }
+
+    /**
+     * Set the subtitle prop.
+     *
+     * @param  string $subtitle
+     * @return self
+     */
+    public function subtitle(string $subtitle): self
+    {
+        return $this->withProps(compact('subtitle'));
     }
 
     /**
