@@ -19,6 +19,17 @@ class Text extends Field
     public $linkable = true;
 
     /**
+     * Align the text.
+     *
+     * @param  string $align
+     * @return self
+     */
+    public function align(string $align): self
+    {
+        return $this->withProps(compact('align'));
+    }
+
+    /**
      * Use as input.
      *
      * @return self
