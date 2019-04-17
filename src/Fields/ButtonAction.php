@@ -3,6 +3,7 @@
 namespace Signifly\Travy\Fields;
 
 use Closure;
+use Illuminate\Support\Arr;
 use Signifly\Travy\Schema\Endpoint;
 
 class ButtonAction extends Field
@@ -96,7 +97,7 @@ class ButtonAction extends Field
 
         $this->data($data);
 
-        array_set($this->actionProps, 'fields', $preparedFields);
+        Arr::set($this->actionProps, 'fields', $preparedFields);
 
         return $this;
     }
@@ -120,7 +121,7 @@ class ButtonAction extends Field
      */
     public function onSubmit(string $link): self
     {
-        array_set($this->actionProps, 'onSubmit', $link);
+        Arr::set($this->actionProps, 'onSubmit', $link);
 
         return $this;
     }
@@ -144,7 +145,7 @@ class ButtonAction extends Field
     public function applyOptions()
     {
         if ($this->endpoint) {
-            array_set($this->actionProps, 'endpoint', $this->endpoint->toArray());
+            Arr::set($this->actionProps, 'endpoint', $this->endpoint->toArray());
         }
 
         $this->withProps([
