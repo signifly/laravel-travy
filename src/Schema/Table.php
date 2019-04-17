@@ -85,7 +85,7 @@ abstract class Table implements Contract, Arrayable, JsonSerializable, Responsab
     {
         $schema = [
             'columns' => $this->preparedColumns(),
-            'defaults' => $this->defaults(),
+            'defaults' => (object) $this->defaults(),
             'endpoint' => $this->endpoint()->toArray(),
         ];
 
