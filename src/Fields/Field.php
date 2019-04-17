@@ -247,6 +247,19 @@ abstract class Field extends FieldElement implements JsonSerializable
     }
 
     /**
+     * Hide action on given constraint.
+     *
+     * @param  string $key
+     * @param  mixed $value
+     * @param  string $operator
+     * @return self
+     */
+    public function hide(string $key, $value, string $operator = 'eq'): self
+    {
+        return $this->withMeta(['hide' => compact('key', 'operator', 'value')]);
+    }
+
+    /**
      * Specify that this field should be disabled.
      *
      * @param  bool  $value
