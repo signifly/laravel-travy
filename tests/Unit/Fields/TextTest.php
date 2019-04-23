@@ -10,7 +10,7 @@ class TextTest extends TestCase
     /** @test */
     public function it_serializes_to_json()
     {
-        $date = Text::make('Name');
+        $field = Text::make('Name');
 
         $expected = [
             'name' => 'name',
@@ -22,13 +22,13 @@ class TextTest extends TestCase
                 ],
             ],
         ];
-        $this->assertEquals($expected, $date->jsonSerialize());
+        $this->assertEquals($expected, $field->jsonSerialize());
     }
 
     /** @test */
     public function it_can_be_converted_to_an_input()
     {
-        $date = Text::make('Name')->asInput();
+        $field = Text::make('Name')->asInput();
 
         $expected = [
             'name' => 'name',
@@ -40,13 +40,13 @@ class TextTest extends TestCase
                 ],
             ],
         ];
-        $this->assertEquals($expected, $date->jsonSerialize());
+        $this->assertEquals($expected, $field->jsonSerialize());
     }
 
     /** @test */
     public function it_allows_setting_an_input_type()
     {
-        $date = Text::make('Email')
+        $field = Text::make('Email')
             ->asInput()
             ->type('email');
 
@@ -61,13 +61,13 @@ class TextTest extends TestCase
                 ],
             ],
         ];
-        $this->assertEquals($expected, $date->jsonSerialize());
+        $this->assertEquals($expected, $field->jsonSerialize());
     }
 
     /** @test */
     public function it_allows_setting_a_unit_prop()
     {
-        $date = Text::make('Height')
+        $field = Text::make('Height')
             ->asInput()
             ->unit('cm');
 
@@ -82,6 +82,6 @@ class TextTest extends TestCase
                 ],
             ],
         ];
-        $this->assertEquals($expected, $date->jsonSerialize());
+        $this->assertEquals($expected, $field->jsonSerialize());
     }
 }

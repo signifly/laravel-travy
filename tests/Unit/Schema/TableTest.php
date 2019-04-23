@@ -43,7 +43,7 @@ class TableTest extends TestCase
         tap($table->jsonSerialize(), function ($data) {
             $this->assertCount(1, Arr::get($data, 'columns'));
             $this->assertEquals('some_url', Arr::get($data, 'endpoint.url'));
-            $this->assertEquals('title', Arr::get($data, 'defaults.sort.prop'));
+            $this->assertEquals('title', data_get($data, 'defaults.sort.prop'));
         });
     }
 }
