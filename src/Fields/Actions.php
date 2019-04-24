@@ -15,14 +15,37 @@ class Actions extends Field
      */
     public $component = 'button-actions';
 
-    public function color(string $status)
+    /**
+     * Set the status prop.
+     *
+     * @param  string $status
+     * @return self
+     */
+    public function color(string $status): self
     {
         return $this->withProps(compact('status'));
     }
 
-    public function size(string $size)
+    /**
+     * Set the size prop.
+     *
+     * @param  string $size
+     * @return self
+     */
+    public function size(string $size): self
     {
         return $this->withProps(compact('size'));
+    }
+
+    /**
+     * Set the title prop.
+     *
+     * @param  string $title
+     * @return self
+     */
+    public function title(string $title): self
+    {
+        return $this->withProps(compact('title'));
     }
 
     /**
