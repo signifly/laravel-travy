@@ -42,6 +42,17 @@ class Text extends Field
     }
 
     /**
+     * Set the status prop.
+     *
+     * @param  string $status
+     * @return self
+     */
+    public function color(string $status): self
+    {
+        return $this->withProps(compact('status'));
+    }
+
+    /**
      * Set the subtitle prop.
      *
      * @param  string $subtitle
