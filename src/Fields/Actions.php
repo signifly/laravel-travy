@@ -45,7 +45,7 @@ class Actions extends Field
      */
     public function title(string $title): self
     {
-        return $this->withProps(compact('title'));
+        return $this->withProps(['title' => __($title)]);
     }
 
     /**
