@@ -20,7 +20,7 @@ class Divider extends Field
 
     public function text(string $text)
     {
-        return $this->withProps(['text' => $text]);
+        return $this->withProps(['text' => __($text)]);
     }
 
     /**
