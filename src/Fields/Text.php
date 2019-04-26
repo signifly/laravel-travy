@@ -64,6 +64,17 @@ class Text extends Field
     }
 
     /**
+     * Set the tooltip prop.
+     *
+     * @param  string $tooltip
+     * @return self
+     */
+    public function tooltip(string $tooltip): self
+    {
+        return $this->withProps(compact('tooltip'));
+    }
+
+    /**
      * Set the type prop.
      *
      * @param  string $type
