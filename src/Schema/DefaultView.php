@@ -62,7 +62,7 @@ class DefaultView extends View
                 'title' => $headerTitle ? $headerTitle->attribute : null,
                 'image' => $headerImage ? $headerImage->attribute : null,
                 'tag' => $this->headerTag,
-            ]
+            ],
         ];
     }
 
