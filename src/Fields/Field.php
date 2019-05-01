@@ -473,17 +473,6 @@ abstract class Field extends FieldElement implements JsonSerializable
     }
 
     /**
-     * Specify the field tooltip text.
-     *
-     * @param  string $text
-     * @return self
-     */
-    public function tooltip(string $text): self
-    {
-        return $this->withMeta(['tooltip' => $text]);
-    }
-
-    /**
      * Specify the field width.
      *
      * @param  int    $value
