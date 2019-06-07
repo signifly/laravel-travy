@@ -1,27 +1,114 @@
-# Define table and view json schemas for your Laravel app
+# Laravel Travy - A modular vue-based administration tool
 
-The `signifly/laravel-travy` package allows you to define table and view json schemas for your Laravel app.
+The `signifly/laravel-travy` package allows you to configure an administration tool using code driven configuration. It works entirely as a standalone API that needs to be associated with the Vue SPA equivalent package.
 
-## Installation
+You can find the npm package for the Vue SPA [here](https://www.npmjs.com/package/@signifly/travy).
 
-You can install the package via composer:
+**Table of Content**
+* [Installation](#installation)
+* [Commands](#commands)
+* [Fields](#fields)
+  * [Date](#date)
+  * [Text](#text)
+
+## Documentation
+
+Travy has a few requirements:
+* Composer
+* Laravel Framework 5.8+
+
+In addition, Travy has a few dependencies that you can use as you like:
+* `signifly/laravel-api-responder`
+* `signifly/laravel-builder-macros`
+* `signifly/laravel-pagination-middleware`
+* `spatie/laravel-activitylog`
+* `spatie/laravel-query-builder`
+* `waavi/sanitizer`
+
+### Installation
+
+To get started install the package via Composer:
 
 ```bash
-$ composer require signifly/laravel-travy
+composer require signifly/laravel-travy
 ```
 
 The package will automatically register itself.
 
 Add the routes to your `RouteServiceProvider` or routes file:
+
 ```php
 use Signifly\Travy\Travy;
 
 Travy::routes();
 ```
 
-## Testing
+### Commands
+
+Travy comes along with a range of commands, that makes it easier to generate actions, definitions and resources.
+
+**Actions**
+
 ```bash
-$ composer test
+php artisan travy:action UserStoreAction
+```
+
+**Dashboards**
+
+```bash
+php artisan travy:dashboard OverviewDashboard
+```
+
+**Resources**
+
+```bash
+php artisan travy:resource User
+```
+
+**Tables**
+
+You can overwrite the default table or create custom tables by using the following command:
+
+```bash
+php artisan travy:table UserTable
+```
+
+*NOTE: The naming convention is the resource's name in singular with the Table suffix.*
+
+**Views**
+
+You can overwrite the default view for a resource by using the following command:
+
+```bash
+php artisan travy:view UserView
+```
+
+*NOTE: The naming convention is the resource's name in singular with the View suffix.*
+
+### Fields
+
+The available fields live within the `Signifly\Travy\Fields` namespace.
+
+#### Date
+
+```php
+use Signifly\Travy\Fields\Date;
+
+Date::make('Created at');
+```
+
+#### Text
+
+```php
+use Signifly\Travy\Fields\Text;
+
+Text::make('Name', 'attribute');
+```
+
+## Testing
+
+```bash
+composer test
 ```
 
 ## Security
