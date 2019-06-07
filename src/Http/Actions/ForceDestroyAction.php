@@ -12,6 +12,6 @@ class ForceDestroyAction extends Action
 
         $model->forceDelete();
 
-        return $this->respondForModel($model);
+        return $this->respond($model);
     }
 }

@@ -12,7 +12,7 @@ class UpdateAction extends Action
 
         $model->update($this->input->all());
 
-        return $this->respondForModel(
+        return $this->respond(
             $model->fresh($this->resource->with())
         );
     }

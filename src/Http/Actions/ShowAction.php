@@ -10,7 +10,7 @@ class ShowAction extends Action
     {
         $model = $this->resource->model();
 
-        return $this->respondForModel(
+        return $this->respond(
             $model->load($this->resource->with())
         );
     }

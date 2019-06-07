@@ -12,7 +12,7 @@ class RestoreAction extends Action
 
         $model->restore();
 
-        return $this->respondForModel(
+        return $this->respond(
             $model->fresh($this->resource->with())
         );
     }

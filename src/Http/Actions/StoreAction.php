@@ -10,7 +10,7 @@ class StoreAction extends Action
     {
         $model = $this->resource->create($this->input->all());
 
-        return $this->respondForModel(
+        return $this->respond(
             $model->load($this->resource->with())
         );
     }

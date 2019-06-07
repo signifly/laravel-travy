@@ -12,6 +12,6 @@ class DestroyAction extends Action
 
         $model->delete();
 
-        return $this->respondForModel($model);
+        return $this->respond($model);
     }
 }

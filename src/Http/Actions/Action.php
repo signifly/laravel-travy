@@ -6,13 +6,13 @@ use Illuminate\Http\Request;
 use Signifly\Travy\Resource;
 use Signifly\Travy\Support\Input;
 use Illuminate\Foundation\Bus\Dispatchable;
+use Signifly\Responder\Concerns\Respondable;
 use Illuminate\Contracts\Support\Responsable;
-use Signifly\Travy\Http\Concerns\HandlesApiResponses;
 
 abstract class Action
 {
     use Dispatchable;
-    use HandlesApiResponses;
+    use Respondable;
 
     /** @var \Signifly\Travy\Support\Input */
     protected $input;
