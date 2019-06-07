@@ -3,9 +3,9 @@
 namespace Signifly\Travy\Http\Controllers;
 
 use Signifly\Pagination\Pagination;
+use Signifly\Responder\Concerns\Respondable;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;
-use Signifly\Travy\Http\Concerns\HandlesApiResponses;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
@@ -14,7 +14,7 @@ class Controller extends BaseController
     use DispatchesJobs;
     use ValidatesRequests;
     use AuthorizesRequests;
-    use HandlesApiResponses;
+    use Respondable;
 
     public function __construct()
     {
