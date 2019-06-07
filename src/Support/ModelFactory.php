@@ -3,13 +3,14 @@
 namespace Signifly\Travy\Support;
 
 use ReflectionClass;
+use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Activitylog\Traits\CausesActivity;
 
 class ModelFactory
 {
-    public static function make(string $resourceClass, $resourceId)
+    public static function make(string $resourceClass, $resourceId): Model
     {
         $reflection = new ReflectionClass($resourceClass);
         $reflectionInstance = $reflection->newInstanceWithoutConstructor();
@@ -21,15 +22,19 @@ class ModelFactory
             'Not Found.'
         );
 
+        $model = new $modelClass();
+
         if (is_null($resourceId)) {
-            return new $modelClass();
+            return $model;
         }
 
-        if (self::softDeletes($modelClass)) {
-            return $modelClass::withTrashed()->findOrFail($resourceId);
+        if (method_exists($model, 'resolveResourceBinding')) {
+            return $model->resolveResourceBinding($resourceId);
         }
 
-        return $modelClass::findOrFail($resourceId);
+        return self::softDeletes($modelClass)
+            ? $model->withTrashed()->findOrFail($resourceId)
+            : $model->findOrFail($resourceId);
     }
 
     /**
