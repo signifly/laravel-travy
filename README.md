@@ -4,7 +4,7 @@ The `signifly/laravel-travy` package allows you to configure an administration t
 
 You can find the npm package for the Vue SPA [here](https://www.npmjs.com/package/@signifly/travy).
 
-**Table of Content**
+## Table of Contents
 * [Installation](#installation)
 * [Commands](#commands)
 * [Fields](#fields)
@@ -18,12 +18,12 @@ Travy has a few requirements:
 * Laravel Framework 5.8+
 
 In addition, Travy has a few dependencies that you can use as you like:
-* `signifly/laravel-api-responder`
-* `signifly/laravel-builder-macros`
-* `signifly/laravel-pagination-middleware`
-* `spatie/laravel-activitylog`
-* `spatie/laravel-query-builder`
-* `waavi/sanitizer`
+* (signifly/laravel-api-responder)[https://github.com/signifly/laravel-api-responder]
+* (signifly/laravel-builder-macros)[https://github.com/signifly/laravel-builder-macros]
+* (signifly/laravel-pagination-middleware)[https://github.com/signifly/laravel-pagination-middleware]
+* (spatie/laravel-activitylog)[https://github.com/spatie/laravel-activitylog]
+* (spatie/laravel-query-builder)[https://github.com/spatie/laravel-query-builder]
+* (waavi/sanitizer)[https://github.com/waavi/sanitizer]
 
 ### Installation
 
