@@ -2,6 +2,7 @@
 
 namespace Signifly\Travy;
 
+use Illuminate\Http\Request;
 use Illuminate\Support\ServiceProvider;
 use Signifly\Travy\Commands\ViewTravyCommand;
 use Signifly\Travy\Commands\TableTravyCommand;
@@ -45,5 +46,16 @@ class TravyServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        if (! Request::hasMacro('getModifier')) {
+            Request::macro('getModifier', function (string $key, $default = null) {
+                return $this->input("modifier.{$key}", $default);
+            });
+        }
+
+        if (! Request::hasMacro('hasModifier')) {
+            Request::macro('hasModifier', function (string $key) {
+                return $this->has("modifier.{$key}");
+            });
+        }
     }
 }
