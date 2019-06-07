@@ -40,39 +40,42 @@ class ModelFactory
     /**
      * Determine if a model uses causes activity.
      *
+     * @param string|Illuminate\Database\Eloquent\Model $model
      * @return bool
      */
-    public static function causesActivity(string $modelClass)
+    public static function causesActivity($model): bool
     {
         return in_array(
             CausesActivity::class,
-            class_uses_recursive($modelClass)
+            class_uses_recursive($model)
         );
     }
 
     /**
      * Determine if a model uses logs activity.
      *
+     * @param string|Illuminate\Database\Eloquent\Model $model
      * @return bool
      */
-    public static function logsActivity(string $modelClass)
+    public static function logsActivity($model): bool
     {
         return in_array(
             LogsActivity::class,
-            class_uses_recursive($modelClass)
+            class_uses_recursive($model)
         );
     }
 
     /**
      * Determine if a model uses soft deletes.
      *
+     * @param string|Illuminate\Database\Eloquent\Model $model
      * @return bool
      */
-    public static function softDeletes(string $modelClass)
+    public static function softDeletes($model): bool
     {
         return in_array(
             SoftDeletes::class,
-            class_uses_recursive($modelClass)
+            class_uses_recursive($model)
         );
     }
 }
