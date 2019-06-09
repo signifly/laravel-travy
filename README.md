@@ -6,6 +6,9 @@ You can find the npm package for the Vue SPA [here](https://www.npmjs.com/packag
 
 ## Table of Contents
 * [Installation](#installation)
+* [Resources](#resources)
+  * [Defining resources](#defining-resources)
+  * [Resolve resource binding](#resolve-resource-binding)
 * [Commands](#commands)
 * [Fields](#fields)
   * [Date](#date)
@@ -41,6 +44,64 @@ Add the routes to your `RouteServiceProvider` or routes file:
 use Signifly\Travy\Travy;
 
 Travy::routes();
+```
+
+### Resources
+
+The primary feature of Travy is to update your database records using Eloquent. This is done by creating Travy "resources" that contains actions, fields, filters and modifiers.
+
+#### Defining Resources
+
+By default, Travy resources are stored within the `App\Travy` namespace. You can modify this in the config file: `config/travy.php`. To get started, you may generate a resource using the `travy:resource` command:
+
+```bash
+php artisan travy:resource User
+```
+
+The resource will try to guess the Eloquent model that it corresponds to by looking for a model with the same name within the `App\Models` namespace, which can be modified in the `config/travy.php` file. If you want to tell Travy, which Eloquent model the resource corresponds, you may do that using the `$model` property on the resource:
+
+```php
+/**
+ * The model the resource corresponds to.
+ * 
+ * @var string
+ */
+protected $model = 'App\Models\User';
+```
+
+#### Resolve resource binding
+
+Travy comes with basic crud features of the box. If you want to overwrite how a resource is resolved using the Travy request, one can do that by defining the `resolveResourceBinding` method on the model.
+
+```php
+public function resolveResourceBinding($value)
+{
+    return $this->where('code', $value)->firstOrFail();
+}
+```
+
+#### Eager loading
+
+If you need to access a resource's relationships within your fields, it may be a good idea to eager load those relationships using the `$includes` and `$with` properties.
+
+```php
+/**
+ * The relationships that are eager loaded on index actions.
+ * 
+ * @var array
+ */
+protected $includes = [
+
+];
+
+/**
+ * The relationships that are eager loaded on show actions.
+ * 
+ * @var array
+ */
+protected $with = [
+    'roles',
+];
 ```
 
 ### Commands
