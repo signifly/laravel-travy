@@ -1,4 +1,4 @@
-# Laravel Travy - A modular vue-based administration tool
+# Laravel Travy - A Modular Vue-based Administration Tool
 
 The `signifly/laravel-travy` package allows you to configure an administration tool using code driven configuration. It works entirely as a standalone API that needs to be associated with the Vue SPA equivalent package.
 
@@ -69,7 +69,7 @@ The resource will try to guess the Eloquent model that it corresponds to by look
 protected $model = 'App\Models\User';
 ```
 
-#### Resolve resource binding
+#### Resolve Resource Bindings
 
 Travy comes with basic crud features of the box. If you want to overwrite how a resource is resolved using the Travy request, one can do that by defining the `resolveResourceBinding` method on the model.
 
@@ -80,7 +80,7 @@ public function resolveResourceBinding($value)
 }
 ```
 
-#### Eager loading
+#### Eager Loading
 
 If you need to access a resource's relationships within your fields, it may be a good idea to eager load those relationships using the `$includes` and `$with` properties.
 
@@ -91,7 +91,7 @@ If you need to access a resource's relationships within your fields, it may be a
  * @var array
  */
 protected $includes = [
-
+    'roles',
 ];
 
 /**
