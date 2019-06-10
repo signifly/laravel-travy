@@ -11,14 +11,4 @@ class DummyClass extends Action
     {
         //
     }
-
-    /**
-     * The sanitize filters to apply to the input.
-     *
-     * @return array
-     */
-    protected function inputFilters(): array
-    {
-        return [];
-    }
 }
