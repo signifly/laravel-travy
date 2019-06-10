@@ -11,6 +11,10 @@ You can find the npm package for the Vue SPA [here](https://www.npmjs.com/packag
   * [Resolve resource binding](#resolve-resource-bindings)
   * [Eager Loading](#eager-loading)
 * [Actions](#actions)
+  * [Custom Actions](#custom-actions)
+  * [Generating Actions](#generating-actions)
+  * [Retrieving Input](#retrieving-input)
+  * [Working with Eloquent](#working-with-eloquent)
 * [Fields](#fields)
   * [Date](#date)
   * [Divider](#divider)
@@ -49,6 +53,8 @@ use Signifly\Travy\Travy;
 
 Travy::routes();
 ```
+
+*NOTE: The package is in beta. It is not recommended for public usage as the features may change frequently.*
 
 ### Resources
 
@@ -176,6 +182,29 @@ $this->input->except('password');
 
 // Retrieve a specific key as a Illuminate\Support\Collection
 $this->input->collect('items');
+```
+
+#### Working with Eloquent
+
+The action instance is constructed by the `Request` and `Resource`. Retrieving the model resolved from the request can be achieved via the resource:
+
+```php
+// Example: The default UpdateAction
+use Illuminate\Contracts\Support\Responsable;
+
+class UpdateAction extends Action
+{
+    public function handle(): Responsable
+    {
+        $model = $this->resource->model();
+
+        $model->update($this->input->all());
+
+        return $this->respond(
+            $model->fresh($this->resource->with())
+        );
+    }
+}
 ```
 
 ### Fields
