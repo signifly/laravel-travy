@@ -10,10 +10,13 @@ You can find the npm package for the Vue SPA [here](https://www.npmjs.com/packag
   * [Defining resources](#defining-resources)
   * [Resolve resource binding](#resolve-resource-bindings)
   * [Eager Loading](#eager-loading)
-* [Commands](#commands)
+* [Actions](#actions)
 * [Fields](#fields)
   * [Date](#date)
+  * [Divider](#divider)
   * [Text](#text)
+* [Filters](#filters)
+* [Modifiers](#modifiers)
 
 ## Documentation
 
@@ -49,7 +52,7 @@ Travy::routes();
 
 ### Resources
 
-The primary feature of Travy is to update your database records using Eloquent. This is done by creating Travy "resources" that contains actions, fields, filters and modifiers.
+The primary feature of Travy is to update your database records using Eloquent. This is done by creating Travy "resources" that contains [actions](#actions), [fields](#fields), [filters](#filters) and [modifiers](#modifiers).
 
 #### Defining Resources
 
@@ -105,47 +108,75 @@ protected $with = [
 ];
 ```
 
-### Commands
+### Actions
 
-Travy comes along with a range of commands, that makes it easier to generate actions, definitions and resources.
+A resource's actions are called whenever you make a request to its associated endpoints. For instance, if you have a `Product` resource the actions list will look as below:
 
-**Actions**
+* IndexAction - `GET /v1/admin/products`
+* ShowAction - `GET /v1/admin/products/1`
+* StoreAction - `POST /v1/admin/products`
+* UpdateAction - `PUT /v1/admin/products/1`
+* DestroyAction - `DELETE /v1/admin/products/1`
 
-```bash
-php artisan travy:action UserStoreAction
+If a model is soft deletable, the following actions are also available:
+
+* RestoreAction - `POST /v1/admin/products/1/restore`
+* ForceDestroyAction - `DELETE /v1/admin/products/1/force`
+
+#### Custom Actions
+
+You may overwrite the actions for a resource, by defining them within the `actions()` method on the resource.
+
+```php
+/**
+ * The actions that should be merged with the default actions.
+ *
+ * @return array
+ */
+protected function actions(): array
+{
+    return [
+        'index' => CustomIndexAction::class,
+    ];
+}
 ```
 
-**Dashboards**
+#### Generating Actions
+
+In order to create a custom action, you may use the `travy:action` command:
 
 ```bash
-php artisan travy:dashboard OverviewDashboard
+php artisan travy:action CustomIndexAction
 ```
 
-**Resources**
+The generated actions will by default be located within the `App\Travy\Http\Actions` namespace. This is configurable in the `config/travy.php` file.
 
-```bash
-php artisan travy:resource User
+#### Retrieving Input
+
+The request data are sent within the `data` input key. To easily work with the input, you may use the `Signifly\Travy\Support\Input` instance within the action. The following methods are available:
+
+```php
+// Retrieve raw input
+$this->input->data();
+
+// Retrieve all input
+$this->input->all();
+
+// Retrieve a specific input key
+$this->input->get('username');
+
+// Check if the input has a given key
+$this->input->has('password');
+
+// Retrieve a specific set of keys
+$this->input->only('username', 'password');
+
+// Retrieve all input except a specified set of keys
+$this->input->except('password');
+
+// Retrieve a specific key as a Illuminate\Support\Collection
+$this->input->collect('items');
 ```
-
-**Tables**
-
-You can overwrite the default table or create custom tables by using the following command:
-
-```bash
-php artisan travy:table UserTable
-```
-
-*NOTE: The naming convention is the resource's name in singular with the Table suffix.*
-
-**Views**
-
-You can overwrite the default view for a resource by using the following command:
-
-```bash
-php artisan travy:view UserView
-```
-
-*NOTE: The naming convention is the resource's name in singular with the View suffix.*
 
 ### Fields
 
@@ -157,6 +188,15 @@ The available fields live within the `Signifly\Travy\Fields` namespace.
 use Signifly\Travy\Fields\Date;
 
 Date::make('Created at');
+```
+
+#### Divider
+
+```php
+use Signifly\Travy\Fields\Divider;
+
+Divider::attr('attributes_divider')
+    ->text('Attributes');
 ```
 
 #### Text
