@@ -16,9 +16,11 @@ You can find the npm package for the Vue SPA [here](https://www.npmjs.com/packag
   * [Retrieving Input](#retrieving-input)
   * [Working with Eloquent](#working-with-eloquent)
 * [Fields](#fields)
-  * [Date](#date)
-  * [Divider](#divider)
-  * [Text](#text)
+  * [Date Field](#date-field)
+  * [Divider Field](#divider-field)
+  * [ImageHover Field](#imagehover-field)
+  * [Status Field](#status-field)
+  * [Text Field](#text-field)
 * [Filters](#filters)
 * [Modifiers](#modifiers)
 
@@ -211,28 +213,35 @@ class UpdateAction extends Action
 
 The available fields live within the `Signifly\Travy\Fields` namespace.
 
-#### Date
+#### Date Field
 
 ```php
-use Signifly\Travy\Fields\Date;
-
 Date::make('Created at');
 ```
 
-#### Divider
+#### Divider Field
 
 ```php
-use Signifly\Travy\Fields\Divider;
-
 Divider::attr('attributes_divider')
     ->text('Attributes');
 ```
 
-#### Text
+#### ImageHover Field
 
 ```php
-use Signifly\Travy\Fields\Text;
+ImageHover::make('Image', 'image_url');
+```
 
+#### Status Field
+
+```php
+Status::make('Role')
+    ->color('primary');
+```
+
+#### Text Field
+
+```php
 Text::make('Name', 'attribute');
 ```
 
