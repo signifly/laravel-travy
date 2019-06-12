@@ -2,6 +2,7 @@
 
 namespace Signifly\Travy\Http\Actions;
 
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Signifly\Travy\Resource;
 use Signifly\Travy\Support\Input;
@@ -61,6 +62,30 @@ abstract class Action
     public function getId()
     {
         return $this->request->route()->parameter('resourceId');
+    }
+
+    /**
+     * Sync relations for the resource.
+     *
+     * @return void
+     */
+    protected function syncRelations(): void
+    {
+        $this->resource->getRelations()
+            ->onlyBelongsToMany()
+            ->each(function ($relation, $relationName) {
+                $relationInputKey = Str::snake($relationName);
+
+                if (! $this->input->has($relationInputKey)) {
+                    return;
+                }
+
+                $relationKeys = $this->input
+                    ->collect($relationInputKey)
+                    ->pluck($relation->getRelatedKeyName());
+
+                $relation->sync($relationKeys);
+            });
     }
 
     /**
