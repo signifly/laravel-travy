@@ -13,6 +13,7 @@ use Signifly\Travy\Support\FieldCollection;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Signifly\Travy\Http\Filters\SearchFilter;
 use Signifly\Travy\Http\Filters\TrashedFilter;
+use Signifly\Travy\Support\RelationCollection;
 use Illuminate\Http\Resources\DelegatesToResource;
 
 abstract class Resource
@@ -101,7 +102,7 @@ abstract class Resource
      */
     public function newModelInstance(array $attributes = []): Model
     {
-        return $this->model->newInstance($attributes);
+        return $this->resource->newInstance($attributes);
     }
 
     /**
@@ -257,6 +258,21 @@ abstract class Resource
     }
 
     /**
+     * Save a new record to the database for the associated Eloquent model.
+     *
+     * @param  array  $attributes
+     * @return \Illuminate\Database\Eloquent\Model
+     */
+    public function create(array $attributes): Model
+    {
+        $model = $this->resource->create($attributes);
+
+        $this->model = $model;
+
+        return $model;
+    }
+
+    /**
      * The validation rules for the resource.
      *
      * @return array
@@ -369,6 +385,16 @@ abstract class Resource
             })
             ->values()
             ->flatten();
+    }
+
+    /**
+     * Get the relations for the resource.
+     *
+     * @return \Signifly\Travy\Support\RelationCollection
+     */
+    public function getRelations(): RelationCollection
+    {
+        return RelationCollection::fromResource($this);
     }
 
     /**
