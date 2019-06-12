@@ -10,6 +10,8 @@ class StoreAction extends Action
     {
         $model = $this->resource->create($this->input->all());
 
+        $this->syncRelations();
+
         return $this->respond(
             $model->load($this->resource->with())
         );

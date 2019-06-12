@@ -12,6 +12,8 @@ class UpdateAction extends Action
 
         $model->update($this->input->all());
 
+        $this->syncRelations();
+
         return $this->respond(
             $model->fresh($this->resource->with())
         );
