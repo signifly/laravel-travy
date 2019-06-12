@@ -2,12 +2,14 @@
 
 namespace Signifly\Travy;
 
+use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
 use Signifly\Travy\Fields\Tab;
 use Spatie\QueryBuilder\Filter;
 use Illuminate\Support\Collection;
 use Signifly\Travy\Fields\Sidebar;
 use Illuminate\Database\Eloquent\Model;
+use Signifly\Travy\Support\ModelFactory;
 use Signifly\Travy\Support\RulesetSorter;
 use Signifly\Travy\Support\FieldCollection;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -158,9 +160,7 @@ abstract class Resource
     {
         $filters = [];
 
-        $modelTraits = collect(class_uses_recursive($this->modelClass()));
-
-        if ($modelTraits->contains(SoftDeletes::class)) {
+        if (ModelFactory::softDeletes($this->modelClass())) {
             array_push(
                 $filters,
                 Filter::custom('trashed', TrashedFilter::class)
@@ -320,7 +320,7 @@ abstract class Resource
      */
     public function getAction(string $key): string
     {
-        return array_get($this->getActions(), $key);
+        return Arr::get($this->getActions(), $key);
     }
 
     /**
@@ -463,6 +463,18 @@ abstract class Resource
     public function setAction(string $key, string $action)
     {
         $this->actions[$key] = $action;
+
+        return $this;
+    }
+
+    /**
+     * Set the model instance on the resource.
+     *
+     * @param \Illuminate\Database\Eloquent\Model $model
+     */
+    public function setModel(Model $model): self
+    {
+        $this->resource = $model;
 
         return $this;
     }
