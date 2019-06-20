@@ -14,35 +14,48 @@ class Image extends Field
     public $component = 'input-image';
 
     /**
-     * Indicates if the element should be shown on the index view.
+     * Set the download prop.
      *
-     * @var bool
+     * @param  bool   $value
+     * @return self
      */
-    public $showOnIndex = false;
-
-    public function download(bool $value)
+    public function download(bool $value): self
     {
         return $this->withProps(['download' => $value]);
     }
 
-    public function height(string $val)
-    {
-        return $this->withProps(['height' => $value]);
-    }
-
-    public function upload(bool $value)
+    /**
+     * Set the upload prop.
+     *
+     * @param  bool   $value
+     * @return self
+     */
+    public function upload(bool $value): self
     {
         return $this->withProps(['upload' => $value]);
     }
 
-    public function url(string $key)
+    /**
+     * Set the url prop.
+     *
+     * @param  string $url
+     * @return self
+     */
+    public function url(string $url): self
     {
-        return $this->withProps(['url' => $key]);
+        return $this->withProps(compact('url'));
     }
 
-    public function width(string $value)
+    /**
+     * Set the width and height props.
+     *
+     * @param  string $width  defaults to '160px'
+     * @param  string $height defaults to '160px'
+     * @return self
+     */
+    public function size(string $width = '160px', string $height = '160px'): self
     {
-        return $this->withProps(['width' => $value]);
+        return $this->withProps(compact('width', 'height'));
     }
 
     /**
