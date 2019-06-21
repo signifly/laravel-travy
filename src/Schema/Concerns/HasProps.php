@@ -11,7 +11,7 @@ trait HasProps
      *
      * @var array
      */
-    public $props = [];
+    protected $props = [];
 
     /**
      * Forget a given prop.

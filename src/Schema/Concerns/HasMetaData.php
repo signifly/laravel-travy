@@ -2,6 +2,8 @@
 
 namespace Signifly\Travy\Schema\Concerns;
 
+use Illuminate\Support\Arr;
+
 trait HasMetaData
 {
     /**
@@ -9,7 +11,7 @@ trait HasMetaData
      *
      * @var array
      */
-    public $meta = [];
+    protected $meta = [];
 
     /**
      * Forget a given meta key.
@@ -19,7 +21,7 @@ trait HasMetaData
      */
     public function forgetMeta(string $key)
     {
-        return array_forget($this->meta, $key);
+        return Arr::forget($this->meta, $key);
     }
 
     /**
@@ -30,7 +32,7 @@ trait HasMetaData
      */
     public function getMeta(string $key)
     {
-        return array_get($this->meta, $key);
+        return Arr::get($this->meta, $key);
     }
 
     /**
@@ -41,7 +43,7 @@ trait HasMetaData
      */
     public function hasMeta(string $key)
     {
-        return array_has($this->meta, $key);
+        return Arr::has($this->meta, $key);
     }
 
     /**
