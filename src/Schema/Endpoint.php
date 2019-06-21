@@ -8,6 +8,9 @@ use Illuminate\Contracts\Support\Arrayable;
 class Endpoint implements Arrayable
 {
     /** @var array */
+    protected $payload = [];
+
+    /** @var array */
     protected $params = [];
 
     /** @var string */
@@ -53,12 +56,12 @@ class Endpoint implements Arrayable
     }
 
     /**
-     * Add sorting to the endpoint.
+     * Add sort param to the endpoint.
      *
      * @param  string $value
      * @return self
      */
-    public function addSorting(string $value): self
+    public function addSort(string $value): self
     {
         return $this->addParam('sort', $value);
     }
@@ -71,6 +74,19 @@ class Endpoint implements Arrayable
     public function hasParams(): bool
     {
         return count($this->params) > 0;
+    }
+
+    /**
+     * Set the additional payload.
+     *
+     * @param  array  $payload
+     * @return self
+     */
+    public function payload(array $payload): self
+    {
+        $this->payload = $payload;
+
+        return $this;
     }
 
     /**
@@ -103,6 +119,10 @@ class Endpoint implements Arrayable
 
         if ($this->method) {
             Arr::set($data, 'method', $this->method);
+        }
+
+        if (count($this->payload) > 0) {
+            Arr::set($data, 'payload', $this->payload);
         }
 
         return $data;
