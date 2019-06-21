@@ -57,12 +57,26 @@ trait HasProps
     }
 
     /**
+     * Set the prop by key and value.
+     *
+     * @param string $key
+     * @param mixed $value
+     * @return self
+     */
+    public function setProp(string $key, $value): self
+    {
+        Arr::set($this->props, $key, $value);
+
+        return $this;
+    }
+
+    /**
      * Set additional props for the element.
      *
      * @param  array  $props
      * @return $this
      */
-    public function withProps(array $props)
+    public function withProps(array $props): self
     {
         $this->props = array_merge($this->props, $props);
 
