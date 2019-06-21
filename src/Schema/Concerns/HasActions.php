@@ -57,9 +57,7 @@ trait HasActions
     protected function preparedActions()
     {
         return collect($this->actions)
-            ->map(function ($action) {
-                return $action->jsonSerialize();
-            })
+            ->map->jsonSerialize()
             ->toArray();
     }
 }
