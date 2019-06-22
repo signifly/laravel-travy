@@ -23,7 +23,7 @@ class RelationController extends Controller
         // If the relation has a single association to another model
         // then retrieve the first result and return it
         if ($this->returnSingleAssociation($relation)) {
-            return $this->respondForModel(
+            return $this->respond(
                 $relation->with($relationResource->with())->first()
             );
         }
@@ -53,7 +53,7 @@ class RelationController extends Controller
             ->with($relationResource->with())
             ->findOrFail($request->relationId());
 
-        return $this->respondForModel(
+        return $this->respond(
             $relatedModel->load($relationResource->with())
         );
     }
