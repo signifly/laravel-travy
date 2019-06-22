@@ -31,6 +31,7 @@ class RelationCollection extends Collection
             })
             ->mapWithKeys(function ($method) use ($model) {
                 $relationName = $method->name;
+
                 return [$relationName => $model->$relationName()];
             });
     }
@@ -38,7 +39,7 @@ class RelationCollection extends Collection
     /**
      * Create a new instance from a Resource.
      *
-     * @param  Resource $resource
+     * @param  \Signifly\Travy\Resource $resource
      * @return self
      */
     public static function fromResource(Resource $resource): self

@@ -26,7 +26,7 @@ class EndpointTest extends TestCase
         $expected = [
             'url' => 'some_url',
             'params' => [
-                'test' => 'test'
+                'test' => 'test',
             ],
         ];
         $this->assertEquals($expected, $endpoint->toArray());
