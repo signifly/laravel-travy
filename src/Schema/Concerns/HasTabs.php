@@ -14,7 +14,7 @@ trait HasTabs
     protected $tabs = [];
 
     /**
-     * Add modifier to the definition schema.
+     * Add tab to the definition schema.
      *
      * @param \Signifly\Travy\Tab $tab
      * @return \Signifly\Travy\Tab
