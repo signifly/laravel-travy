@@ -30,9 +30,8 @@ class DefaultTable extends Table
         $creatableFields = $this->getCreationFields();
 
         return [
-            Action::make("Add {$resourceName}", 'primary')
+            Modal::make("Add {$resourceName}", 'primary')
                 ->icon('plus')
-                ->type('modal')
                 ->endpoint(url("v1/admin/{$resourceKey}"))
                 ->onSubmit($this->creationRedirectTo ?? "/t/{$resourceKey}/{id}")
                 ->fields($creatableFields->toArray())
