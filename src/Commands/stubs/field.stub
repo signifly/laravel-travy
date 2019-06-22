@@ -1,0 +1,26 @@
+<?php
+
+namespace DummyNamespace;
+
+use Signifly\Travy\Fields\Field;
+
+class DummyClass extends Field
+{
+    /**
+     * The field's component.
+     *
+     * @var string
+     */
+    public $component = 'custom-component-name';
+
+    /**
+     * The options to apply to the field type.
+     *
+     * @return void
+     */
+    public function applyOptions()
+    {
+        // Example usage:
+        // $this->withProps(['value' => $this->attribute]);
+    }
+}

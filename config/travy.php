@@ -9,6 +9,10 @@ return [
         'namespace' => 'App\\Travy\\Definitions',
     ],
 
+    'fields' => [
+        'namespace' => 'App\\Travy\\Fields',
+    ],
+
     'models' => [
         'namespace' => 'App\\Models',
     ],
