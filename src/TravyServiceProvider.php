@@ -19,15 +19,52 @@ class TravyServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        // Publish config
-        $this->publishes([
-            __DIR__.'/../config/travy.php' => config_path('travy.php'),
-        ], 'laravel-travy');
+        $this->offerPublishing();
+    }
 
-        // Merge configs
+    /**
+     * Setup the resource publishing groups for Travy.
+     *
+     * @return void
+     */
+    protected function offerPublishing(): void
+    {
+        if ($this->app->runningInConsole()) {
+            $this->publishes([
+                __DIR__.'/../config/travy.php' => config_path('travy.php'),
+            ], 'laravel-travy');
+        }
+    }
+
+    /**
+     * Register the service provider.
+     *
+     * @return void
+     */
+    public function register()
+    {
+        $this->configure();
+        $this->registerCommands();
+        $this->registerMacros();
+    }
+
+    /**
+     * Setup the configuration for Travy.
+     *
+     * @return void
+     */
+    protected function configure(): void
+    {
         $this->mergeConfigFrom(__DIR__.'/../config/travy.php', 'travy');
+    }
 
-        // Load commands
+    /**
+     * Register the Artisan commands.
+     *
+     * @return void
+     */
+    protected function registerCommands(): void
+    {
         if ($this->app->runningInConsole()) {
             $this->commands([
                 ActionTravyCommand::class,
@@ -40,11 +77,11 @@ class TravyServiceProvider extends ServiceProvider
     }
 
     /**
-     * Register the service provider.
+     * Register macros for \Illuminate\Http\Request.
      *
      * @return void
      */
-    public function register()
+    protected function registerMacros(): void
     {
         if (! Request::hasMacro('getModifier')) {
             Request::macro('getModifier', function (string $key, $default = null) {
