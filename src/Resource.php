@@ -10,6 +10,7 @@ use Illuminate\Support\Collection;
 use Signifly\Travy\Fields\Sidebar;
 use Illuminate\Database\Eloquent\Model;
 use Signifly\Travy\Support\ModelFactory;
+use Illuminate\Database\Eloquent\Builder;
 use Signifly\Travy\Support\RulesetSorter;
 use Signifly\Travy\Support\FieldCollection;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -112,7 +113,7 @@ abstract class Resource
      *
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function newQuery()
+    public function newQuery(): Builder
     {
         $query = $this->model()->newQuery();
 
@@ -136,7 +137,7 @@ abstract class Resource
      *
      * @return self
      */
-    protected function defaultActions(array $overwrites = [])
+    protected function defaultActions(array $overwrites = []): self
     {
         $this->actions = array_merge([
             'index' => Http\Actions\IndexAction::class,
@@ -244,17 +245,12 @@ abstract class Resource
      * @param  \Illuminate\Database\Eloquent\Builder $query
      * @return void
      */
-    public function applyGlobalScopes($query)
+    public function applyGlobalScopes(Builder $query): void
     {
-        $scopes = collect($this->globalScopes);
-
-        if ($scopes->isEmpty()) {
-            return;
-        }
-
-        $scopes->each(function ($scope) use ($query) {
-            $query->$scope();
-        });
+        collect($this->globalScopes)
+            ->each(function ($scope) use ($query) {
+                $query->$scope();
+            });
     }
 
     /**
@@ -460,7 +456,7 @@ abstract class Resource
      * @param string $key
      * @param string $action The action class
      */
-    public function setAction(string $key, string $action)
+    public function setAction(string $key, string $action): self
     {
         $this->actions[$key] = $action;
 
