@@ -142,7 +142,7 @@ class ButtonAction extends Field
      *
      * @return void
      */
-    public function applyOptions()
+    public function applyOptions(): void
     {
         if ($this->endpoint) {
             Arr::set($this->actionProps, 'endpoint', $this->endpoint->toArray());

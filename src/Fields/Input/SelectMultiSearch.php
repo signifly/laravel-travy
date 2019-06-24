@@ -25,7 +25,7 @@ class SelectMultiSearch extends SelectSearch
      *
      * @return void
      */
-    public function applyOptions()
+    public function applyOptions(): void
     {
         if ($this->endpoint) {
             $this->withOptions(['endpoint' => $this->endpoint->toArray()]);

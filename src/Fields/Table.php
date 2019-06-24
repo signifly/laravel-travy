@@ -28,7 +28,7 @@ class Table extends Field
      * @param  string  $data
      * @return self
      */
-    public function data(string $data)
+    public function data(string $data): self
     {
         return $this->withProps(['columnsData' => $data]);
     }
@@ -38,7 +38,7 @@ class Table extends Field
      *
      * @return void
      */
-    public function applyOptions()
+    public function applyOptions(): void
     {
         $this->withProps([
             'columns' => $this->preparedColumns(),

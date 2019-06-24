@@ -20,22 +20,46 @@ class DateRangePicker extends Field
      */
     public $showOnIndex = false;
 
-    public function end(string $key)
+    /**
+     * Set the dateEnd prop.
+     *
+     * @param  string $key
+     * @return self
+     */
+    public function end(string $key): self
     {
         return $this->withProps(['dateEnd' => $key]);
     }
 
-    public function format(string $value)
+    /**
+     * Set the format prop.
+     *
+     * @param  string $value
+     * @return self
+     */
+    public function format(string $value): self
     {
         return $this->withProps(['format' => $value]);
     }
 
-    public function formatValue(string $value)
+    /**
+     * Set the formatValue prop.
+     *
+     * @param  string $value
+     * @return self
+     */
+    public function formatValue(string $value): self
     {
         return $this->withProps(['formatValue' => $value]);
     }
 
-    public function type(string $type)
+    /**
+     * Set the type prop.
+     *
+     * @param  string $type
+     * @return self
+     */
+    public function type(string $type): self
     {
         return $this->withProps(compact('type'));
     }
@@ -45,7 +69,7 @@ class DateRangePicker extends Field
      *
      * @return void
      */
-    public function applyOptions()
+    public function applyOptions(): void
     {
         $this->withProps(['dateStart' => $this->attribute]);
     }

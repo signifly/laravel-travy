@@ -19,6 +19,13 @@ class ReorderItems extends Field
     public $component = 'input-reorder-items';
 
     /**
+     * Indicates if the element should be shown on the index view.
+     *
+     * @var bool
+     */
+    public $showOnIndex = false;
+
+    /**
      * Set the items.image prop.
      *
      * @param  string $key

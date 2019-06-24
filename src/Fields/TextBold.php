@@ -23,7 +23,7 @@ class TextBold extends Field
      *
      * @return void
      */
-    public function applyOptions()
+    public function applyOptions(): void
     {
         if ($this->component == 'text-bold') {
             $this->withProps(['text' => $this->attribute]);

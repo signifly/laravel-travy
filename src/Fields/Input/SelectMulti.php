@@ -25,7 +25,7 @@ class SelectMulti extends Select
      *
      * @return void
      */
-    public function applyOptions()
+    public function applyOptions(): void
     {
         $this->withProps([
             'values' => $this->attribute,

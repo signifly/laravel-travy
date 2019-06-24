@@ -30,7 +30,7 @@ abstract class FieldElement
      *
      * @return $this
      */
-    public function hideFromIndex()
+    public function hideFromIndex(): self
     {
         $this->showOnIndex = false;
 
@@ -42,7 +42,7 @@ abstract class FieldElement
      *
      * @return $this
      */
-    public function hideWhenCreating()
+    public function hideWhenCreating(): self
     {
         $this->showOnCreation = false;
 
@@ -54,7 +54,7 @@ abstract class FieldElement
      *
      * @return $this
      */
-    public function hideWhenUpdating()
+    public function hideWhenUpdating(): self
     {
         $this->showOnUpdate = false;
 
@@ -66,7 +66,7 @@ abstract class FieldElement
      *
      * @return $this
      */
-    public function onlyOnCreation()
+    public function onlyOnCreation(): self
     {
         $this->showOnIndex = false;
         $this->showOnCreation = true;
@@ -80,7 +80,7 @@ abstract class FieldElement
      *
      * @return $this
      */
-    public function onlyOnUpdate()
+    public function onlyOnUpdate(): self
     {
         $this->showOnIndex = false;
         $this->showOnCreation = false;
@@ -94,7 +94,7 @@ abstract class FieldElement
      *
      * @return $this
      */
-    public function onlyOnIndex()
+    public function onlyOnIndex(): self
     {
         $this->showOnIndex = true;
         $this->showOnCreation = false;
@@ -108,7 +108,7 @@ abstract class FieldElement
      *
      * @return $this
      */
-    public function onlyOnForms()
+    public function onlyOnForms(): self
     {
         $this->showOnIndex = false;
         $this->showOnCreation = true;
@@ -122,7 +122,7 @@ abstract class FieldElement
      *
      * @return $this
      */
-    public function exceptOnForms()
+    public function exceptOnForms(): self
     {
         $this->showOnIndex = true;
         $this->showOnCreation = false;

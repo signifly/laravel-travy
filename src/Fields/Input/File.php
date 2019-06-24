@@ -20,17 +20,35 @@ class File extends Field
      */
     public $showOnIndex = false;
 
-    public function fileTypes(string $key)
+    /**
+     * Set the fileTypes prop.
+     *
+     * @param  string $key
+     * @return self
+     */
+    public function fileTypes(string $key): self
     {
         return $this->withProps(['fileTypes' => $key]);
     }
 
-    public function note(string $key)
+    /**
+     * Set the note prop.
+     *
+     * @param  string $key
+     * @return self
+     */
+    public function note(string $key): self
     {
         return $this->withProps(['note' => $key]);
     }
 
-    public function url(string $key)
+    /**
+     * Set the url prop.
+     *
+     * @param  string $key
+     * @return self
+     */
+    public function url(string $key): self
     {
         return $this->withProps(['url' => $key]);
     }
@@ -40,7 +58,7 @@ class File extends Field
      *
      * @return void
      */
-    public function applyOptions()
+    public function applyOptions(): void
     {
         $this->withProps(['file' => $this->attribute]);
     }

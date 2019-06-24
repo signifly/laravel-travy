@@ -32,7 +32,7 @@ class KeyValueBox extends Field
      *
      * @return void
      */
-    public function applyOptions()
+    public function applyOptions(): void
     {
         $this->withProps(['items' => $this->items]);
     }

@@ -13,12 +13,24 @@ class ImagePicker extends Field
      */
     public $component = 'input-image-picker';
 
-    public function options(array $options)
+    /**
+     * Set the options prop.
+     *
+     * @param  array  $options
+     * @return self
+     */
+    public function options(array $options): self
     {
         return $this->withProps(['options' => $options]);
     }
 
-    public function url(string $key)
+    /**
+     * Set the url prop.
+     *
+     * @param  string $key
+     * @return self
+     */
+    public function url(string $key): self
     {
         return $this->withProps(['url' => $key]);
     }
@@ -28,7 +40,7 @@ class ImagePicker extends Field
      *
      * @return void
      */
-    public function applyOptions()
+    public function applyOptions(): void
     {
         $this->withProps(['id' => $this->attribute]);
     }

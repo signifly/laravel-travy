@@ -11,7 +11,13 @@ class Date extends Field
      */
     public $component = 'date';
 
-    public function format(string $format)
+    /**
+     * Set the format prop.
+     *
+     * @param  string $format
+     * @return self
+     */
+    public function format(string $format): self
     {
         return $this->withProps(compact('format'));
     }
@@ -21,7 +27,7 @@ class Date extends Field
      *
      * @return void
      */
-    public function applyOptions()
+    public function applyOptions(): void
     {
         $this->withProps(['timestamp' => $this->attribute]);
     }

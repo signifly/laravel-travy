@@ -25,7 +25,7 @@ class Textarea extends Field
      *
      * @return void
      */
-    public function applyOptions()
+    public function applyOptions(): void
     {
         $this->withProps(['text' => $this->attribute]);
     }

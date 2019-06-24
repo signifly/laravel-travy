@@ -18,17 +18,14 @@ class Divider extends Field
      */
     public $showOnIndex = false;
 
-    public function text(string $text)
+    /**
+     * Set the text prop.
+     *
+     * @param  string $text
+     * @return self
+     */
+    public function text(string $text): self
     {
         return $this->withProps(['text' => __($text)]);
-    }
-
-    /**
-     * The options to apply to the field type.
-     *
-     * @return void
-     */
-    public function applyOptions()
-    {
     }
 }

@@ -36,7 +36,7 @@ class Select extends Field
      *
      * @return void
      */
-    public function applyOptions()
+    public function applyOptions(): void
     {
         $this->withProps(['value' => $this->attribute]);
     }

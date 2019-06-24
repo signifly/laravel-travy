@@ -11,7 +11,24 @@ class Status extends Field
      */
     public $component = 'status';
 
-    public function color(string $key)
+    /**
+     * Set the status prop (alias for status).
+     *
+     * @param  string $key
+     * @return self
+     */
+    public function color(string $key): self
+    {
+        return $this->status($key);
+    }
+
+    /**
+     * Set the status prop.
+     *
+     * @param  string $key
+     * @return self
+     */
+    public function status(string $key): self
     {
         return $this->withProps(['status' => $key]);
     }
@@ -21,7 +38,7 @@ class Status extends Field
      *
      * @return void
      */
-    public function applyOptions()
+    public function applyOptions(): void
     {
         $this->withProps(['text' => $this->attribute]);
     }

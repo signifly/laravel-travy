@@ -9,21 +9,50 @@ class StatusSet extends Field
      *
      * @var string
      */
-    public $component = 'statusSet';
+    public $component = 'status-set';
 
-    public function title(string $key)
+    /**
+     * Set the status prop (alias for status).
+     *
+     * @param  string $key
+     * @return self
+     */
+    public function color(string $key): self
     {
-        return $this->withProps(['title' => $key]);
+        return $this->status($key);
     }
 
-    public function text(string $key)
+    /**
+     * Set the status prop.
+     *
+     * @param  string $key
+     * @return self
+     */
+    public function status(string $key): self
+    {
+        return $this->withProps(['status' => $key]);
+    }
+
+    /**
+     * Set the text prop.
+     *
+     * @param  string $key
+     * @return self
+     */
+    public function text(string $key): self
     {
         return $this->withProps(['text' => $key]);
     }
 
-    public function color(string $key)
+    /**
+     * Set the title prop.
+     *
+     * @param  string $key
+     * @return self
+     */
+    public function title(string $key): self
     {
-        return $this->withProps(['status' => $key]);
+        return $this->withProps(['title' => $key]);
     }
 
     /**

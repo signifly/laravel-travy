@@ -16,7 +16,7 @@ class TimeSince extends Field
      *
      * @return void
      */
-    public function applyOptions()
+    public function applyOptions(): void
     {
         $this->withProps(['timestamp' => $this->attribute]);
     }

@@ -20,17 +20,35 @@ class DatePicker extends Field
      */
     public $showOnIndex = false;
 
-    public function format(string $value)
+    /**
+     * Set the format prop.
+     *
+     * @param  string $value
+     * @return self
+     */
+    public function format(string $value): self
     {
         return $this->withProps(['format' => $value]);
     }
 
-    public function formatValue(string $value)
+    /**
+     * Set the formatValue prop.
+     *
+     * @param  string $value
+     * @return self
+     */
+    public function formatValue(string $value): self
     {
         return $this->withProps(['formatValue' => $value]);
     }
 
-    public function type(string $type)
+    /**
+     * Set the type prop.
+     *
+     * @param  string $type
+     * @return self
+     */
+    public function type(string $type): self
     {
         return $this->withProps(compact('type'));
     }
@@ -40,7 +58,7 @@ class DatePicker extends Field
      *
      * @return void
      */
-    public function applyOptions()
+    public function applyOptions(): void
     {
         $this->withProps(['date' => $this->attribute]);
     }

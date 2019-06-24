@@ -26,22 +26,34 @@ class ItemsTooltip extends Field
     public $showOnUpdate = false;
 
     /**
-     * The options to apply to the field type.
+     * Set the itemKey prop.
      *
-     * @return void
+     * @param  string $key
+     * @return self
      */
-    public function applyOptions()
-    {
-        $this->withProps(['items' => $this->attribute]);
-    }
-
-    public function itemKey(string $key)
+    public function itemKey(string $key): self
     {
         return $this->withProps(['itemKey' => $key]);
     }
 
-    public function itemLink(string $link)
+    /**
+     * Set the itemLink prop.
+     *
+     * @param  string $link
+     * @return self
+     */
+    public function itemLink(string $link): self
     {
         return $this->withProps(['itemLink' => $link]);
+    }
+
+    /**
+     * The options to apply to the field type.
+     *
+     * @return void
+     */
+    public function applyOptions(): void
+    {
+        $this->withProps(['items' => $this->attribute]);
     }
 }

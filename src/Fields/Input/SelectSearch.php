@@ -31,7 +31,7 @@ class SelectSearch extends Field
      * @param  bool $value
      * @return self
      */
-    public function addable($value = true)
+    public function addable($value = true): self
     {
         return $this->withProps(['addable' => $value]);
     }
@@ -42,7 +42,7 @@ class SelectSearch extends Field
      * @param  bool $value
      * @return self
      */
-    public function clearable($value = true)
+    public function clearable($value = true): self
     {
         return $this->withProps(['clearable' => $value]);
     }
@@ -67,7 +67,7 @@ class SelectSearch extends Field
      * @param  string $itemKey
      * @return self
      */
-    public function itemKey(string $itemKey)
+    public function itemKey(string $itemKey): self
     {
         return $this->withOptions(compact('itemKey'));
     }
@@ -78,7 +78,7 @@ class SelectSearch extends Field
      * @param  string $key
      * @return self
      */
-    public function key(string $key)
+    public function key(string $key): self
     {
         return $this->withOptions(compact('key'));
     }
@@ -89,7 +89,7 @@ class SelectSearch extends Field
      * @param  string $label
      * @return self
      */
-    public function label(string $label)
+    public function label(string $label): self
     {
         return $this->withOptions(compact('label'));
     }
@@ -100,7 +100,7 @@ class SelectSearch extends Field
      * @param  string $value
      * @return self
      */
-    public function value(string $value)
+    public function value(string $value): self
     {
         return $this->withOptions(compact('value'));
     }
@@ -110,9 +110,9 @@ class SelectSearch extends Field
      *
      * @return void
      */
-    public function applyOptions()
+    public function applyOptions(): void
     {
-        if ($this->endpoint) {
+        if ($this->hasEndpoint()) {
             $this->withOptions(['endpoint' => $this->endpoint->toArray()]);
         }
 

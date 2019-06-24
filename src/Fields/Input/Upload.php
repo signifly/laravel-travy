@@ -27,12 +27,24 @@ class Upload extends Field
      */
     public $showOnIndex = false;
 
-    public function fileTypes(string $value)
+    /**
+     * Set the fileTypes prop.
+     *
+     * @param  string $value
+     * @return self
+     */
+    public function fileTypes(string $value): self
     {
         return $this->withProps(['fileTypes' => $value]);
     }
 
-    public function note(string $value)
+    /**
+     * Set the note prop.
+     *
+     * @param  string $value
+     * @return self
+     */
+    public function note(string $value): self
     {
         return $this->withProps(['note' => $value]);
     }
@@ -42,7 +54,7 @@ class Upload extends Field
      *
      * @return void
      */
-    public function applyOptions()
+    public function applyOptions(): void
     {
         $this->withProps(['files' => $this->attribute]);
     }

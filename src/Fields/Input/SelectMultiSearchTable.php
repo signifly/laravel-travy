@@ -31,7 +31,7 @@ class SelectMultiSearchTable extends SelectMultiSearch
      *
      * @return void
      */
-    public function applyOptions()
+    public function applyOptions(): void
     {
         $this->withProps([
             'values' => $this->attribute,

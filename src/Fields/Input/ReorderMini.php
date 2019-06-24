@@ -19,6 +19,13 @@ class ReorderMini extends Field
     public $component = 'input-reorder-mini';
 
     /**
+     * Indicates if the element should be shown on the index view.
+     *
+     * @var bool
+     */
+    public $showOnIndex = false;
+
+    /**
      * Set the `columns` prop.
      *
      * @param  array<key, label>  $columns

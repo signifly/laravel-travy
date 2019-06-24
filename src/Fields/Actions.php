@@ -53,7 +53,7 @@ class Actions extends Field
      *
      * @return void
      */
-    public function applyOptions()
+    public function applyOptions(): void
     {
         $this->withProps(['actions' => $this->preparedActions()]);
     }

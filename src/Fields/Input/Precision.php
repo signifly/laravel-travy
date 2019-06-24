@@ -20,17 +20,35 @@ class Precision extends Field
      */
     public $defaultValue = 0;
 
-    public function max(float $value)
+    /**
+     * Set the max prop.
+     *
+     * @param  float  $value
+     * @return self
+     */
+    public function max(float $value): self
     {
         return $this->withProps(['max' => $value]);
     }
 
-    public function precision(int $value)
+    /**
+     * Set the precision prop.
+     *
+     * @param  int    $value
+     * @return self
+     */
+    public function precision(int $value): self
     {
         return $this->withProps(['precision' => $value]);
     }
 
-    public function step(float $value)
+    /**
+     * Set the step prop.
+     *
+     * @param  float  $value
+     * @return self
+     */
+    public function step(float $value): self
     {
         return $this->withProps(['step' => $value]);
     }
@@ -40,7 +58,7 @@ class Precision extends Field
      *
      * @return void
      */
-    public function applyOptions()
+    public function applyOptions(): void
     {
         $this->withProps(['value' => $this->attribute]);
     }
