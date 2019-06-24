@@ -4,6 +4,7 @@ namespace Signifly\Travy\Fields;
 
 use JsonSerializable;
 use Illuminate\Support\Str;
+use Signifly\Travy\Support\FieldCollection;
 
 class Sidebar extends FieldElement implements JsonSerializable
 {
@@ -45,7 +46,7 @@ class Sidebar extends FieldElement implements JsonSerializable
      *
      * @return static
      */
-    public static function make(...$arguments)
+    public static function make(...$arguments): Sidebar
     {
         return new static(...$arguments);
     }
@@ -56,7 +57,7 @@ class Sidebar extends FieldElement implements JsonSerializable
      * @param  array  $fields
      * @return self
      */
-    public function fields(array $fields)
+    public function fields(array $fields): self
     {
         $this->fields = $fields;
 
@@ -68,12 +69,12 @@ class Sidebar extends FieldElement implements JsonSerializable
      *
      * @return array
      */
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         return [
             'id' => $this->attribute,
             'title' => $this->localize($this->name),
-            'fields' => collect($this->fields)->map->jsonSerialize(),
+            'fields' => FieldCollection::make($this->fields)->prepared(),
         ];
     }
 }
