@@ -4,6 +4,7 @@ namespace Signifly\Travy\Fields;
 
 use JsonSerializable;
 use Illuminate\Support\Str;
+use Signifly\Travy\Support\FieldCollection;
 use Signifly\Travy\Schema\Concerns\HasEndpoint;
 
 class Tab extends FieldElement implements JsonSerializable
@@ -62,7 +63,7 @@ class Tab extends FieldElement implements JsonSerializable
      *
      * @return static
      */
-    public static function make(...$arguments)
+    public static function make(...$arguments): Tab
     {
         return new static(...$arguments);
     }
@@ -137,14 +138,14 @@ class Tab extends FieldElement implements JsonSerializable
      *
      * @return array
      */
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         return [
             'id' => $this->attribute,
             'type' => $this->type,
             'endpoint' => $this->endpoint->toArray(),
             'title' => ['text' => $this->localize($this->name), 'url' => $this->url],
-            'fields' => collect($this->fields)->map->jsonSerialize()->toArray(),
+            'fields' => FieldCollection::make($this->fields)->prepared(),
         ];
     }
 }
