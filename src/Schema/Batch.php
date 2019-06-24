@@ -3,6 +3,7 @@
 namespace Signifly\Travy\Schema;
 
 use JsonSerializable;
+use Illuminate\Support\Arr;
 use Signifly\Travy\Schema\Concerns\HasActions;
 
 class Batch implements JsonSerializable
@@ -96,7 +97,7 @@ class Batch implements JsonSerializable
         ];
 
         if ($this->hasActions()) {
-            array_set($data, 'bulk.actions', $this->preparedActions());
+            Arr::set($data, 'bulk.actions', $this->preparedActions());
         }
 
         return $data;
