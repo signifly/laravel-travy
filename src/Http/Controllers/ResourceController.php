@@ -8,6 +8,8 @@ class ResourceController extends Controller
 {
     public function index(TravyRequest $request)
     {
+        $request->resource()->authorizeToViewAny($request);
+
         return $this->dispatch($request->action());
     }
 
