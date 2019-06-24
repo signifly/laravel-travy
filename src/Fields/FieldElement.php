@@ -5,25 +5,11 @@ namespace Signifly\Travy\Fields;
 abstract class FieldElement
 {
     /**
-     * Indicates if the element is only shown on the detail screen.
-     *
-     * @var bool
-     */
-    public $onlyOnDetail = false;
-
-    /**
      * Indicates if the element should be shown on the index view.
      *
      * @var bool
      */
     public $showOnIndex = true;
-
-    /**
-     * Indicates if the element should be shown on the detail view.
-     *
-     * @var bool
-     */
-    public $showOnDetail = true;
 
     /**
      * Indicates if the element should be shown on the creation view.
@@ -47,18 +33,6 @@ abstract class FieldElement
     public function hideFromIndex()
     {
         $this->showOnIndex = false;
-
-        return $this;
-    }
-
-    /**
-     * Specify that the element should be hidden from the detail view.
-     *
-     * @return $this
-     */
-    public function hideFromDetail()
-    {
-        $this->showOnDetail = false;
 
         return $this;
     }
@@ -95,7 +69,6 @@ abstract class FieldElement
     public function onlyOnCreation()
     {
         $this->showOnIndex = false;
-        $this->showOnDetail = false;
         $this->showOnCreation = true;
         $this->showOnUpdate = false;
 
@@ -110,7 +83,6 @@ abstract class FieldElement
     public function onlyOnUpdate()
     {
         $this->showOnIndex = false;
-        $this->showOnDetail = false;
         $this->showOnCreation = false;
         $this->showOnUpdate = true;
 
@@ -125,24 +97,6 @@ abstract class FieldElement
     public function onlyOnIndex()
     {
         $this->showOnIndex = true;
-        $this->showOnDetail = false;
-        $this->showOnCreation = false;
-        $this->showOnUpdate = false;
-
-        return $this;
-    }
-
-    /**
-     * Specify that the element should only be shown on the detail view.
-     *
-     * @return $this
-     */
-    public function onlyOnDetail()
-    {
-        $this->onlyOnDetail = true;
-
-        $this->showOnIndex = false;
-        $this->showOnDetail = true;
         $this->showOnCreation = false;
         $this->showOnUpdate = false;
 
@@ -157,7 +111,6 @@ abstract class FieldElement
     public function onlyOnForms()
     {
         $this->showOnIndex = false;
-        $this->showOnDetail = false;
         $this->showOnCreation = true;
         $this->showOnUpdate = true;
 
@@ -172,7 +125,6 @@ abstract class FieldElement
     public function exceptOnForms()
     {
         $this->showOnIndex = true;
-        $this->showOnDetail = true;
         $this->showOnCreation = false;
         $this->showOnUpdate = false;
 
