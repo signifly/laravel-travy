@@ -19,10 +19,24 @@ class KeyValueBox extends Field
      *
      * @param string $label
      * @param string $value
+     * @return self
      */
     public function addItem(string $label, string $value): self
     {
         array_push($this->items, compact('label', 'value'));
+
+        return $this;
+    }
+
+    /**
+     * Set the items for the field.
+     *
+     * @param  array<label, value>  $items
+     * @return self
+     */
+    public function items(array $items): self
+    {
+        $this->items = $items;
 
         return $this;
     }
