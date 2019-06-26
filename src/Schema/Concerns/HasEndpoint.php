@@ -14,15 +14,17 @@ trait HasEndpoint
      * Set the endpoint of the button-action.
      *
      * @param  string $url
-     * @param Closure|null $callable
+     * @param string|\Closure|null $method
      * @return self
      */
-    public function endpoint(string $url, ?Closure $callable = null): self
+    public function endpoint(string $url, $method = null): self
     {
         $endpoint = new Endpoint($url);
 
-        if (! is_null($callable)) {
-            $callable($endpoint);
+        if ($method instanceof Closure) {
+            $method($endpoint);
+        } elseif (is_string($method)) {
+            $endpoint->usingMethod($method);
         }
 
         $this->endpoint = $endpoint;
