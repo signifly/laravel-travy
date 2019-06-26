@@ -1,6 +1,6 @@
 <?php
 
-namespace Signifly\Travy\Test\Unit\Schema;
+namespace Signifly\Travy\Test\Unit\Support;
 
 use Signifly\Travy\Test\TestCase;
 use Signifly\Travy\Support\DashboardFactory;

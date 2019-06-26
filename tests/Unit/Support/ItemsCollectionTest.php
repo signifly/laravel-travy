@@ -1,6 +1,6 @@
 <?php
 
-namespace Signifly\Travy\Test\Unit\Schema;
+namespace Signifly\Travy\Test\Unit\Support;
 
 use Signifly\Travy\Schema\Item;
 use Signifly\Travy\Test\TestCase;
