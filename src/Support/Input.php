@@ -2,9 +2,9 @@
 
 namespace Signifly\Travy\Support;
 
-use Sanitizer;
 use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
+use Waavi\Sanitizer\Sanitizer;
 
 class Input
 {
@@ -86,6 +86,25 @@ class Input
     }
 
     /**
+     * Determine if the input contains a non-empty value for an input item.
+     *
+     * @param  string|array  $key
+     * @return bool
+     */
+    public function filled($key): bool
+    {
+        $keys = is_array($key) ? $key : func_get_args();
+
+        foreach ($keys as $value) {
+            if ($this->isEmptyString($value)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    /**
      * Get an item from the sanitized input using "dot" notation.
      *
      * @param  string $key
@@ -119,6 +138,19 @@ class Input
     }
 
     /**
+     * Determine if the given input key is an empty string for "has".
+     *
+     * @param  string  $key
+     * @return bool
+     */
+    protected function isEmptyString($key): bool
+    {
+        $value = $this->get($key);
+
+        return ! is_bool($value) && ! is_array($value) && trim((string) $value) === '';
+    }
+
+    /**
      * Sanitize the input.
      *
      * @param  array  $data
@@ -129,6 +161,6 @@ class Input
     {
         $filters = Arr::only($filters, array_keys($data));
 
-        return Sanitizer::make($data, $filters)->sanitize();
+        return (new Sanitizer($data, $filters))->sanitize();
     }
 }
