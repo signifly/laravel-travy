@@ -33,12 +33,7 @@ class DefaultView extends View
         return [
             Popup::make('Delete', 'danger')
                 ->icon('delete')
-                ->endpoint(
-                    url("v1/admin/{$this->request->resourceKey()}/{id}"),
-                    function ($endpoint) {
-                        $endpoint->usingMethod('delete');
-                    }
-                )
+                ->endpoint(url("v1/admin/{$this->request->resourceKey()}/{id}"), 'delete')
                 ->onSubmit("/t/{$this->request->resourceKey()}"),
         ];
     }

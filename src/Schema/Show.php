@@ -13,8 +13,6 @@ class Show extends Action
 
     public function url(string $url)
     {
-        return $this->endpoint($url, function ($endpoint) {
-            $endpoint->usingMethod('get');
-        });
+        return $this->endpoint($url, 'get');
     }
 }

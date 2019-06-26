@@ -2,12 +2,14 @@
 
 namespace Signifly\Travy\Fields;
 
-use Closure;
 use Illuminate\Support\Arr;
 use Signifly\Travy\Schema\Endpoint;
+use Signifly\Travy\Schema\Concerns\HasEndpoint;
 
 class ButtonAction extends Field
 {
+    use HasEndpoint;
+
     /**
      * The field's component.
      *
@@ -15,14 +17,18 @@ class ButtonAction extends Field
      */
     public $component = 'button-action';
 
+    /**
+     * The default method to use for the endpoint.
+     *
+     * @var string
+     */
+    protected $defaultMethod = 'post';
+
     /** @var array */
     protected $actionData = [];
 
     /** @var array */
     protected $actionProps = [];
-
-    /** @var \Signifly\Travy\Schema\Endpoint */
-    protected $endpoint;
 
     /**
      * Set the color of the button-action.
@@ -44,29 +50,6 @@ class ButtonAction extends Field
     public function data(array $data): self
     {
         $this->actionData = array_merge($this->actionData, $data);
-
-        return $this;
-    }
-
-    /**
-     * Set the endpoint of the button-action.
-     *
-     * @param  string $url
-     * @param Closure|null $callable
-     * @return self
-     */
-    public function endpoint(string $url, ?Closure $callable = null): self
-    {
-        $endpoint = new Endpoint($url);
-
-        // Set defaut method
-        $endpoint->usingMethod('post');
-
-        if (! is_null($callable)) {
-            $callable($endpoint);
-        }
-
-        $this->endpoint = $endpoint;
 
         return $this;
     }
@@ -144,7 +127,7 @@ class ButtonAction extends Field
      */
     public function applyOptions(): void
     {
-        if ($this->endpoint) {
+        if ($this->hasEndpoint()) {
             Arr::set($this->actionProps, 'endpoint', $this->endpoint->toArray());
         }
 

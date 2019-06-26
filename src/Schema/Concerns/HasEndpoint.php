@@ -7,7 +7,11 @@ use Signifly\Travy\Schema\Endpoint;
 
 trait HasEndpoint
 {
-    /** @var \Signifly\Travy\Schema\Endpoint */
+    /**
+     * The endpoint instance.
+     *
+     * @var \Signifly\Travy\Schema\Endpoint
+     */
     protected $endpoint;
 
     /**
@@ -20,6 +24,12 @@ trait HasEndpoint
     public function endpoint(string $url, $method = null): self
     {
         $endpoint = new Endpoint($url);
+
+        // If there is defined a defaultMethod property on the class
+        // then we set the method on the endpoint instance
+        if (isset($this->defaultMethod)) {
+            $endpoint->usingMethod($this->defaultMethod);
+        }
 
         if ($method instanceof Closure) {
             $method($endpoint);
