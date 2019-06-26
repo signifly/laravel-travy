@@ -2,9 +2,11 @@
 
 namespace Signifly\Travy\Support;
 
+use Signifly\Travy\Resource;
+
 class ResourceFactory
 {
-    public static function make(string $resource, $resourceId = null)
+    public static function make(string $resource, $resourceId = null): Resource
     {
         $namespace = config('travy.resources.namespace');
         $className = studly_case(str_singular($resource));

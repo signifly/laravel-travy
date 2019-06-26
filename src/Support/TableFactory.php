@@ -8,10 +8,18 @@ use Signifly\Travy\Http\Requests\TravyRequest;
 
 class TableFactory extends Factory
 {
-    /** @var string */
+    /**
+     * The table class name.
+     *
+     * @var string
+     */
     protected $class;
 
-    /** @var \Signifly\Travy\Http\Requests\TravyRequest */
+    /**
+     * The TravyRequest instance.
+     *
+     * @var \Signifly\Travy\Http\Requests\TravyRequest
+     */
     protected $request;
 
     public function __construct(TravyRequest $request)
@@ -21,9 +29,9 @@ class TableFactory extends Factory
     }
 
     /**
-     * Create the dashboard.
+     * Create the table.
      *
-     * @return \Signifly\Travy\Contracts\Dashboard
+     * @return \Signifly\Travy\Contracts\Table
      */
     public function create()
     {

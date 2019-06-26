@@ -8,10 +8,18 @@ use Signifly\Travy\Http\Requests\TravyRequest;
 
 class ViewFactory extends Factory
 {
-    /** @var string */
+    /**
+     * The view class name.
+     *
+     * @var string
+     */
     protected $class;
 
-    /** @var \Signifly\Travy\Http\Requests\TravyRequest */
+    /**
+     * The TravyRequest instance.
+     *
+     * @var \Signifly\Travy\Http\Requests\TravyRequest
+     */
     protected $request;
 
     public function __construct(TravyRequest $request)
@@ -21,9 +29,9 @@ class ViewFactory extends Factory
     }
 
     /**
-     * Create the dashboard.
+     * Create the view.
      *
-     * @return \Signifly\Travy\Contracts\Dashboard
+     * @return \Signifly\Travy\Contracts\View
      */
     public function create()
     {
