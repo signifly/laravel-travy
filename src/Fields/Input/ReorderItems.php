@@ -26,6 +26,13 @@ class ReorderItems extends Field
     public $showOnIndex = false;
 
     /**
+     * Indicates if the element should be shown on the creation view.
+     *
+     * @var bool
+     */
+    public $showOnCreation = false;
+
+    /**
      * Set the items.image prop.
      *
      * @param  string $key
