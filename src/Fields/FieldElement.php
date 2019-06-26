@@ -132,6 +132,16 @@ abstract class FieldElement
     }
 
     /**
+     * Specify that the element should be shown on the index view.
+     *
+     * @return $this
+     */
+    public function showOnIndex(): self
+    {
+        $this->showOnIndex = true;
+    }
+
+    /**
      * Localize text.
      *
      * @param  mixed $text
