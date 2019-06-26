@@ -54,6 +54,10 @@ class InputTest extends TestCase
 
         // Assert Input::collect
         $this->assertInstanceOf(Collection::class, $input->collect('company'));
+
+        // Assert ArrayAccess and magic methods implementation
+        $this->assertEquals('John Doe', $input->name);
+        $this->assertEquals('John Doe', $input['name']);
     }
 
     /** @test */
