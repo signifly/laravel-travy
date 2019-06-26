@@ -228,7 +228,7 @@ abstract class Field extends FieldElement implements JsonSerializable
      */
     public function headerImage($value = true): self
     {
-        $this->headerImage = $value;
+        $this->isHeaderImage = $value;
 
         return $this;
     }
