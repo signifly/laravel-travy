@@ -45,24 +45,7 @@ class DefaultTable extends Table
 
         // Set actions
         $column = Actions::make('Actions')
-            ->actions([
-                Show::make('View')
-                    ->url("/t/{$this->request->resourceKey()}/{id}")
-                    ->hide('is_deleted', true),
-
-                Popup::make('Delete')
-                    ->endpoint(
-                        url("v1/admin/{$this->request->resourceKey()}/{id}"),
-                        function ($endpoint) {
-                            $endpoint->usingMethod('delete');
-                        }
-                    )
-                    ->hide('is_deleted', true),
-
-                Popup::make('Restore')
-                    ->endpoint(url("v1/admin/{$this->request->resourceKey()}/{id}/restore"))
-                    ->hide('is_deleted', false),
-            ])
+            ->actions($this->getColumnActions())
             ->width(120);
 
         $columns->push($column);
@@ -143,6 +126,31 @@ class DefaultTable extends Table
         $this->searchPlaceholder = $searchable
             ? __('Search for ').$searchable
             : __('Search...');
+    }
+
+    protected function getColumnActions(): array
+    {
+        $resourceKey = $this->request->resourceKey();
+
+        $showAction Show::make('View')->url("/t/{$resourceKey}/{id}");
+
+        $deleteAction = Popup::make('Delete')
+            ->endpoint(url("v1/admin/{$resourceKey}/{id}"), 'delete');
+
+        if (ModelFactory::softDeletes($this->resource->modelClass())) {
+            return [
+                $showAction->hide('is_deleted', true),
+                $deleteAction->hide('is_deleted', true),
+                Popup::make('Restore')
+                    ->endpoint(url("v1/admin/{$resourceKey}/{id}/restore"))
+                    ->hide('is_deleted', false)
+            ];
+        }
+
+        return [
+            $showAction,
+            $deleteAction,
+        ];
     }
 
     protected function getCreationFields(): FieldCollection
