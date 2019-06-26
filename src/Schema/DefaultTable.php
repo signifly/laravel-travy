@@ -132,7 +132,7 @@ class DefaultTable extends Table
     {
         $resourceKey = $this->request->resourceKey();
 
-        $showAction Show::make('View')->url("/t/{$resourceKey}/{id}");
+        $showAction = Show::make('View')->url("/t/{$resourceKey}/{id}");
 
         $deleteAction = Popup::make('Delete')
             ->endpoint(url("v1/admin/{$resourceKey}/{id}"), 'delete');
