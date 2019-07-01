@@ -55,7 +55,7 @@ class DefaultTable extends Table
 
     public function defaults(): array
     {
-        $defaultSort = $this->resource->getPreparedFields()->first->defaultSort;
+        $defaultSort = collect($this->columns())->first->defaultSort;
 
         if (! $defaultSort) {
             return [];
