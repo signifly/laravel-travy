@@ -2,14 +2,11 @@
 
 namespace Signifly\Travy\Fields;
 
-use Illuminate\Support\Arr;
+use Signifly\Travy\Schema\Action;
 use Signifly\Travy\Schema\Endpoint;
-use Signifly\Travy\Schema\Concerns\HasEndpoint;
 
 class ButtonAction extends Field
 {
-    use HasEndpoint;
-
     /**
      * The field's component.
      *
@@ -24,11 +21,18 @@ class ButtonAction extends Field
      */
     protected $defaultMethod = 'post';
 
-    /** @var array */
-    protected $actionData = [];
+    /**
+     * Set the action of the field.
+     *
+     * @param  Action $action
+     * @return self
+     */
+    public function action(Action $action): self
+    {
+        $this->action = $action;
 
-    /** @var array */
-    protected $actionProps = [];
+        return $this;
+    }
 
     /**
      * Set the color of the button-action.
@@ -39,50 +43,6 @@ class ButtonAction extends Field
     public function color(string $status): self
     {
         return $this->withProps(compact('status'));
-    }
-
-    /**
-     * Set the data of the button-action.
-     *
-     * @param  array  $data
-     * @return self
-     */
-    public function data(array $data): self
-    {
-        $this->actionData = array_merge($this->actionData, $data);
-
-        return $this;
-    }
-
-    /**
-     * Set the fields of the button-action.
-     *
-     * @param  array  $fields
-     * @return self
-     */
-    public function fields(array $fields): self
-    {
-        $fields = collect($fields);
-
-        $preparedFields = $fields
-            ->map(function ($field) {
-                $field->linkable(false);
-
-                return $field->jsonSerialize();
-            })
-            ->toArray();
-
-        $data = $fields
-            ->mapWithKeys(function ($field) {
-                return [$field->attribute => $field->defaultValue ?? ''];
-            })
-            ->toArray();
-
-        $this->data($data);
-
-        Arr::set($this->actionProps, 'fields', $preparedFields);
-
-        return $this;
     }
 
     /**
@@ -97,19 +57,6 @@ class ButtonAction extends Field
     }
 
     /**
-     * Set on submit link of the button-action.
-     *
-     * @param  string $link
-     * @return self
-     */
-    public function onSubmit(string $link): self
-    {
-        Arr::set($this->actionProps, 'onSubmit', $link);
-
-        return $this;
-    }
-
-    /**
      * Set the size of the button-action.
      *
      * @param  string $size
@@ -121,22 +68,27 @@ class ButtonAction extends Field
     }
 
     /**
+     * Set the title prop.
+     *
+     * @param  string $title
+     * @return self
+     */
+    public function title(string $title): self
+    {
+        return $this->withProps(['title' => __($title)]);
+    }
+
+    /**
      * The options to apply to the field type.
      *
      * @return void
      */
     public function applyOptions(): void
     {
-        if ($this->hasEndpoint()) {
-            Arr::set($this->actionProps, 'endpoint', $this->endpoint->toArray());
-        }
+        $action = $this->action->jsonSerialize();
 
         $this->withProps([
-            'title' => __($this->name),
-            'action' => array_merge(
-                ['id' => $this->attribute, 'title' => __($this->name), 'data' => $this->actionData],
-                $this->actionProps
-            ),
+            'action' => $action['props'],
         ]);
     }
 }
