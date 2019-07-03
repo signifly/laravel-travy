@@ -263,7 +263,7 @@ abstract class Resource
     {
         $model = $this->resource->create($attributes);
 
-        $this->model = $model;
+        $this->setModel($model);
 
         return $model;
     }
