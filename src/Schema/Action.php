@@ -69,6 +69,10 @@ class Action
             ->map(function ($field) {
                 $field->linkable(false);
 
+                if ($field->width instanceof Width) {
+                    $field->withMeta(['width' => $field->width->getValue()]);
+                }
+
                 return $field->jsonSerialize();
             })
             ->toArray();
