@@ -5,6 +5,7 @@ namespace Signifly\Travy;
 use Illuminate\Http\Request;
 use Illuminate\Support\ServiceProvider;
 use Signifly\Travy\Commands\ViewTravyCommand;
+use Signifly\Travy\Commands\FieldTravyCommand;
 use Signifly\Travy\Commands\TableTravyCommand;
 use Signifly\Travy\Commands\ActionTravyCommand;
 use Signifly\Travy\Commands\ResourceTravyCommand;
@@ -69,6 +70,7 @@ class TravyServiceProvider extends ServiceProvider
             $this->commands([
                 ActionTravyCommand::class,
                 DashboardTravyCommand::class,
+                FieldTravyCommand::class,
                 ResourceTravyCommand::class,
                 TableTravyCommand::class,
                 ViewTravyCommand::class,
