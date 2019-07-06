@@ -19,6 +19,19 @@ class Divider extends Field
     public $showOnIndex = false;
 
     /**
+     * Create a new field.
+     *
+     * @param string $name
+     * @param string|null $attribute
+     */
+    public function __construct($name, $attribute = null)
+    {
+        parent::__construct(null, $attribute);
+
+        $this->text($name);
+    }
+
+    /**
      * Set the text prop.
      *
      * @param  string $text
