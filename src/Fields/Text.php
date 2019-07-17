@@ -42,6 +42,17 @@ class Text extends Field
     }
 
     /**
+     * Set the bold prop.
+     *
+     * @param  boolean $value
+     * @return self
+     */
+    public function bold($value = true): self
+    {
+        return $this->withProps(['bold' => $value]);
+    }
+
+    /**
      * Set the status prop.
      *
      * @param  string $status
@@ -50,6 +61,17 @@ class Text extends Field
     public function color(string $status): self
     {
         return $this->withProps(compact('status'));
+    }
+
+    /**
+     * Set the textDefault prop.
+     *
+     * @param  mixed $text
+     * @return self
+     */
+    public function default($text): self
+    {
+        return $this->withProps(['textDefault' => $text]);
     }
 
     /**
