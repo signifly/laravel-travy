@@ -24,37 +24,81 @@ abstract class Resource
     use Authorizable;
     use DelegatesToResource;
 
-    /** @var array */
+    /**
+     * The request actions.
+     *
+     * @var array
+     */
     protected $actions = [];
 
-    /** @var string */
+    /**
+     * Customize how the resource name is displayed.
+     *
+     * @var string
+     */
     protected $displayAs;
 
-    /** @var string */
+    /**
+     * The model class name.
+     *
+     * @var string
+     */
     protected $model;
 
-    /** @var \Illuminate\Database\Eloquent\Model */
+    /**
+     * The model instance.
+     *
+     * @var \Illuminate\Database\Eloquent\Model
+     */
     protected $resource;
 
-    /** @var array */
+    /**
+     * Apply the specified scopes by default on a query.
+     *
+     * @var array
+     */
     protected $globalScopes = [];
 
-    /** @var array */
+    /**
+     * Disallow calling the specified request actions.
+     *
+     * @var array
+     */
     protected $guardedActions = [];
 
-    /** @var array */
+    /**
+     * The relations to include during the index request.
+     *
+     * @var array
+     */
     protected $includes = [];
 
-    /** @var array */
+    /**
+     * The allowed attributes to search.
+     *
+     * @var array
+     */
     protected $searchable = [];
 
-    /** @var array */
+    /**
+     * The allowed attributes to sort by.
+     *
+     * @var array
+     */
     protected $sorts = ['*'];
 
-    /** @var array */
+    /**
+     * The relations to eager load during the show request.
+     *
+     * @var array
+     */
     protected $with = [];
 
-    /** @var array */
+    /**
+     * The relations to count during the index request.
+     *
+     * @var array
+     */
     protected $withCount = [];
 
     /**
@@ -67,7 +111,7 @@ abstract class Resource
     }
 
     /**
-     * Get the model.
+     * Get the model instance.
      *
      * @return \Illuminate\Database\Eloquent\Model
      */
@@ -277,7 +321,7 @@ abstract class Resource
     }
 
     /**
-     * The filters (fields) for the resource.
+     * The filters fields for the resource.
      *
      * @return array
      */
@@ -287,7 +331,7 @@ abstract class Resource
     }
 
     /**
-     * The modifiers (fields) for the resource.
+     * The modifiers fields for the resource.
      *
      * @return array
      */
@@ -439,7 +483,7 @@ abstract class Resource
     }
 
     /**
-     * Set an action.
+     * Set the request action for a given key.
      *
      * @param string $key
      * @param string $action The action class
