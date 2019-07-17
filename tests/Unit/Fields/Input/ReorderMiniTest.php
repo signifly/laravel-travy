@@ -1,6 +1,6 @@
 <?php
 
-namespace Signifly\Travy\Test\Unit\Fields;
+namespace Signifly\Travy\Test\Unit\Fields\Input;
 
 use Signifly\Travy\Test\TestCase;
 use Signifly\Travy\Fields\Input\ReorderMini;
