@@ -4,6 +4,7 @@ namespace Signifly\Travy\Test;
 
 use Signifly\Travy\TravyServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
+use Waavi\Sanitizer\Laravel\SanitizerServiceProvider;
 
 abstract class TestCase extends Orchestra
 {
@@ -16,6 +17,7 @@ abstract class TestCase extends Orchestra
     protected function getPackageProviders($app)
     {
         return [
+            SanitizerServiceProvider::class,
             TravyServiceProvider::class,
         ];
     }
