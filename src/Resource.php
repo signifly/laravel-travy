@@ -63,7 +63,7 @@ abstract class Resource
     public function __construct(Model $model)
     {
         $this->resource = $model;
-        $this->defaultActions();
+        $this->actions = $this->defaultActions();
     }
 
     /**
@@ -99,16 +99,6 @@ abstract class Resource
     }
 
     /**
-     * Create a new model instance.
-     *
-     * @return \Illuminate\Database\Eloquent\Model
-     */
-    public function newModelInstance(array $attributes = []): Model
-    {
-        return $this->resource->newInstance($attributes);
-    }
-
-    /**
      * Create a new query for the model.
      *
      * @return \Illuminate\Database\Eloquent\Builder
@@ -133,13 +123,13 @@ abstract class Resource
     }
 
     /**
-     * The default actions.
+     * Get the default actions.
      *
-     * @return self
+     * @return array
      */
-    protected function defaultActions(array $overwrites = []): self
+    protected function defaultActions(): array
     {
-        $this->actions = array_merge([
+        return [
             'index' => Http\Actions\IndexAction::class,
             'store' => Http\Actions\StoreAction::class,
             'show' => Http\Actions\ShowAction::class,
@@ -147,13 +137,11 @@ abstract class Resource
             'destroy' => Http\Actions\DestroyAction::class,
             'restore' => Http\Actions\RestoreAction::class,
             'forceDestroy' => Http\Actions\ForceDestroyAction::class,
-        ], $overwrites);
-
-        return $this;
+        ];
     }
 
     /**
-     * The default query filters.
+     * Get the default query filters.
      *
      * @return array
      */
