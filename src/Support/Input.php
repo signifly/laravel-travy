@@ -5,9 +5,9 @@ namespace Signifly\Travy\Support;
 use ArrayAccess;
 use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
-use Waavi\Sanitizer\Sanitizer;
 use Illuminate\Support\Collection;
 use Illuminate\Contracts\Support\Arrayable;
+use Waavi\Sanitizer\Laravel\Facade as Sanitizer;
 
 class Input implements ArrayAccess, Arrayable
 {
@@ -164,7 +164,7 @@ class Input implements ArrayAccess, Arrayable
     {
         $filters = Arr::only($filters, array_keys($data));
 
-        return (new Sanitizer($data, $filters))->sanitize();
+        return Sanitizer::make($data, $filters)->sanitize();
     }
 
     /**
