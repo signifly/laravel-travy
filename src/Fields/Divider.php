@@ -2,6 +2,8 @@
 
 namespace Signifly\Travy\Fields;
 
+use Illuminate\Support\Str;
+
 class Divider extends Field
 {
     /**
@@ -26,7 +28,8 @@ class Divider extends Field
      */
     public function __construct($name, $attribute = null)
     {
-        parent::__construct(null, $attribute);
+        $this->name = null;
+        $this->attribute = $attribute ?? str_replace(' ', '_', Str::lower($name));
 
         $this->text($name);
     }
