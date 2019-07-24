@@ -12,13 +12,12 @@ class RelationController extends Controller
     public function index(TravyRequest $request)
     {
         $relationName = $request->relationName();
-        $model = $request->resource()->findOrFail($request->resourceId());
+        $model = $request->resource()->model();
 
         $this->guardAgainstInvalidRelation($model, $relationName);
 
         $relation = $model->$relationName();
-        $relationModelName = class_basename($relation->getRelated());
-        $relationResource = $request->relationResource($relationModelName);
+        $relationResource = $request->relationResource($relationName);
 
         // If the relation has a single association to another model
         // then retrieve the first result and return it
@@ -41,13 +40,12 @@ class RelationController extends Controller
     public function show(TravyRequest $request)
     {
         $relationName = $request->relationName();
-        $model = $request->resource()->findOrFail($request->resourceId());
+        $model = $request->resource()->model();
 
         $this->guardAgainstInvalidRelation($model, $relationName);
 
         $relation = $model->$relationName();
-        $relationModelName = class_basename($relation->getRelated());
-        $relationResource = $request->relationResource($relationModelName);
+        $relationResource = $request->relationResource($relationName);
 
         $relatedModel = $relation
             ->with($relationResource->with())
