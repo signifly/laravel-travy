@@ -52,7 +52,7 @@ class Action
      *
      * @return static
      */
-    public static function make(...$arguments)
+    public static function make(...$arguments): Action
     {
         return new static(...$arguments);
     }
@@ -63,7 +63,7 @@ class Action
      * @param  array  $fields
      * @return self
      */
-    public function fields(array $fields)
+    public function fields(array $fields): self
     {
         $fields = collect($fields)
             ->map(function ($field) {
@@ -88,7 +88,7 @@ class Action
      * @param  string $operator
      * @return self
      */
-    public function hide(string $key, $value, string $operator = 'eq')
+    public function hide(string $key, $value, string $operator = 'eq'): self
     {
         return $this->withMeta(['hide' => compact('key', 'operator', 'value')]);
     }
@@ -99,7 +99,7 @@ class Action
      * @param  string $icon
      * @return self
      */
-    public function icon(string $icon)
+    public function icon(string $icon): self
     {
         return $this->withMeta(compact('icon'));
     }
@@ -110,7 +110,7 @@ class Action
      * @param  string $linksTo
      * @return self
      */
-    public function onSubmit(string $linksTo)
+    public function onSubmit(string $linksTo): self
     {
         return $this->withProps(['onSubmit' => $linksTo]);
     }
@@ -121,9 +121,19 @@ class Action
      * @param  array  $payload
      * @return self
      */
-    public function payload(array $payload)
+    public function payload(array $payload): self
     {
         return $this->withProps(compact('payload'));
+    }
+
+    /**
+     * Stay on the page after the action has been submitted.
+     *
+     * @return self
+     */
+    public function stayOnSubmit(): self
+    {
+        return $this->onSubmit('');
     }
 
     /**
@@ -132,7 +142,7 @@ class Action
      * @param  string $text
      * @return self
      */
-    public function text(string $text)
+    public function text(string $text): self
     {
         return $this->withProps(compact('text'));
     }
@@ -143,7 +153,7 @@ class Action
      * @param  string $title
      * @return self
      */
-    public function title(string $title)
+    public function title(string $title): self
     {
         $this->title = $title;
 
@@ -156,7 +166,7 @@ class Action
      * @param  string $id
      * @return self
      */
-    public function type(string $id)
+    public function type(string $id): self
     {
         return $this->withProps(compact('id'));
     }
