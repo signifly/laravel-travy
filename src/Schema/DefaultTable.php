@@ -143,7 +143,7 @@ class DefaultTable extends Table
                 $deleteAction->hide('is_deleted', true),
                 Popup::make('Restore')
                     ->endpoint(url("v1/admin/{$resourceKey}/{id}/restore"))
-                    ->hide('is_deleted', false)
+                    ->hide('is_deleted', false),
             ];
         }
 

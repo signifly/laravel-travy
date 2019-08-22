@@ -48,7 +48,7 @@ class BatchTest extends TestCase
                                 'method' => 'post',
                             ],
                         ],
-                    ]
+                    ],
                 ],
             ],
             'selectedOptions' => [

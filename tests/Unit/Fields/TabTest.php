@@ -31,7 +31,7 @@ class TabTest extends TestCase
                         'props' => [
                             'timestamp' => 'created_at',
                         ],
-                    ]
+                    ],
                 ],
             ],
         ];

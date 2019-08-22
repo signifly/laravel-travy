@@ -49,7 +49,7 @@ class InputTest extends TestCase
         $this->assertEquals([
             'name' => 'John Doe',
             'nullable' => null,
-            'empty' => ''
+            'empty' => '',
         ], $input->except(['email', 'text', 'company']));
 
         // Assert Input::collect

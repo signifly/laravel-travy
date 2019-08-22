@@ -63,7 +63,7 @@ class Tab extends FieldElement implements JsonSerializable
      *
      * @return static
      */
-    public static function make(...$arguments): Tab
+    public static function make(...$arguments): self
     {
         return new static(...$arguments);
     }
