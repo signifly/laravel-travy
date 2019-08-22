@@ -44,7 +44,7 @@ class Text extends Field
     /**
      * Set the bold prop.
      *
-     * @param  boolean $value
+     * @param  bool $value
      * @return self
      */
     public function bold($value = true): self

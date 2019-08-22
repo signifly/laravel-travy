@@ -52,7 +52,7 @@ class Action
      *
      * @return static
      */
-    public static function make(...$arguments): Action
+    public static function make(...$arguments): self
     {
         return new static(...$arguments);
     }

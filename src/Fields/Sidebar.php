@@ -46,7 +46,7 @@ class Sidebar extends FieldElement implements JsonSerializable
      *
      * @return static
      */
-    public static function make(...$arguments): Sidebar
+    public static function make(...$arguments): self
     {
         return new static(...$arguments);
     }

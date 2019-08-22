@@ -28,7 +28,7 @@ class SidebarTest extends TestCase
                         'props' => [
                             'timestamp' => 'created_at',
                         ],
-                    ]
+                    ],
                 ],
             ],
         ];
