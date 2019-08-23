@@ -21,6 +21,17 @@ class DatePicker extends Field
     public $showOnIndex = false;
 
     /**
+     * Set the clearable prop.
+     *
+     * @param  bool $value
+     * @return self
+     */
+    public function clearable($value = true): self
+    {
+        return $this->withProps(['clearable' => $value]);
+    }
+
+    /**
      * Set the format prop.
      *
      * @param  string $value
