@@ -5,9 +5,9 @@ namespace Signifly\Travy;
 use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
 use Signifly\Travy\Fields\Tab;
-use Spatie\QueryBuilder\Filter;
 use Illuminate\Support\Collection;
 use Signifly\Travy\Fields\Sidebar;
+use Spatie\QueryBuilder\AllowedFilter;
 use Illuminate\Database\Eloquent\Model;
 use Signifly\Travy\Support\ModelFactory;
 use Illuminate\Database\Eloquent\Builder;
@@ -196,14 +196,14 @@ abstract class Resource
         if (ModelFactory::softDeletes($this->modelClass())) {
             array_push(
                 $filters,
-                Filter::custom('trashed', TrashedFilter::class)
+                AllowedFilter::custom('trashed', new TrashedFilter())
             );
         }
 
         if ($this->searchable()) {
             array_push(
                 $filters,
-                Filter::custom('search', new SearchFilter($this->getSearchable()))
+                AllowedFilter::custom('search', new SearchFilter($this->getSearchable()))
             );
         }
 
