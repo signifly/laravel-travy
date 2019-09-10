@@ -2,6 +2,7 @@
 
 namespace Signifly\Travy\Http\Requests;
 
+use Illuminate\Support\Str;
 use Signifly\Travy\Support\Input;
 use Signifly\Travy\Support\ActionFactory;
 use Illuminate\Foundation\Http\FormRequest;
@@ -115,7 +116,7 @@ class TravyRequest extends FormRequest
      */
     public function relationName()
     {
-        return camel_case($this->relationKey());
+        return Str::camel($this->relationKey());
     }
 
     /**
@@ -153,7 +154,7 @@ class TravyRequest extends FormRequest
      *
      * @return array
      */
-    protected function validationData()
+    public function validationData()
     {
         return Input::make($this)->data();
     }
