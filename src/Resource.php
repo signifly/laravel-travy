@@ -85,7 +85,7 @@ abstract class Resource
      *
      * @var array
      */
-    protected $sorts = ['*'];
+    protected $sorts = [];
 
     /**
      * The relations to eager load during the show request.
