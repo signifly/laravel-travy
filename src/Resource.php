@@ -194,17 +194,11 @@ abstract class Resource
         $filters = [];
 
         if (ModelFactory::softDeletes($this->modelClass())) {
-            array_push(
-                $filters,
-                AllowedFilter::custom('trashed', new TrashedFilter())
-            );
+            $filters[] = AllowedFilter::custom('trashed', new TrashedFilter());
         }
 
         if ($this->searchable()) {
-            array_push(
-                $filters,
-                AllowedFilter::custom('search', new SearchFilter($this->getSearchable()))
-            );
+            $filters[] = AllowedFilter::custom('search', new SearchFilter($this->getSearchable()));
         }
 
         return $filters;
@@ -268,7 +262,17 @@ abstract class Resource
      */
     public function allowedSorts(): array
     {
-        return $this->sorts;
+        $sortableFields = $this->getPreparedFields()
+            ->filter(function ($field) {
+                return $field->sortable;
+            })
+            ->map(function ($field) {
+                return $field->sortBy;
+            })
+            ->values()
+            ->toArray();
+
+        return array_merge($sortableFields, $this->sorts);
     }
 
     /**
