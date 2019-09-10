@@ -33,16 +33,10 @@ class IndexAction extends Action
 
     protected function buildQueryFor($resource): QueryBuilder
     {
-        $queryBuilder = QueryBuilder::for($this->baseQuery ?? $resource->newQuery())
+        return QueryBuilder::for($this->baseQuery ?? $resource->newQuery())
             ->allowedFilters($resource->allowedFilters())
-            ->allowedIncludes($resource->allowedIncludes());
-
-        if (! in_array('*', $resource->allowedSorts()) && ! empty($resource->allowedSorts())) {
-            $queryBuilder->allowedSorts($resource->allowedSorts());
-        }
-
-        $queryBuilder->withCount($resource->withCount());
-
-        return $queryBuilder;
+            ->allowedIncludes($resource->allowedIncludes())
+            ->allowedSorts($resource->allowedSorts())
+            ->withCount($resource->withCount());
     }
 }
