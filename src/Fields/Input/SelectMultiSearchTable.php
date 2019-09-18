@@ -33,6 +33,10 @@ class SelectMultiSearchTable extends SelectMultiSearch
      */
     public function applyOptions(): void
     {
+        if ($this->hasEndpoint()) {
+            $this->withOptions(['endpoint' => $this->endpoint->toArray()]);
+        }
+
         $this->withProps([
             'values' => $this->attribute,
             'options' => $this->options(),
