@@ -139,6 +139,8 @@ abstract class FieldElement
     public function showOnIndex(): self
     {
         $this->showOnIndex = true;
+
+        return $this;
     }
 
     /**
