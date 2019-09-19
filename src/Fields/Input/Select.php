@@ -32,6 +32,17 @@ class Select extends Field
     }
 
     /**
+     * Set the clearable prop.
+     *
+     * @param  bool $value
+     * @return self
+     */
+    public function clearable($value = true): self
+    {
+        return $this->withProps(['clearable' => $value]);
+    }
+
+    /**
      * The options to apply to the field type.
      *
      * @return void
