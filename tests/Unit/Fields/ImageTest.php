@@ -14,8 +14,8 @@ class ImageTest extends TestCase
             ->size('100%', '300px');
 
         $expected = [
-            'name' => 'src',
-            'label' => 'Image',
+            'name' => 'Image',
+            'attribute' => 'src',
             'fieldType' => [
                 'id' => 'image',
                 'props' => [
@@ -36,8 +36,8 @@ class ImageTest extends TestCase
             ->fit('contain');
 
         $expected = [
-            'name' => 'src',
-            'label' => 'Image',
+            'name' => 'Image',
+            'attribute' => 'src',
             'fieldType' => [
                 'id' => 'image',
                 'props' => [

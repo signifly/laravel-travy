@@ -13,8 +13,8 @@ class ColorPickerTest extends TestCase
         $field = ColorPicker::make('Color Code');
 
         $expected = [
-            'name' => 'color_code',
-            'label' => 'Color Code',
+            'name' => 'Color Code',
+            'attribute' => 'color_code',
             'fieldType' => [
                 'id' => 'input-color-picker',
                 'props' => [

@@ -7,7 +7,9 @@ use JsonSerializable;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Signifly\Travy\Schema\Width;
+use Signifly\Travy\Support\PropsResolver;
 use Signifly\Travy\Schema\Concerns\HasProps;
+use Signifly\Travy\Support\AttributeResolver;
 use Signifly\Travy\Schema\Concerns\HasMetaData;
 
 abstract class Field extends FieldElement implements JsonSerializable
@@ -495,7 +497,7 @@ abstract class Field extends FieldElement implements JsonSerializable
     {
         $data = [
             'id' => $this->component,
-            'props' => $this->props(),
+            'props' => (new PropsResolver())->resolve($this->props()),
         ];
 
         return $data;
@@ -517,8 +519,8 @@ abstract class Field extends FieldElement implements JsonSerializable
         }
 
         return array_merge([
-            'name' => $this->attribute,
-            'label' => $this->localize($this->name),
+            'name' => $this->localize($this->name),
+            'attribute' => (new AttributeResolver())->resolve($this->attribute, $this->name),
             'fieldType' => $this->fieldType(),
         ], $this->meta());
     }

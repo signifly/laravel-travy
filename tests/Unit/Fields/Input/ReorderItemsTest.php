@@ -22,8 +22,8 @@ class ReorderItemsTest extends TestCase
             });
 
         $expected = [
-            'name' => 'variants',
-            'label' => 'Variants',
+            'name' => 'Variants',
+            'attribute' => 'variants',
             'fieldType' => [
                 'id' => 'input-reorder-items',
                 'props' => [

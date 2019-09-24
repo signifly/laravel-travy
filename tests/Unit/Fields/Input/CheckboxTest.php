@@ -13,8 +13,8 @@ class CheckboxTest extends TestCase
         $field = Checkbox::make('Accept Terms');
 
         $expected = [
-            'name' => 'accept_terms',
-            'label' => 'Accept Terms',
+            'name' => 'Accept Terms',
+            'attribute' => 'accept_terms',
             'fieldType' => [
                 'id' => 'input-checkbox',
                 'props' => [

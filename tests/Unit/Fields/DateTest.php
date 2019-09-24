@@ -4,6 +4,7 @@ namespace Signifly\Travy\Test\Unit\Fields;
 
 use Signifly\Travy\Fields\Date;
 use Signifly\Travy\Test\TestCase;
+use Signifly\Travy\Support\UnmappedProp;
 
 class DateTest extends TestCase
 {
@@ -13,12 +14,31 @@ class DateTest extends TestCase
         $date = Date::make('Created at');
 
         $expected = [
-            'name' => 'created_at',
-            'label' => 'Created at',
+            'name' => 'Created at',
+            'attribute' => 'created_at',
             'fieldType' => [
                 'id' => 'date',
                 'props' => [
                     'timestamp' => 'created_at',
+                ],
+            ],
+        ];
+        $this->assertEquals($expected, $date->jsonSerialize());
+    }
+
+    /** @test */
+    public function it_serializes_unmapped_timestamp_to_json()
+    {
+        $time = time();
+        $date = Date::make('Created at', new UnmappedProp($time));
+
+        $expected = [
+            'name' => 'Created at',
+            'attribute' => 'created_at',
+            'fieldType' => [
+                'id' => 'date',
+                'props' => [
+                    '_timestamp' => $time,
                 ],
             ],
         ];

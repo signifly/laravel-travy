@@ -15,8 +15,8 @@ class KeyValueBoxTest extends TestCase
             ->addItem('Items', 'items_count');
 
         $expected = [
-            'name' => 'some_title',
-            'label' => 'Some title',
+            'name' => 'Some title',
+            'attribute' => 'some_title',
             'fieldType' => [
                 'id' => 'key-value-box',
                 'props' => [
