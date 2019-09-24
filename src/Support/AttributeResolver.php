@@ -16,7 +16,6 @@ class AttributeResolver
      * The fallback value will be used under the following conditions:
      *  - the value passed is falsey
      *  - an UnmappedProp is passed, but no attribute field value has been set
-     * 
      * @param  [type] $value    [description]
      * @param  string $fallback [description]
      * @return [type]           [description]
