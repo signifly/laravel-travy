@@ -20,8 +20,8 @@ class ReorderMiniTest extends TestCase
             ->value('id');
 
         $expected = [
-            'name' => 'ids',
-            'label' => 'Variants',
+            'name' => 'Variants',
+            'attribute' => 'ids',
             'fieldType' => [
                 'id' => 'input-reorder-mini',
                 'props' => [

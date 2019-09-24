@@ -16,8 +16,8 @@ class ImageTest extends TestCase
             ->size('80px', '80px');
 
         $expected = [
-            'name' => 'image_upload',
-            'label' => 'Image',
+            'name' => 'Image',
+            'attribute' => 'image_upload',
             'fieldType' => [
                 'id' => 'input-image',
                 'props' => [

@@ -13,8 +13,8 @@ class TimeSinceTest extends TestCase
         $date = TimeSince::make('Created at');
 
         $expected = [
-            'name' => 'created_at',
-            'label' => 'Created at',
+            'name' => 'Created at',
+            'attribute' => 'created_at',
             'fieldType' => [
                 'id' => 'time-since',
                 'props' => [

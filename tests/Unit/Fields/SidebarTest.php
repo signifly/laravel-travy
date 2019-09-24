@@ -21,8 +21,8 @@ class SidebarTest extends TestCase
             'title' => 'History',
             'fields' => [
                 [
-                    'name' => 'created_at',
-                    'label' => 'Created at',
+                    'name' => 'Created at',
+                    'attribute' => 'created_at',
                     'fieldType' => [
                         'id' => 'date',
                         'props' => [

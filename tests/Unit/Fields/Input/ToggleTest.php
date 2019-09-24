@@ -13,8 +13,8 @@ class ToggleTest extends TestCase
         $field = Toggle::make('Accept Terms');
 
         $expected = [
-            'name' => 'accept_terms',
-            'label' => 'Accept Terms',
+            'name' => 'Accept Terms',
+            'attribute' => 'accept_terms',
             'fieldType' => [
                 'id' => 'input-switch',
                 'props' => [

@@ -13,8 +13,8 @@ class TextTest extends TestCase
         $field = Text::make('Name');
 
         $expected = [
-            'name' => 'name',
-            'label' => 'Name',
+            'name' => 'Name',
+            'attribute' => 'name',
             'fieldType' => [
                 'id' => 'text',
                 'props' => [
@@ -31,8 +31,8 @@ class TextTest extends TestCase
         $field = Text::make('Name')->asInput();
 
         $expected = [
-            'name' => 'name',
-            'label' => 'Name',
+            'name' => 'Name',
+            'attribute' => 'name',
             'fieldType' => [
                 'id' => 'input-text',
                 'props' => [
@@ -51,8 +51,8 @@ class TextTest extends TestCase
             ->type('email');
 
         $expected = [
-            'name' => 'email',
-            'label' => 'Email',
+            'name' => 'Email',
+            'attribute' => 'email',
             'fieldType' => [
                 'id' => 'input-text',
                 'props' => [
@@ -72,8 +72,8 @@ class TextTest extends TestCase
             ->unit('cm');
 
         $expected = [
-            'name' => 'height',
-            'label' => 'Height',
+            'name' => 'Height',
+            'attribute' => 'height',
             'fieldType' => [
                 'id' => 'input-text',
                 'props' => [

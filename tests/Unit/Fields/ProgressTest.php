@@ -14,8 +14,8 @@ class ProgressTest extends TestCase
             ->color('danger');
 
         $expected = [
-            'name' => 'status',
-            'label' => 'Status',
+            'name' => 'Status',
+            'attribute' => 'status',
             'fieldType' => [
                 'id' => 'progress',
                 'props' => [

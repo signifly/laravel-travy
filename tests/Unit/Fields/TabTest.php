@@ -24,8 +24,8 @@ class TabTest extends TestCase
             'title' => ['text' => 'Details', 'url' => ''],
             'fields' => [
                 [
-                    'name' => 'created_at',
-                    'label' => 'Created at',
+                    'name' => 'Created at',
+                    'attribute' => 'created_at',
                     'fieldType' => [
                         'id' => 'date',
                         'props' => [
