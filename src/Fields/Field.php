@@ -7,7 +7,6 @@ use JsonSerializable;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Signifly\Travy\Schema\Width;
-use Signifly\Travy\Support\UnmappedProp;
 use Signifly\Travy\Support\PropsResolver;
 use Signifly\Travy\Schema\Concerns\HasProps;
 use Signifly\Travy\Support\AttributeResolver;
