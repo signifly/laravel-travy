@@ -21,7 +21,7 @@
         "signifly/laravel-pagination-middleware": "^1.3",
         "spatie/laravel-activitylog": "^3.8",
         "spatie/laravel-query-builder": "^2.0",
-        "waavi/sanitizer": "dev-master"
+        "waavi/sanitizer": "^1.0"
     },
     "require-dev": {
         "phpunit/phpunit": "^7.0|^8.0",
