@@ -3,7 +3,6 @@
 namespace Signifly\Travy\Schema\Concerns;
 
 use Illuminate\Support\Arr;
-use Signifly\Travy\Support\ScopesApplier;
 
 trait HasScopes
 {
