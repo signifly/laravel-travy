@@ -63,7 +63,7 @@ trait HasScopes
      * @param mixed $value
      * @return self
      */
-    public function setScope(string $key, $value): self
+    public function scope(string $key, $value): self
     {
         Arr::set($this->scopes, $key, $value);
 

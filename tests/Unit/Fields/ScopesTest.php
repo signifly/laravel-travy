@@ -11,7 +11,7 @@ class ScopesTest extends TestCase
     public function it_serializes_to_json()
     {
         $field = ReorderItems::make('Variants')
-            ->setScope('items', 'people')
+            ->scope('items', 'people')
             ->image('image_url')
             ->list([
                 ['label' => 'SKU', 'value' => 'sku'],
