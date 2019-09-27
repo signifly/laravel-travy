@@ -8,13 +8,16 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Signifly\Travy\Schema\Width;
 use Signifly\Travy\Support\PropsResolver;
+use Signifly\Travy\Support\ScopesApplier;
 use Signifly\Travy\Schema\Concerns\HasProps;
+use Signifly\Travy\Schema\Concerns\HasScopes;
 use Signifly\Travy\Support\AttributeResolver;
 use Signifly\Travy\Schema\Concerns\HasMetaData;
 
 abstract class Field extends FieldElement implements JsonSerializable
 {
     use HasProps;
+    use HasScopes;
     use HasMetaData;
 
     /**
@@ -497,7 +500,9 @@ abstract class Field extends FieldElement implements JsonSerializable
     {
         $data = [
             'id' => $this->component,
-            'props' => (new PropsResolver())->resolve($this->props()),
+            'props' => (new PropsResolver())->resolve(
+                (new ScopesApplier())->apply($this->props(), $this->scopes())
+            ),
         ];
 
         return $data;
