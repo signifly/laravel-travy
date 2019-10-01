@@ -498,14 +498,10 @@ abstract class Field extends FieldElement implements JsonSerializable
 
     public function fieldType(): array
     {
-        $data = [
+        return [
             'id' => $this->component,
-            'props' => (new PropsResolver())->resolve(
-                (new ScopesApplier())->apply($this->props(), $this->scopes())
-            ),
+            'props' => $this->props(),
         ];
-
-        return $data;
     }
 
     /**
@@ -519,6 +515,11 @@ abstract class Field extends FieldElement implements JsonSerializable
             $this->applyOptions();
         }
 
+        // Guard against invalid props *before* transforming (mapped/unmapped and scoping) them...
+        $fieldType = $this->fieldType();
+        $this->guardAgainstInvalidProps($fieldType['props']);
+        $fieldType['props'] = $this->transformProps($fieldType['props']);
+
         if ($this->linkable && $this->linksTo) {
             $this->withMeta(['onClick' => $this->linksTo]);
         }
@@ -526,7 +527,14 @@ abstract class Field extends FieldElement implements JsonSerializable
         return array_merge([
             'name' => $this->localize($this->name),
             'attribute' => (new AttributeResolver())->resolve($this->attribute, $this->name),
-            'fieldType' => $this->fieldType(),
+            'fieldType' => $fieldType,
         ], $this->meta());
+    }
+
+    protected function transformProps(array $props): array
+    {
+        return (new PropsResolver())->resolve(
+            (new ScopesApplier())->apply($props, $this->scopes())
+        );
     }
 }

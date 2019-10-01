@@ -38,7 +38,7 @@ class ScopesTest extends TestCase
                         ],
                         'actions' => [],
                     ],
-                    'endpoint' => [
+                    '_endpoint' => [
                         'url' => 'some_url',
                         'method' => 'post',
                         'payload' => [

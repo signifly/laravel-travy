@@ -33,7 +33,7 @@ class ReorderMiniTest extends TestCase
                     'options' => [
                         'key' => 'data',
                         'value' => 'id',
-                        'endpoint' => [
+                        '_endpoint' => [
                             'url' => 'some_url',
                         ],
                     ],

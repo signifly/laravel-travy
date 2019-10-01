@@ -3,6 +3,7 @@
 namespace Signifly\Travy\Fields\Input;
 
 use Signifly\Travy\Fields\Field;
+use Signifly\Travy\Support\UnmappedProp;
 use Signifly\Travy\Schema\Concerns\HasOptions;
 use Signifly\Travy\Schema\Concerns\HasEndpoint;
 
@@ -66,7 +67,7 @@ class ReorderMini extends Field
     public function applyOptions()
     {
         if ($this->endpoint) {
-            $this->withOptions(['endpoint' => $this->endpoint->toArray()]);
+            $this->withOptions(['endpoint' => new UnmappedProp($this->endpoint->toArray())]);
         }
 
         $this->withProps([
