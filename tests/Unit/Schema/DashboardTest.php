@@ -27,7 +27,7 @@ class DashboardTest extends TestCase
             $this->assertCount(1, Arr::get($data, 'sections'));
             $this->assertEquals('Default', Arr::get($data, 'sections.0.title.text'));
             $this->assertEquals('table', Arr::get($data, 'sections.0.type'));
-            $this->assertEquals('some_url', Arr::get($data, 'sections.0.endpoint.url'));
+            $this->assertEquals('some_url', Arr::get($data, 'sections.0._endpoint.url'));
         });
     }
 }

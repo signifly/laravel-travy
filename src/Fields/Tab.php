@@ -137,13 +137,15 @@ class Tab extends FieldElement implements JsonSerializable
      * Prepare the sidebar for JSON serialization.
      *
      * @return array
+     *
+     * @todo Need to apply props transforming here in a manner consistent with other fields.
      */
     public function jsonSerialize(): array
     {
         return [
             'id' => $this->attribute,
             'type' => $this->type,
-            'endpoint' => $this->endpoint->toArray(),
+            '_endpoint' => $this->endpoint->toArray(),
             'title' => ['text' => $this->localize($this->name), 'url' => $this->url],
             'fields' => FieldCollection::make($this->fields)->prepared(),
         ];

@@ -20,7 +20,7 @@ class TabTest extends TestCase
         $expected = [
             'id' => 'details',
             'type' => 'fields',
-            'endpoint' => ['url' => 'http://localhost/v1/admin/products/{id}'],
+            '_endpoint' => ['url' => 'http://localhost/v1/admin/products/{id}'],
             'title' => ['text' => 'Details', 'url' => ''],
             'fields' => [
                 [

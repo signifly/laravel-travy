@@ -3,6 +3,8 @@
 namespace Signifly\Travy\Schema\Concerns;
 
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Validator;
+use Signifly\Travy\Exceptions\InvalidPropsException;
 
 trait HasProps
 {
@@ -12,6 +14,8 @@ trait HasProps
      * @var array
      */
     protected $props = [];
+
+    protected $propsValidationRules = [];
 
     /**
      * Forget a given prop.
@@ -81,5 +85,14 @@ trait HasProps
         $this->props = array_merge($this->props, $props);
 
         return $this;
+    }
+
+    public function guardAgainstInvalidProps(array $props)
+    {
+        $validator = Validator::make($props, $this->propsValidationRules);
+
+        if ($validator->fails()) {
+            throw new InvalidPropsException($validator->errors());
+        }
     }
 }

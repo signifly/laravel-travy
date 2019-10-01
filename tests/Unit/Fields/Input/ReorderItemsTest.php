@@ -4,6 +4,7 @@ namespace Signifly\Travy\Test\Unit\Fields\Input;
 
 use Signifly\Travy\Test\TestCase;
 use Signifly\Travy\Fields\Input\ReorderItems;
+use Signifly\Travy\Exceptions\InvalidPropsException;
 
 class ReorderItemsTest extends TestCase
 {
@@ -36,7 +37,7 @@ class ReorderItemsTest extends TestCase
                         ],
                         'actions' => [],
                     ],
-                    'endpoint' => [
+                    '_endpoint' => [
                         'url' => 'some_url',
                         'method' => 'post',
                         'payload' => [
@@ -47,5 +48,16 @@ class ReorderItemsTest extends TestCase
             ],
         ];
         $this->assertEquals($expected, $field->jsonSerialize());
+    }
+
+    /** @test */
+    public function it_throws_if_endpoint_hasnt_been_set()
+    {
+        $this->expectException(InvalidPropsException::class);
+
+        $field = ReorderItems::make('Variants')
+            ->image('image_url');
+
+        $field->jsonSerialize();
     }
 }

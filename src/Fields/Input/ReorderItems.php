@@ -3,6 +3,7 @@
 namespace Signifly\Travy\Fields\Input;
 
 use Signifly\Travy\Fields\Field;
+use Signifly\Travy\Support\UnmappedProp;
 use Signifly\Travy\Schema\Concerns\HasActions;
 use Signifly\Travy\Schema\Concerns\HasEndpoint;
 
@@ -10,6 +11,11 @@ class ReorderItems extends Field
 {
     use HasActions;
     use HasEndpoint;
+
+    protected $propsValidationRules = [
+        'endpoint' => 'required',
+        'items' => 'required|array',
+    ];
 
     /**
      * The field's component.
@@ -63,6 +69,8 @@ class ReorderItems extends Field
     {
         $this->setProp('items.data', $this->attribute);
         $this->setProp('items.actions', $this->preparedActions());
-        $this->setProp('endpoint', $this->endpoint->toArray());
+        if ($this->hasEndpoint()) {
+            $this->setProp('endpoint', new UnmappedProp($this->endpoint->toArray()));
+        }
     }
 }
