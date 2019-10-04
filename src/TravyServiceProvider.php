@@ -61,7 +61,7 @@ class TravyServiceProvider extends ServiceProvider
 
             return true;
         });
-        Validator::replacer('unmapped_prop', function($message, $attribute, $rule, $parameters) {
+        Validator::replacer('unmapped_prop', function ($message, $attribute, $rule, $parameters) {
             return str_replace($message, 'This prop must be unmapped or its value must be valid (see docs).', $message);
         });
     }
