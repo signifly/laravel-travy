@@ -123,7 +123,9 @@ class ReorderItemsTest extends TestCase
             [['array', 'of', 'strings']],
             [1234],
             [1.234],
-            [function () { return 'any value'; }],
+            [function () {
+                return 'any value';
+            }],
             [new \stdClass()],
         ];
     }
