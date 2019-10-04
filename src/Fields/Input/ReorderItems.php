@@ -15,6 +15,9 @@ class ReorderItems extends Field
     protected $propsValidationRules = [
         'endpoint' => 'required',
         'items' => 'required|array',
+        'items.list' => 'required|array',
+        'items.list.*.label' => 'required|string',
+        'items.list.*.value' => 'required',
     ];
 
     /**

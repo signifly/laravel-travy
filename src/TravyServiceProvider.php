@@ -4,6 +4,8 @@ namespace Signifly\Travy;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\ServiceProvider;
+use Signifly\Travy\Support\UnmappedProp;
+use Illuminate\Support\Facades\Validator;
 use Signifly\Travy\Commands\ViewTravyCommand;
 use Signifly\Travy\Commands\FieldTravyCommand;
 use Signifly\Travy\Commands\TableTravyCommand;
@@ -21,6 +23,7 @@ class TravyServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->offerPublishing();
+        $this->extendValidator();
     }
 
     /**
@@ -35,6 +38,32 @@ class TravyServiceProvider extends ServiceProvider
                 __DIR__.'/../config/travy.php' => config_path('travy.php'),
             ], 'laravel-travy');
         }
+    }
+
+    /**
+     * Setup the custom validation for Travy.
+     *
+     * @return void
+     */
+    protected function extendValidator(): void
+    {
+        Validator::extend('unmapped_prop', function ($attribute, $value, $parameters, $validator) {
+            if (! $value instanceof UnmappedProp) {
+                return false;
+            }
+
+            if ($parameters) {
+                /** @todo Only simple 'extended' validation is supported for now, with each rule comma-separated. */
+                $rules = [$attribute => implode('|', $parameters)];
+
+                return Validator::make([$attribute => $value->getValue()], $rules)->passes();
+            }
+
+            return true;
+        });
+        Validator::replacer('unmapped_prop', function($message, $attribute, $rule, $parameters) {
+            return str_replace($message, "This prop must be unmapped or its value must be valid (see docs).", $message);
+        });
     }
 
     /**

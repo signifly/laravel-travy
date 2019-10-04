@@ -3,9 +3,18 @@
 namespace Signifly\Travy\Fields\Input;
 
 use Signifly\Travy\Fields\Field;
+use Signifly\Travy\Support\UnmappedProp;
+use Signifly\Travy\Schema\Concerns\CanDisable;
 
 class Number extends Field
 {
+    use CanDisable;
+
+    protected $propsValidationRules = [
+        'disabled' => 'unmapped_prop:boolean',
+        'unit' => 'unmapped_prop:string',
+    ];
+
     /**
      * The field's component.
      *
@@ -28,7 +37,7 @@ class Number extends Field
      */
     public function unit(string $unit): self
     {
-        return $this->withProps(compact('unit'));
+        return $this->withProps(['unit' => new UnmappedProp($unit)]);
     }
 
     /**

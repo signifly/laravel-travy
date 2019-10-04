@@ -13,6 +13,10 @@ class Checkbox extends Field
      */
     public $component = 'input-checkbox';
 
+    protected $propsValidationRules = [
+        'value' => 'required',
+    ];
+
     /**
      * The options to apply to the field type.
      *

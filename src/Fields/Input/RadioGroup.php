@@ -3,9 +3,17 @@
 namespace Signifly\Travy\Fields\Input;
 
 use Signifly\Travy\Fields\Field;
+use Signifly\Travy\Support\UnmappedProp;
 
 class RadioGroup extends Field
 {
+    protected $propsValidationRules = [
+        'items' => 'required|unmapped_prop:array',
+        // 'items.*.disabled' => 'boolean',
+        // 'items.*.label' => 'required|string',
+        // 'items.*.value' => 'required', /** @todo String, number, or boolean. */
+    ];
+
     /**
      * The field's component.
      *
@@ -28,7 +36,7 @@ class RadioGroup extends Field
      */
     public function items(array $items): self
     {
-        return $this->withProps(['items' => $items]);
+        return $this->withProps(['items' => new UnmappedProp($items)]);
     }
 
     /**

@@ -3,15 +3,27 @@
 namespace Signifly\Travy\Fields\Input;
 
 use Signifly\Travy\Fields\Field;
+use Signifly\Travy\Support\UnmappedProp;
+use Signifly\Travy\Schema\Concerns\CanDisable;
 
 class DatePicker extends Field
 {
+    use CanDisable;
+
     /**
      * The field's component.
      *
      * @var string
      */
     public $component = 'input-date';
+
+    protected $propsValidationRules = [
+        'clearable' => 'unmapped_prop:boolean',
+        'disabled' => 'unmapped_prop:boolean',
+        'format' => 'unmapped_prop:string',
+        'formatValue' => 'unmapped_prop:string',
+        'type' => 'unmapped_prop:string',
+    ];
 
     /**
      * Indicates if the element should be shown on the index view.
@@ -26,9 +38,9 @@ class DatePicker extends Field
      * @param  bool $value
      * @return self
      */
-    public function clearable($value = true): self
+    public function clearable(bool $value = true): self
     {
-        return $this->withProps(['clearable' => $value]);
+        return $this->withProps(['clearable' => new UnmappedProp($value)]);
     }
 
     /**
@@ -39,7 +51,7 @@ class DatePicker extends Field
      */
     public function format(string $value): self
     {
-        return $this->withProps(['format' => $value]);
+        return $this->withProps(['format' => new UnmappedProp($value)]);
     }
 
     /**
@@ -50,7 +62,7 @@ class DatePicker extends Field
      */
     public function formatValue(string $value): self
     {
-        return $this->withProps(['formatValue' => $value]);
+        return $this->withProps(['formatValue' => new UnmappedProp($value)]);
     }
 
     /**
@@ -61,7 +73,7 @@ class DatePicker extends Field
      */
     public function type(string $type): self
     {
-        return $this->withProps(compact('type'));
+        return $this->withProps(['type' => new UnmappedProp($type)]);
     }
 
     /**

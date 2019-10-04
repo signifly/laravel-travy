@@ -3,9 +3,20 @@
 namespace Signifly\Travy\Fields\Input;
 
 use Signifly\Travy\Fields\Field;
+use Signifly\Travy\Support\UnmappedProp;
+use Signifly\Travy\Schema\Concerns\CanDisable;
 
 class Precision extends Field
 {
+    use CanDisable;
+
+    protected $propsValidationRules = [
+        'disabled' => 'unmapped_prop:boolean',
+        'max' => 'unmapped_prop:numeric',
+        'precision' => 'unmapped_prop:integer',
+        'step' => 'unmapped_prop:numeric',
+    ];
+
     /**
      * The field's component.
      *
@@ -28,7 +39,7 @@ class Precision extends Field
      */
     public function max(float $value): self
     {
-        return $this->withProps(['max' => $value]);
+        return $this->withProps(['max' => new UnmappedProp($value)]);
     }
 
     /**
@@ -39,7 +50,7 @@ class Precision extends Field
      */
     public function precision(int $value): self
     {
-        return $this->withProps(['precision' => $value]);
+        return $this->withProps(['precision' => new UnmappedProp($value)]);
     }
 
     /**
@@ -50,7 +61,7 @@ class Precision extends Field
      */
     public function step(float $value): self
     {
-        return $this->withProps(['step' => $value]);
+        return $this->withProps(['step' => new UnmappedProp($value)]);
     }
 
     /**

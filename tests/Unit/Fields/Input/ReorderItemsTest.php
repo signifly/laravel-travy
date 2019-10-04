@@ -60,4 +60,89 @@ class ReorderItemsTest extends TestCase
 
         $field->jsonSerialize();
     }
+
+    /** @test */
+    public function it_throws_if_list_is_missing()
+    {
+        $this->expectException(InvalidPropsException::class);
+
+        $field = ReorderItems::make('Variants')
+            ->endpoint('some_url', function ($endpoint) {
+                $endpoint->usingMethod('post')
+                    ->payload(['type' => 'ReorderVariants']);
+            });
+
+        $field->jsonSerialize();
+    }
+
+    /** @test */
+    public function it_throws_if_list_element_label_is_missing()
+    {
+        $this->expectException(InvalidPropsException::class);
+
+        $field = ReorderItems::make('Variants')
+            ->list([
+                ['label' => 'SKU', 'value' => 'sku'],
+                ['NO_LABEL' => 'Items', 'value' => 'items_count'],
+            ])
+            ->endpoint('some_url', function ($endpoint) {
+                $endpoint->usingMethod('post')
+                    ->payload(['type' => 'ReorderVariants']);
+            });
+
+        $field->jsonSerialize();
+    }
+
+    /**
+     * @test
+     * @dataProvider provideInvalidListLabelValues
+     */
+    public function it_throws_if_list_element_label_value_is_not_valid($invalidLabelValue)
+    {
+        $this->expectException(InvalidPropsException::class);
+
+        $field = ReorderItems::make('Variants')
+            ->list([
+                ['label' => 'SKU', 'value' => 'sku'],
+                ['label' => $invalidLabelValue, 'value' => 'items_count'],
+            ])
+            ->endpoint('some_url', function ($endpoint) {
+                $endpoint->usingMethod('post')
+                    ->payload(['type' => 'ReorderVariants']);
+            });
+
+        $field->jsonSerialize();
+    }
+
+    public function provideInvalidListLabelValues(): array
+    {
+        return [
+            [null],
+            [true],
+            [false],
+            [['array', 'of', 'strings']],
+            [1234],
+            [1.234],
+            [function () { return 'any value'; }],
+            [new \stdClass()],
+        ];
+    }
+
+    /** @test */
+    public function it_throws_if_list_element_value_is_missing()
+    {
+        $this->expectException(InvalidPropsException::class);
+
+        $field = ReorderItems::make('Variants')
+            ->list([
+                ['label' => 'SKU', 'value' => 'sku'],
+                ['label' => 'Items', 'NO_VALUE' => 'items_count'],
+            ])
+            ->endpoint('some_url', function ($endpoint) {
+                $endpoint->usingMethod('post')
+                    ->payload(['type' => 'ReorderVariants']);
+            });
+
+        $field->jsonSerialize();
+    }
 }

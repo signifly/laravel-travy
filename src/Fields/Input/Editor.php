@@ -3,9 +3,16 @@
 namespace Signifly\Travy\Fields\Input;
 
 use Signifly\Travy\Fields\Field;
+use Signifly\Travy\Schema\Concerns\CanDisable;
 
 class Editor extends Field
 {
+    use CanDisable;
+
+    protected $propsValidationRules = [
+        'disabled' => 'unmapped_prop:boolean',
+    ];
+
     /**
      * The field's component.
      *

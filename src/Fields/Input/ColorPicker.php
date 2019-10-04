@@ -13,6 +13,10 @@ class ColorPicker extends Field
      */
     public $component = 'input-color-picker';
 
+    protected $propsValidationRules = [
+        'value' => 'required',
+    ];
+
     /**
      * The options to apply to the field type.
      *
