@@ -1,0 +1,354 @@
+{
+    "pageTitle": "Project {name}",
+    "hero": {
+        "title": "Hello {name}",
+        "subtitle": "Subtitle"
+    },
+    "modifiers": {
+        "data": {
+            "language_code": "dk"
+        },
+        "fields": [
+            {
+                "attribute": "language_code1",
+                "name": "Language",
+                "width": 200,
+                "fieldType": {
+                    "id": "input-select",
+                    "props": {
+                        "_clearable": false,
+                        "value": "language_code",
+                        "_entities": [
+                            {"label": "Danmark", "emoji": "denmark", "value": "dk"},
+                            {"label": "England", "emoji": "uk", "value": "uk"},
+                            {"label": "Murica", "emoji": "us", "value": "us", "disabled": true}
+                        ]
+                    }
+                }
+            },
+            {
+                "attribute": "language_code2",
+                "name": "Language",
+                "width": 200,
+                "fieldType": {
+                    "id": "input-select",
+                    "props": {
+                        "_clearable": false,
+                        "value": "language_code",
+                        "_entities": [
+                            {"label": "Danmark", "emoji": "denmark", "value": "dk"},
+                            {"label": "England", "emoji": "uk", "value": "uk"},
+                            {"label": "Murica", "emoji": "us", "value": "us", "disabled": true}
+                        ]
+                    }
+                }
+            }
+        ]
+    },
+    "tabs": [
+        {
+            "id": "fields",
+            "name": "Fields",
+            "type": "fields",
+            "definitions": {
+                "endpoint": {
+                    "url": "/projects/{id}"
+                },
+                "fields": [
+                    {
+                        "name": "Name",
+                        "attribute": "name",
+                        "fieldType": {"id": "text", "props": {"text": "name"}}
+                    },
+                    {
+                        "name": "Text",
+                        "attribute": "text",
+                        "fieldType": {"id": "input-text", "props": {"value": "text"}}
+                    }
+                ]
+            }
+        },
+        {
+            "id": "stuff1",
+            "name": "stuff1",
+            "type": "table",
+            "definitions": {
+                "expand": {
+                    "type": "fields",
+                    "fields": [
+                        {
+                            "width": 50,
+                            "name": "Name",
+                            "attribute": "name",
+                            "fieldType": {"id": "text", "props": {"text": "name"}}
+                        },
+                        {
+                            "width": 50,
+                            "name": "Tags",
+                            "attribute": "tags",
+                            "fieldType": {
+                                "id": "list-tooltip",
+                                "props": {
+                                    "items": {
+                                        "_link": "/i/tags/{id}",
+                                        "@scope": "tags",
+                                        "label": "key"
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "name": "Input",
+                            "attribute": "input",
+                            "fieldType": {
+                                "id": "input-switch",
+                                "props": {
+                                    "value": "switch"
+                                }
+                            }
+                        }
+                    ]
+                },
+                "batch": {
+                    "selectedOptions": {
+                        "label": "{name}",
+                        "link": "/i/projects/{id}"
+                    },
+                    "sequential": {
+                        "url": "/i/projects/{id}"
+                    }
+                },
+                "endpoint": {
+                    "url": "http://localhost:3001/v1/admin/projects",
+                    "params": {"include": ["tags"]}
+                },
+                "pagination": {},
+                "sort": {
+                    "default": "name",
+                    "items": [
+                        {"label": "Name", "value": "name"},
+                        {"label": "Input", "value": "input"},
+                        {"label": "Position", "value": "position", "manual": true}
+                    ]
+                },
+                "columns": [
+                    {
+                        "width": 350,
+                        "name": "Name",
+                        "fieldType": {"id": "text", "props": {"text": "name"}},
+                        "onClick": "/i/projects/{id}"
+                    },
+                    {
+                        "name": "Tags",
+                        "fieldType": {
+                            "id": "list-tooltip",
+                            "props": {
+                                "items": {
+                                    "_link": "/i/tags/{id}",
+                                    "@scope": "tags",
+                                    "label": "key"
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "name": "input",
+                        "fieldType": {
+                            "id": "input-switch",
+                            "props": {
+                                "value": "switch"
+                            }
+                        }
+                    }
+                ],
+                "filters": {
+                    "data": {
+                        "name": "test"
+                    },
+                    "search": {
+                        "placeholder": "Search..."
+                    },
+                    "fields": [
+                        {
+                            "name": "Name",
+                            "attribute": "name",
+                            "fieldType": {"id": "input-text", "props": {"value": "name"}}
+                        }
+                    ]
+                },
+                "actions": [
+                    {
+                        "name": "Add project",
+                        "status": "primary",
+                        "icon": "eleme",
+                        "actionType": {
+                            "id": "modal",
+                            "props": {
+                                "id": "modal",
+                                "name": "Add project",
+                                "fields": [
+                                    {
+                                        "name": "Country",
+                                        "attribute": "country",
+                                        "fieldType": {
+                                            "id": "input-select",
+                                            "props": {
+                                                "value": "country",
+                                                "_entities": [
+                                                    {
+                                                        "label": "Denmark",
+                                                        "emoji": "denmark",
+                                                        "value": "dk"
+                                                    },
+                                                    {
+                                                        "label": "England",
+                                                        "emoji": "uk",
+                                                        "value": "uk"
+                                                    },
+                                                    {
+                                                        "label": "Murica",
+                                                        "emoji": "us",
+                                                        "value": "us",
+                                                        "disabled": true
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "attribute": "name",
+                                        "name": "Name",
+                                        "fieldType": {"id": "input-text", "props": {"value": "name"}}
+                                    },
+                                    {
+                                        "attribute": "start_date",
+                                        "name": "Start Date",
+                                        "fieldType": {
+                                            "id": "input-date",
+                                            "props": {"formatValue": "yyyy-MM-dd", "date": "start_date"}
+                                        }
+                                    },
+                                    {
+                                        "attribute": "description",
+                                        "name": "Description",
+                                        "fieldType": {
+                                            "id": "input-editor-markdown",
+                                            "props": {"content": "description"}
+                                        }
+                                    }
+                                ],
+                                "payload": {
+                                    "data": {
+                                        "client_id": "",
+                                        "name": "",
+                                        "start_date": "",
+                                        "tags": [],
+                                        "description": ""
+                                    }
+                                },
+                                "endpoint": {
+                                    "url": "http://localhost:3001/v1/admin/projects",
+                                    "method": "post"
+                                }
+                            }
+                        }
+                    }
+                ]
+            }
+        }
+    ],
+    "endpoint": {"url": "http://localhost:3001/v1/admin/projects/{id}"},
+    "activity": {},
+    "actions": [
+        {
+            "status": "danger",
+            "icon": "delete",
+            "name": "Delete",
+            "actionType": {
+                "onSubmit": {
+                    "url": "/i/projects"
+                },
+                "id": "popup",
+                "props": {
+                    "title": "Delete",
+                    "text": "Are you sure? Please confirm this action.",
+                    "endpoint": {
+                        "url": "http://localhost:3001/v1/admin/projects/{id}",
+                        "method": "delete"
+                    },
+                    "payload": {
+                        "type": "a type",
+                        "data": {
+                            "test": "test"
+                        }
+                    }
+                }
+            }
+        },
+        {
+            "status": "danger",
+            "icon": "delete",
+            "name": "Delete2",
+            "actionType": {
+                "onSubmit": {
+                    "url": "/i/projects"
+                },
+                "id": "popup",
+                "props": {
+                    "title": "Delete",
+                    "text": "Are you sure? Please confirm this action.",
+                    "endpoint": {
+                        "url": "http://localhost:3001/v1/admin/projects/{id}",
+                        "method": "delete"
+                    },
+                    "payload": {
+                        "type": "a type",
+                        "data": {
+                            "test": "test"
+                        }
+                    }
+                }
+            }
+        }
+    ],
+    "sidebar": {
+        "name": "Name",
+        "sections": [
+            {
+                "name": "History",
+                "fields": [
+                    {
+                        "attribute": "created_at",
+                        "name": "Created At",
+                        "fieldType": {"id": "date", "props": {"timestamp": "created_at"}}
+                    },
+                    {
+                        "attribute": "creator.name",
+                        "name": "Created By",
+                        "fieldType": {"id": "text", "props": {"text": "creator.name"}}
+                    },
+                    {
+                        "attribute": "updated_at",
+                        "name": "Last Modified",
+                        "fieldType": {"id": "date", "props": {"timestamp": "updated_at"}}
+                    },
+                    {
+                        "attribute": "editor.name",
+                        "name": "Last Modified By",
+                        "fieldType": {"id": "text", "props": {"text": "editor.name"}}
+                    }
+                ]
+            },
+            {
+                "name": "Test",
+                "fields": [
+                    {
+                        "name": "Name",
+                        "attribute": "name",
+                        "fieldType": {"id": "input-text", "props": {"value": "name"}}
+                    }
+                ]
+            }
+        ]
+    }
+}
