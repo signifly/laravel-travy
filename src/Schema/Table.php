@@ -3,7 +3,6 @@
 namespace Signifly\Travy\Schema;
 
 use JsonSerializable;
-use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Contracts\Support\Arrayable;
@@ -12,49 +11,12 @@ use Signifly\Travy\Contracts\Table as Contract;
 
 abstract class Table implements Contract, Arrayable, JsonSerializable, Responsable
 {
-    /** @var bool */
-    protected $pagination = true;
-
-    /** @var string */
-    protected $channel;
-
-    /** @var string */
-    protected $creationRedirectTo;
-
-    /** @var string */
-    protected $searchPlaceholder;
-
     /** @var \Illuminate\Http\Request */
     protected $request;
 
     public function __construct(Request $request)
     {
         $this->request = $request;
-    }
-
-    public function actions(): array
-    {
-        return [];
-    }
-
-    public function batch(): ?Batch
-    {
-        return null;
-    }
-
-    public function filters(): array
-    {
-        return [];
-    }
-
-    public function modifiers(): array
-    {
-        return [];
-    }
-
-    public function subtable(): ?Subtable
-    {
-        return null;
     }
 
     public function preparedActions(): array
@@ -81,47 +43,77 @@ abstract class Table implements Contract, Arrayable, JsonSerializable, Responsab
         return $this->toArray();
     }
 
-    public function toArray()
+    public function toSchema(): Schema
     {
-        $schema = [
+        $schema = new Schema([
             'columns' => $this->preparedColumns(),
-            'defaults' => (object) $this->defaults(),
-            'endpoint' => $this->endpoint()->toArray(),
-        ];
+            'endpoint' => $this->endpoint(),
+        ]);
 
-        if ($this->pagination) {
-            Arr::set($schema, 'pagination', (object) []);
-        }
+        $this->applyConcerns($schema);
 
-        if (count($this->actions()) > 0) {
-            Arr::set($schema, 'actions', $this->preparedActions());
-        }
-
-        if (count($this->filters()) > 0) {
-            Arr::set($schema, 'filters', $this->filters());
-        }
-
-        if (count($this->modifiers()) > 0) {
-            Arr::set($schema, 'modifiers', $this->modifiers());
-        }
-
-        if ($this->searchPlaceholder) {
-            Arr::set($schema, 'search.placeholder', $this->searchPlaceholder);
-        }
-
-        if ($batch = $this->batch()) {
-            Arr::set($schema, 'batch', $batch->jsonSerialize());
-        }
-
-        if ($subtable = $this->subtable()) {
-            Arr::set($schema, 'subtable', $subtable->jsonSerialize());
-        }
-
-        if ($this->channel) {
-            Arr::set($schema, 'ws.channel', $this->channel);
+        // Allow doing some final configurations
+        if (method_exists($this, 'prepareSchema')) {
+            $this->prepareSchema($schema);
         }
 
         return $schema;
+    }
+
+    public function toArray()
+    {
+        return $this->toSchema()->toArray();
+    }
+
+    protected function applyConcerns(Schema $schema): void
+    {
+        foreach (class_implements($this) as $interface) {
+            $method = 'apply'.class_basename($interface);
+
+            if (method_exists($this, $method)) {
+                $this->$method($schema);
+            }
+        }
+    }
+
+    protected function applyWithActions(Schema $schema): void
+    {
+        $schema->set('actions', $this->preparedActions());
+    }
+
+    protected function applyWithBatchActions(Schema $schema): void
+    {
+        $schema->set('batch', $this->batch()->jsonSerialize());
+    }
+
+    protected function applyWithChannel(Schema $schema): void
+    {
+        $schema->set('ws.channel', $this->channel());
+    }
+
+    protected function applyWithDefaults(Schema $schema): void
+    {
+        $schema->set('defaults', $this->defaults());
+    }
+
+    protected function applyWithExpand(Schema $schema): void
+    {
+        $schema->set('expand', $this->expand()->jsonSerialize());
+    }
+
+    protected function applyWithFilters(Schema $schema): void
+    {
+        $schema->set('filters', $this->filters());
+    }
+
+    protected function applyWithPagination(Schema $schema): void
+    {
+        $schema->set('pagination', (object) []);
+    }
+
+    protected function applyWithSearch(Schema $schema): void
+    {
+        $schema->set('search.placeholder', $this->searchPlaceholder());
     }
 
     public function toResponse($request)

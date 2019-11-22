@@ -8,7 +8,5 @@ interface Table
 {
     public function columns(): array;
 
-    public function defaults(): array;
-
     public function endpoint(): Endpoint;
 }
