@@ -8,7 +8,7 @@ class PropsResolver
     {
         return collect($props)->mapWithKeys(function ($value, $key) {
             if (is_array($value)) {
-                $value = (new self())->resolve($value);
+                $value = $this->resolve($value);
             } elseif ($value instanceof UnmappedProp) {
                 $key = "_{$key}";
                 $value = $value->getValue();
