@@ -2,6 +2,7 @@
 
 namespace Signifly\Travy\Schema;
 
+use Illuminate\Support\Arr;
 use Signifly\Travy\Concerns\WithModifiers;
 use Signifly\Travy\Contracts\Index as Contract;
 
@@ -22,7 +23,7 @@ abstract class Index extends Definition implements Contract
         ];
 
         if ($this instanceof WithModifiers) {
-            $schema['modifiers'] = $this->modifiers();
+            Arr::set($schema, 'modifiers', $this->modifiers());
         }
 
         return $schema;
