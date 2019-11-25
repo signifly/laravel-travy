@@ -4,6 +4,7 @@ namespace Signifly\Travy\Test\Unit\Schema;
 
 use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
+use Signifly\Travy\Fields\Text;
 use Signifly\Travy\Schema\Index;
 use Signifly\Travy\Test\TestCase;
 use Signifly\Travy\Concerns\WithModifiers;
@@ -77,8 +78,7 @@ class ModifierShopIndex extends ShopIndex implements WithModifiers
     public function modifiers(): array
     {
         return [
-            'data' => (object) [],
-            'fields' => (object) [],
+            Text::make('Shop')->asInput(),
         ];
     }
 }

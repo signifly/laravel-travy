@@ -4,11 +4,9 @@ namespace Signifly\Travy\Test\Unit\Schema;
 
 use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
-use Signifly\Travy\Fields\Text;
-use Signifly\Travy\Schema\Table;
 use Signifly\Travy\Test\TestCase;
-use Signifly\Travy\Schema\Endpoint;
 use Signifly\Travy\Concerns\WithDefaults;
+use Signifly\Travy\Test\Support\Table\TestTable;
 
 class TableTest extends TestCase
 {
@@ -46,21 +44,5 @@ class TableTest extends TestCase
             $this->assertEquals('some_url', Arr::get($data, 'endpoint.url'));
             $this->assertEquals('title', data_get($data, 'defaults.sort.prop'));
         });
-    }
-}
-
-class TestTable extends Table
-{
-    public function columns(): array
-    {
-        return [
-            Text::make('Title')
-                ->sortable(),
-        ];
-    }
-
-    public function endpoint(): Endpoint
-    {
-        return new Endpoint('some_url');
     }
 }
