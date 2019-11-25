@@ -1,12 +1,10 @@
 <?php
 
-namespace Signifly\Travy\Contracts;
+namespace Signifly\Travy\Concerns;
 
 use Signifly\Travy\Schema\Endpoint;
 
-interface View
+interface WithEndpoint
 {
-    public function tabs(): array;
-
     public function endpoint(): Endpoint;
 }

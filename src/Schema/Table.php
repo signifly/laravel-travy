@@ -2,18 +2,12 @@
 
 namespace Signifly\Travy\Schema;
 
-use Illuminate\Http\Request;
+use Signifly\Travy\Concerns\AppliesConcerns;
 use Signifly\Travy\Contracts\Table as Contract;
 
 abstract class Table extends Definition implements Contract
 {
-    /** @var \Illuminate\Http\Request */
-    protected $request;
-
-    public function __construct(Request $request)
-    {
-        $this->request = $request;
-    }
+    use AppliesConcerns;
 
     public function preparedActions(): array
     {
@@ -54,56 +48,5 @@ abstract class Table extends Definition implements Contract
     public function toArray()
     {
         return $this->toSchema()->toArray();
-    }
-
-    protected function applyConcerns(Schema $schema): void
-    {
-        foreach (class_implements($this) as $interface) {
-            $method = 'apply'.class_basename($interface);
-
-            if (method_exists($this, $method)) {
-                $this->$method($schema);
-            }
-        }
-    }
-
-    protected function applyWithActions(Schema $schema): void
-    {
-        $schema->set('actions', $this->preparedActions());
-    }
-
-    protected function applyWithBatchActions(Schema $schema): void
-    {
-        $schema->set('batch', $this->batch()->jsonSerialize());
-    }
-
-    protected function applyWithChannel(Schema $schema): void
-    {
-        $schema->set('ws.channel', $this->channel());
-    }
-
-    protected function applyWithDefaults(Schema $schema): void
-    {
-        $schema->set('defaults', $this->defaults());
-    }
-
-    protected function applyWithExpand(Schema $schema): void
-    {
-        $schema->set('expand', $this->expand()->jsonSerialize());
-    }
-
-    protected function applyWithFilters(Schema $schema): void
-    {
-        $schema->set('filters', $this->filters());
-    }
-
-    protected function applyWithPagination(Schema $schema): void
-    {
-        $schema->set('pagination', (object) []);
-    }
-
-    protected function applyWithSearch(Schema $schema): void
-    {
-        $schema->set('search.placeholder', $this->searchPlaceholder());
     }
 }

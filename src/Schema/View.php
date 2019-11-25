@@ -2,97 +2,48 @@
 
 namespace Signifly\Travy\Schema;
 
-use JsonSerializable;
-use Illuminate\Support\Arr;
-use Illuminate\Http\Request;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Contracts\Support\Arrayable;
-use Illuminate\Contracts\Support\Responsable;
+use Signifly\Travy\Concerns\WithEndpoint;
+use Signifly\Travy\Concerns\AppliesConcerns;
 use Signifly\Travy\Contracts\View as Contract;
 
-abstract class View implements Contract, Arrayable, JsonSerializable, Responsable
+abstract class View extends Definition implements Contract, WithEndpoint
 {
-    /** @var bool */
-    protected $activity = false;
+    use AppliesConcerns;
 
-    /** @var \Illuminate\Http\Request */
-    protected $request;
+    abstract public function pageTitle(): string;
 
-    public function __construct(Request $request)
-    {
-        $this->request = $request;
-    }
-
-    public function actions(): array
-    {
-        return [];
-    }
-
-    public function modifiers(): array
-    {
-        return [];
-    }
-
-    public function sidebars(): array
-    {
-        return [];
-    }
+    abstract public function hero(): array;
 
     public function preparedActions(): array
     {
-        return collect($this->actions())
-            ->map->jsonSerialize()
-            ->toArray();
+        return collect($this->actions())->jsonSerialize();
     }
 
     public function preparedSidebars(): array
     {
-        return collect($this->sidebars())
-            ->map->jsonSerialize()
-            ->toArray();
+        return collect($this->sidebars())->jsonSerialize();
     }
 
     public function preparedTabs(): array
     {
-        return collect($this->tabs())
-            ->map->jsonSerialize()
-            ->toArray();
-    }
-
-    public function jsonSerialize()
-    {
-        return $this->toArray();
+        return collect($this->tabs())->jsonSerialize();
     }
 
     public function toArray()
     {
-        $schema = [
-            'tabs' => $this->preparedTabs(),
-            'header' => $this->header(),
-            'endpoint' => $this->endpoint()->toArray(),
-        ];
+        $schema = new Schema([
+            'pageTitle' => $this->pageTitle(),
+            'hero' => $this->hero(),
+            'tabs' => $this->tabs(),
+        ]);
 
-        if ($this->activity) {
-            Arr::set($schema, 'activity', (object) []);
+        $this->applyConcerns($schema);
+
+        // Allow doing some final configurations
+        if (method_exists($this, 'prepareSchema')) {
+            $this->prepareSchema($schema);
         }
 
-        if (count($this->actions()) > 0) {
-            Arr::set($schema, 'actions', $this->preparedActions());
-        }
-
-        if (count($this->modifiers()) > 0) {
-            Arr::set($schema, 'modifiers', $this->modifiers());
-        }
-
-        if (count($this->sidebars()) > 0) {
-            Arr::set($schema, 'sidebar', $this->sidebars());
-        }
-
-        return $schema;
-    }
-
-    public function toResponse($request)
-    {
-        return new JsonResponse($this->jsonSerialize());
+        return $schema->toArray();
     }
 }
