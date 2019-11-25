@@ -3,6 +3,7 @@
 namespace Signifly\Travy\Concerns;
 
 use Signifly\Travy\Schema\Schema;
+use Signifly\Travy\Support\FieldCollection;
 
 trait AppliesConcerns
 {
@@ -59,7 +60,12 @@ trait AppliesConcerns
 
     protected function applyWithModifiers(Schema $schema): void
     {
-        $schema->set('modifiers', $this->modifiers());
+        $modifiers = FieldCollection::make($this->modifiers());
+
+        $schema->set('modifiers', [
+            'data' => $modifiers->toData(),
+            'fields' => $modifiers->prepared(),
+        ]);
     }
 
     protected function applyWithPagination(Schema $schema): void
