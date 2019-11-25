@@ -2,197 +2,77 @@
 
 namespace Signifly\Travy\Schema;
 
-use Signifly\Travy\Schema\Concerns\HasProps;
-use Signifly\Travy\Schema\Concerns\HasActions;
-use Signifly\Travy\Schema\Concerns\HasEndpoint;
-use Signifly\Travy\Schema\Concerns\HasMetaData;
+use JsonSerializable;
+use Illuminate\Contracts\Support\Arrayable;
 
-class Action
+abstract class Action implements Arrayable, JsonSerializable
 {
-    use HasProps;
-    use HasActions;
-    use HasMetaData;
-    use HasEndpoint;
-
     /**
-     * The default method to use for the endpoint.
+     * The button name of the action.
      *
      * @var string
      */
-    protected $defaultMethod = 'post';
+    protected $name;
 
     /**
-     * The displayable title of the action.
+     * The button status / color of the action.
      *
      * @var string
      */
-    public $title;
+    protected $status;
 
     /**
-     * The status / color of the action.
+     * The button icon of the action.
      *
-     * @var string
+     * @var string|null
      */
-    public $status;
+    protected $icon;
 
     /**
-     * Create a new action.
+     * The definition for the action type.
      *
-     * @param string $title
-     * @param string|null $status
+     * @var array
      */
-    public function __construct($title, $status = null)
-    {
-        $this->title($title);
+    protected $actionType;
+
+    /**
+     * Create a new Action.
+     *
+     * @param string      $name
+     * @param string      $status
+     * @param string|null $icon
+     */
+    public function __construct(
+        string $name,
+        string $status = 'primary',
+        ?string $icon = null
+    ) {
+        $this->name = $name;
         $this->status = $status;
+        $this->icon = $icon;
     }
 
     /**
-     * Create a new element.
-     *
-     * @return static
-     */
-    public static function make(...$arguments): self
-    {
-        return new static(...$arguments);
-    }
-
-    /**
-     * Set the fields in the tab.
-     *
-     * @param  array  $fields
-     * @return self
-     */
-    public function fields(array $fields): self
-    {
-        $fields = collect($fields)
-            ->map(function ($field) {
-                $field->linkable(false);
-
-                if ($field->width instanceof Width) {
-                    $field->withMeta(['width' => $field->width->getValue()]);
-                }
-
-                return $field->jsonSerialize();
-            })
-            ->toArray();
-
-        return $this->withProps(compact('fields'));
-    }
-
-    /**
-     * Hide action on given constraint.
-     *
-     * @param  string $key
-     * @param  mixed $value
-     * @param  string $operator
-     * @return self
-     */
-    public function hide(string $key, $value, string $operator = 'eq'): self
-    {
-        return $this->withMeta(['hide' => compact('key', 'operator', 'value')]);
-    }
-
-    /**
-     * Set the action's icon.
-     *
-     * @param  string $icon
-     * @return self
-     */
-    public function icon(string $icon): self
-    {
-        return $this->withMeta(compact('icon'));
-    }
-
-    /**
-     * Set the linksTo on submit.
-     *
-     * @param  string $linksTo
-     * @return self
-     */
-    public function onSubmit(string $linksTo): self
-    {
-        return $this->withProps(['onSubmit' => $linksTo]);
-    }
-
-    /**
-     * Set the payload prop.
-     *
-     * @param  array  $payload
-     * @return self
-     */
-    public function payload(array $payload): self
-    {
-        return $this->withProps(compact('payload'));
-    }
-
-    /**
-     * Stay on the page after the action has been submitted.
-     *
-     * @return self
-     */
-    public function stayOnSubmit(): self
-    {
-        return $this->onSubmit('');
-    }
-
-    /**
-     * Set the text prop.
-     *
-     * @param  string $text
-     * @return self
-     */
-    public function text(string $text): self
-    {
-        return $this->withProps(compact('text'));
-    }
-
-    /**
-     * Sets the title of the action.
-     *
-     * @param  string $title
-     * @return self
-     */
-    public function title(string $title): self
-    {
-        $this->title = $title;
-
-        return $this->withProps(['title' => __($title)]);
-    }
-
-    /**
-     * Set the action type.
-     *
-     * @param  string $id
-     * @return self
-     */
-    public function type(string $id): self
-    {
-        return $this->withProps(compact('id'));
-    }
-
-    /**
-     * Prepare the action for JSON serialization.
+     * The action type.
      *
      * @return array
      */
+    abstract public function actionType(): array;
+
     public function jsonSerialize()
     {
-        if ($this->status) {
-            $this->withMeta(['status' => $this->status]);
-        }
+        return $this->toArray();
+    }
 
-        if ($this->hasActions()) {
-            $this->withProps(['actions' => $this->preparedActions()]);
-        }
+    public function toArray()
+    {
+        $schema = new Schema([
+            'name' => $this->name,
+            'status' => $this->status,
+            'icon' => $this->icon,
+            'actionType' => $this->actionType(),
+        ]);
 
-        if ($this->hasEndpoint()) {
-            $this->withProps(['endpoint' => $this->endpoint->toArray()]);
-        }
-
-        return array_merge([
-            'title' => __($this->title),
-            'props' => $this->props(),
-        ], $this->meta());
+        return $schema->toArray();
     }
 }

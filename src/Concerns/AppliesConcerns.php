@@ -75,6 +75,6 @@ trait AppliesConcerns
 
     protected function applyWithSearch(Schema $schema): void
     {
-        $schema->set('search.placeholder', $this->searchPlaceholder());
+        $schema->set('filters.search.placeholder', $this->searchPlaceholder());
     }
 }
