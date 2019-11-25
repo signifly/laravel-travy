@@ -2,14 +2,10 @@
 
 namespace Signifly\Travy\Schema;
 
-use JsonSerializable;
 use Illuminate\Http\Request;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Contracts\Support\Arrayable;
-use Illuminate\Contracts\Support\Responsable;
 use Signifly\Travy\Contracts\Table as Contract;
 
-abstract class Table implements Contract, Arrayable, JsonSerializable, Responsable
+abstract class Table extends Definition implements Contract
 {
     /** @var \Illuminate\Http\Request */
     protected $request;
@@ -36,11 +32,6 @@ abstract class Table implements Contract, Arrayable, JsonSerializable, Responsab
                     ->jsonSerialize();
             })
             ->toArray();
-    }
-
-    public function jsonSerialize()
-    {
-        return $this->toArray();
     }
 
     public function toSchema(): Schema
@@ -114,10 +105,5 @@ abstract class Table implements Contract, Arrayable, JsonSerializable, Responsab
     protected function applyWithSearch(Schema $schema): void
     {
         $schema->set('search.placeholder', $this->searchPlaceholder());
-    }
-
-    public function toResponse($request)
-    {
-        return new JsonResponse($this->jsonSerialize());
     }
 }
