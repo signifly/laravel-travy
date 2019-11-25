@@ -69,7 +69,7 @@ class Schema implements ArrayAccess, Arrayable, JsonSerializable
      */
     public function toArray()
     {
-        return collect($this->attributes)->toArray();
+        return collect($this->attributes)->jsonSerialize();
     }
 
     /**
