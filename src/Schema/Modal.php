@@ -10,6 +10,13 @@ class Modal extends Action
     use HasEndpoint;
 
     /**
+     * The modal fields.
+     *
+     * @var array
+     */
+    protected $fields;
+
+    /**
      * The request payload.
      *
      * @var array
@@ -37,12 +44,25 @@ class Modal extends Action
     }
 
     /**
-     * Set the payload prop.
+     * Set the fields prop.
      *
-     * @param  string $value
+     * @param  array $value
      * @return self
      */
-    public function payload(string $value): self
+    public function fields(array $fields): self
+    {
+        $this->fields = $value;
+
+        return $this;
+    }
+
+    /**
+     * Set the payload prop.
+     *
+     * @param  array $value
+     * @return self
+     */
+    public function payload(array $value): self
     {
         $this->payload = $value;
 

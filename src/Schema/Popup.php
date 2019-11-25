@@ -43,10 +43,10 @@ class Popup extends Action
     /**
      * Set the payload prop.
      *
-     * @param  string $value
+     * @param  array $value
      * @return self
      */
-    public function payload(string $value): self
+    public function payload(array $value): self
     {
         $this->payload = $value;
 
