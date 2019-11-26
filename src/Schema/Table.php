@@ -21,8 +21,7 @@ abstract class Table extends Definition implements Contract
         return collect($this->columns())
             ->mapInto(Column::class)
             ->map(function ($column, $index) {
-                return $column->setWidth()
-                    ->order($index + 1)
+                return $column->order($index + 1)
                     ->jsonSerialize();
             })
             ->toArray();

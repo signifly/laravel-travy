@@ -66,8 +66,7 @@ class ShopView extends View
                 ->type('table')
                 ->endpoint('some_url')
                 ->fields([
-                    Text::make('Name')
-                        ->sortable(),
+                    Text::make('Name'),
                 ]),
         ];
     }

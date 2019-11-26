@@ -48,8 +48,9 @@ class DateTest extends TestCase
     /** @test */
     public function it_allows_to_set_width()
     {
-        $date = Date::make('Created at')->width(50);
+        $date = Date::make('Created at')
+            ->width(50);
 
-        $this->assertEquals(50, $date->width->getValue());
+        $this->assertEquals(50, $date->getMeta('width'));
     }
 }

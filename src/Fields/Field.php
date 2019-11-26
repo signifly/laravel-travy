@@ -2,10 +2,8 @@
 
 namespace Signifly\Travy\Fields;
 
-use Closure;
 use JsonSerializable;
 use Illuminate\Support\Str;
-use Illuminate\Http\Request;
 use Signifly\Travy\Schema\Width;
 use Signifly\Travy\Support\PropsResolver;
 use Signifly\Travy\Support\ScopesApplier;
@@ -47,119 +45,6 @@ abstract class Field extends FieldElement implements JsonSerializable
      * @var mixed
      */
     public $defaultValue = null;
-
-    /**
-     * Indicates if the field should be displayed
-     * as a text component in the table.
-     *
-     * @var bool
-     */
-    public $displayAsText = false;
-
-    /**
-     * The validation rules for creation and updates.
-     *
-     * @var array
-     */
-    public $rules = [];
-
-    /**
-     * The validation rules for creation.
-     *
-     * @var array
-     */
-    public $creationRules = [];
-
-    /**
-     * Indicates if the field should be linkable.
-     *
-     * @var bool
-     */
-    public $linkable = false;
-
-    /**
-     * The endpoint to link to.
-     *
-     * @var string
-     */
-    public $linksTo;
-
-    /**
-     * Should the field be used as the batch label.
-     *
-     * @var bool
-     */
-    public $isBatchLabel = false;
-
-    /**
-     * Should the field be used as the header image in views.
-     *
-     * @var bool
-     */
-    public $isHeaderImage = false;
-
-    /**
-     * Should the field be used as the header title in views.
-     *
-     * @var bool
-     */
-    public $isHeaderTitle = false;
-
-    /**
-     * Indicates if the field should be searchable.
-     *
-     * @var bool
-     */
-    public $searchable = false;
-
-    /**
-     * The validation rules for updates.
-     *
-     * @var array
-     */
-    public $updateRules = [];
-
-    /**
-     * Indicates if the field should be sortable.
-     *
-     * @var bool
-     */
-    public $sortable = false;
-
-    /**
-     * Indicates if the field is the default sortable.
-     *
-     * @var bool
-     */
-    public $defaultSort = false;
-
-    /**
-     * Indicates if the field is the default sortable.
-     *
-     * @var bool
-     */
-    public $defaultSortOrder = 'ascending';
-
-    /**
-     * The filters to sanitize with.
-     *
-     * @var array|string
-     */
-    public $sanitize;
-
-    /**
-     * The attribute to sort by.
-     *
-     * @var string
-     */
-    public $sortBy;
-
-    /**
-     * The width configuration.
-     *
-     * @var \Signifly\Travy\Schema\Width
-     */
-    public $width;
 
     /**
      * Create a new field.
@@ -207,48 +92,15 @@ abstract class Field extends FieldElement implements JsonSerializable
         return $this;
     }
 
+    /**
+     * Check if what component the field is.
+     *
+     * @param  string  $component
+     * @return bool
+     */
     public function is(string $component): bool
     {
         return $this->component == $component;
-    }
-
-    /**
-     * Set the isBatchLabel property.
-     *
-     * @param  bool $value
-     * @return self
-     */
-    public function batchLabel($value = true): self
-    {
-        $this->isBatchLabel = $value;
-
-        return $this;
-    }
-
-    /**
-     * Set the isHeaderImage property.
-     *
-     * @param  bool $value
-     * @return self
-     */
-    public function headerImage($value = true): self
-    {
-        $this->isHeaderImage = $value;
-
-        return $this;
-    }
-
-    /**
-     * Set the isHeaderTitle property.
-     *
-     * @param  bool $value
-     * @return self
-     */
-    public function headerTitle($value = true): self
-    {
-        $this->isHeaderTitle = $value;
-
-        return $this;
     }
 
     /**
@@ -276,157 +128,14 @@ abstract class Field extends FieldElement implements JsonSerializable
     }
 
     /**
-     * Set the validation rules for the field.
+     * Specify the url the field should link to.
      *
-     * @param  callable|array|string  $rules
+     * @param  string $url
      * @return self
      */
-    public function rules($rules): self
+    public function onClick(string $url): self
     {
-        $this->rules = is_string($rules) ? func_get_args() : $rules;
-
-        return $this;
-    }
-
-    /**
-     * Get the validation rules for this field.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return array
-     */
-    public function getRules(Request $request): array
-    {
-        return [$this->attribute => is_callable($this->rules)
-            ? call_user_func($this->rules, $request)
-            : $this->rules, ];
-    }
-
-    /**
-     * Get the creation rules for this field.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return array|string
-     */
-    public function getCreationRules(Request $request)
-    {
-        $rules = [$this->attribute => is_callable($this->creationRules)
-            ? call_user_func($this->creationRules, $request)
-            : $this->creationRules, ];
-
-        return array_merge_recursive(
-            $this->getRules($request),
-            $rules
-        );
-    }
-
-    /**
-     * Set the creation validation rules for the field.
-     *
-     * @param  callable|array|string  $rules
-     * @return self
-     */
-    public function creationRules($rules): self
-    {
-        $this->creationRules = is_string($rules) ? func_get_args() : $rules;
-
-        return $this;
-    }
-
-    /**
-     * Get the update rules for this field.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return array
-     */
-    public function getUpdateRules(Request $request)
-    {
-        $rules = [$this->attribute => is_callable($this->updateRules)
-            ? call_user_func($this->updateRules, $request)
-            : $this->updateRules, ];
-
-        return array_merge_recursive(
-            $this->getRules($request),
-            $rules
-        );
-    }
-
-    /**
-     * Set the creation validation rules for the field.
-     *
-     * @param  callable|array|string  $rules
-     * @return self
-     */
-    public function updateRules($rules): self
-    {
-        $this->updateRules = is_string($rules) ? func_get_args() : $rules;
-
-        return $this;
-    }
-
-    /**
-     * The filters to use for sanitzing input data.
-     *
-     * @return array
-     */
-    public function getSanitizeFilters(): array
-    {
-        return [$this->attribute => $this->sanitize];
-    }
-
-    /**
-     * Specify that this field should be linkable.
-     *
-     * @param  bool $value
-     * @param  string  $uri
-     * @return self
-     */
-    public function linkable($value = true, $uri = null): self
-    {
-        $this->linkable = $value;
-        $this->linksTo = $uri;
-
-        return $this;
-    }
-
-    /**
-     * Specify that this field should be searchable.
-     *
-     * @param  bool  $value
-     * @return self
-     */
-    public function searchable($value = true): self
-    {
-        $this->searchable = $value;
-
-        return $this;
-    }
-
-    /**
-     * Specify that this field should be sortable.
-     *
-     * @param  bool  $value
-     * @return self
-     */
-    public function sortable($value = true, $attribute = null): self
-    {
-        $this->sortable = $value;
-        $this->sortBy = $attribute ?? $this->attribute;
-
-        return $this;
-    }
-
-    /**
-     * Specify that this field is default sort.
-     *
-     * @param  bool $value
-     * @return self
-     */
-    public function defaultSort($value = true, $order = 'asc'): self
-    {
-        $this->defaultSort = $value;
-        $this->defaultSortOrder = ($order == 'asc' ? 'ascending' : 'descending');
-
-        return $this;
+        return $this->withMeta(['onClick' => $url]);
     }
 
     /**
@@ -454,19 +163,6 @@ abstract class Field extends FieldElement implements JsonSerializable
     }
 
     /**
-     * Set the filters to sanitize with.
-     *
-     * @param  array|string $filters
-     * @return self
-     */
-    public function sanitize($filters): self
-    {
-        $this->sanitize = is_string($filters) ? func_get_args() : $filters;
-
-        return $this;
-    }
-
-    /**
      * Set the sublabel of the column.
      *
      * @param  string $text
@@ -483,24 +179,26 @@ abstract class Field extends FieldElement implements JsonSerializable
      * @param  int    $value
      * @return self
      */
-    public function width(int $value, ?Closure $callable = null): self
+    public function width(int $value): self
     {
-        $width = new Width($value);
-
-        if (! is_null($callable)) {
-            $callable($width);
-        }
-
-        $this->width = $width;
-
-        return $this;
+        return $this->withMeta(['width' => $value]);
     }
 
+    /**
+     * The field type.
+     *
+     * @return array
+     */
     public function fieldType(): array
     {
+        $props = $this->props();
+
+        // Guard against invalid props *before* transforming (mapped/unmapped and scoping) them...
+        $this->guardAgainstInvalidProps($props);
+
         return [
             'id' => $this->component,
-            'props' => $this->props(),
+            'props' => $this->transformProps($props),
         ];
     }
 
@@ -515,19 +213,10 @@ abstract class Field extends FieldElement implements JsonSerializable
             $this->applyOptions();
         }
 
-        // Guard against invalid props *before* transforming (mapped/unmapped and scoping) them...
-        $fieldType = $this->fieldType();
-        $this->guardAgainstInvalidProps($fieldType['props']);
-        $fieldType['props'] = $this->transformProps($fieldType['props']);
-
-        if ($this->linkable && $this->linksTo) {
-            $this->withMeta(['onClick' => $this->linksTo]);
-        }
-
         return array_merge([
             'name' => $this->localize($this->name),
             'attribute' => (new AttributeResolver())->resolve($this->attribute, $this->name),
-            'fieldType' => $fieldType,
+            'fieldType' => $this->fieldType(),
         ], $this->meta());
     }
 

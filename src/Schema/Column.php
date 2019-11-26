@@ -3,7 +3,6 @@
 namespace Signifly\Travy\Schema;
 
 use JsonSerializable;
-use Illuminate\Support\Arr;
 use Signifly\Travy\Fields\Field;
 
 class Column implements JsonSerializable
@@ -57,21 +56,6 @@ class Column implements JsonSerializable
     }
 
     /**
-     * Set width from field.
-     *
-     * @return self
-     */
-    public function setWidth(): self
-    {
-        // Set the width
-        if ($width = optional($this->field->width)->getOnIndex()) {
-            $this->field->withMeta(['width' => $width]);
-        }
-
-        return $this;
-    }
-
-    /**
      * Prepare the column for JSON serialization.
      *
      * @return array
@@ -84,12 +68,7 @@ class Column implements JsonSerializable
 
         $data = array_merge([
             'order' => $this->order,
-            'sortable' => $this->field->sortable,
         ], $this->field->jsonSerialize());
-
-        if ($this->field->sortable) {
-            Arr::set($data, 'sortBy', $this->field->sortBy);
-        }
 
         return $data;
     }

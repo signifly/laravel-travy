@@ -53,6 +53,17 @@ abstract class Action implements Arrayable, JsonSerializable
     }
 
     /**
+     * Initialize the action statically.
+     *
+     * @param  mixed $arguments
+     * @return self
+     */
+    public static function make(...$arguments): self
+    {
+        return new static(...$arguments);
+    }
+
+    /**
      * The action type.
      *
      * @return array

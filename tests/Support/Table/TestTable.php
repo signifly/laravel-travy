@@ -11,8 +11,7 @@ class TestTable extends Table
     public function columns(): array
     {
         return [
-            Text::make('Title')
-                ->sortable(),
+            Text::make('Title'),
         ];
     }
 

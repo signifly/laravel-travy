@@ -38,14 +38,19 @@ class BatchTest extends TestCase
             'bulk' => [
                 'actions' => [
                     [
-                        'title' => 'Delete selected items',
-                        'props' => [
-                            'title' => 'Delete selected items',
+                        'name' => 'Delete selected items',
+                        'status' => 'primary',
+                        'icon' => null,
+                        'actionType' => [
                             'id' => 'popup',
-                            'text' => 'Are you sure? Please confirm this action.',
-                            'endpoint' => [
-                                'url' => 'http://localhost/v1/admin/products/{id}',
-                                'method' => 'post',
+                            'props' => [
+                                'title' => 'Delete selected items',
+                                'text' => 'Are you sure? Please confirm this action.',
+                                'endpoint' => [
+                                    'url' => 'http://localhost/v1/admin/products/{id}',
+                                    'method' => 'post',
+                                ],
+                                'payload' => (object) [],
                             ],
                         ],
                     ],

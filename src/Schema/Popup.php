@@ -9,6 +9,13 @@ class Popup extends Action
     use HasEndpoint;
 
     /**
+     * The default request method.
+     *
+     * @var string
+     */
+    protected $defaultMethod = 'post';
+
+    /**
      * The request payload.
      *
      * @var array
