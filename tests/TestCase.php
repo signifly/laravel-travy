@@ -4,7 +4,8 @@ namespace Signifly\Travy\Test;
 
 use Signifly\Travy\TravyServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
-use Waavi\Sanitizer\Laravel\SanitizerServiceProvider;
+// use Waavi\Sanitizer\Laravel\SanitizerServiceProvider;
+use Elegant\Sanitizer\Laravel\SanitizerServiceProvider;
 
 abstract class TestCase extends Orchestra
 {

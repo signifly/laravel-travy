@@ -7,7 +7,8 @@ use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Contracts\Support\Arrayable;
-use Waavi\Sanitizer\Laravel\Facade as Sanitizer;
+use Elegant\Sanitizer\Sanitizer;
+
 
 class Input implements ArrayAccess, Arrayable
 {
